@@ -1,0 +1,66 @@
+.ProjectPage {
+  grid-template-columns: 1fr;
+  grid-template-rows: 15% 35% 15% 35%;
+  width: 100%;
+  margin: auto;
+  text-align: start;
+}
+
+/* ---------------------------------Component----------------------------------- */
+.ProjectInfo {
+  padding: 0px 20px;
+}
+.Timeline {
+  border-width: 0px 0px 1px 0px;
+  border-style: solid;
+  border-color: #888888;
+}
+.DateBar {
+  padding: 0px 20px;
+  border-width: 0px 0px 1px 0px;
+  border-style: solid;
+  border-color: #888888;
+  color: #888888;
+}
+
+.TimeCanvas {
+  height: calc(100% - 33px);
+}
+
+.DisplayMode {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+}
+
+.Divider {
+  width: 100vw;
+  text-align: center;
+  position: fixed;
+  top: calc(50vh + 12px);
+}
+
+.QuickAccess {
+  position: fixed;
+  bottom: 15px;
+  right: 20px;
+}
+
+/* ----------------------------------element---------------------------------- */
+.description {
+  width: 70%;
+}
+
+.timeFrame {
+  width: 15px;
+  height: 100%;
+  float: left;
+  background-color: #eeeeee;
+}
+
+/* ---------------------------------styled className----------------------------------- */
+.modeBar {
+  border-width: 0px 0px 5px 0px;
+  border-style: solid;
+  border-color: #eeeeee;
+}

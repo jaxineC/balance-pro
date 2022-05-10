@@ -1,0 +1,31 @@
+.ListPage {
+  grid-template-columns: 55% 15% 25%;
+  grid-template-rows: repeat(2, 1fr);
+}
+
+/* ---------------------------------Component----------------------------------- */
+.WelcomeTxt {
+  width: 80%;
+  margin: 10px auto;
+  grid-row: 1 / 3;
+  align-self: center;
+}
+
+.AddProject {
+  width: 100%;
+  margin: auto;
+  background-color: #ffffff;
+  grid-row: 1 / 3;
+  align-self: center;
+}
+
+.ProjectList {
+}
+
+.work {
+  align-self: end;
+}
+
+.life {
+  align-self: start;
+}
