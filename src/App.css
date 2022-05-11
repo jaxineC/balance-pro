@@ -93,7 +93,7 @@ button {
 .circle {
   width: 26px;
   height: 26px;
-  border-radius: 13px;
+  border-radius: 50%;
   background-color: #e6f252;
   color: #888888;
   overflow: visible;
@@ -112,8 +112,6 @@ button {
 
 .TextL {
   font-size: 24px;
-  margin-top: 15px;
-  margin-bottom: 10px;
 }
 
 .TextM {
@@ -143,6 +141,10 @@ button {
 
 .gray {
   color: #888888;
+}
+
+.theme {
+  color: #e6f252;
 }
 /* --------------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {

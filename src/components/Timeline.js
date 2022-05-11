@@ -4,10 +4,12 @@ import DateBar from "./DateBar";
 import TimeCanvas from "./TimeCanvas";
 
 function Timeline() {
+  const [Day, setDay] = useState("");
+
   return (
     <div className="Timeline ">
-      <DateBar />
-      <TimeCanvas />
+      <DateBar Day={Day} setDay={setDay} />
+      <TimeCanvas Day={Day} setDay={setDay} />
     </div>
   );
 }

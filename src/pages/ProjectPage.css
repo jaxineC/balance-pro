@@ -1,6 +1,6 @@
 .ProjectPage {
   grid-template-columns: 1fr;
-  grid-template-rows: 15% 35% 15% 35%;
+  grid-template-rows: 11% 39% 11% 39%;
   width: 100%;
   margin: auto;
   text-align: start;
@@ -8,7 +8,25 @@
 
 /* ---------------------------------Component----------------------------------- */
 .ProjectInfo {
+  margin-top: 15px;
   padding: 0px 20px;
+  display: flex;
+  gap: 2.5%;
+}
+
+.Hashtags {
+  align-self: flex-end;
+  margin-bottom: 9px;
+}
+.Hashtag {
+  margin-right: 10px;
+  align-self: flex-end;
+  height: 20px;
+  padding: 1px 8px;
+  background-color: #e6f252;
+  color: #888888;
+  border-style: none;
+  border-radius: 5px;
 }
 .Timeline {
   border-width: 0px 0px 1px 0px;
@@ -34,7 +52,7 @@
 }
 
 .Divider {
-  width: 100vw;
+  width: 100%;
   text-align: center;
   position: fixed;
   top: calc(50vh + 12px);
@@ -47,20 +65,47 @@
 }
 
 /* ----------------------------------element---------------------------------- */
+.projectName {
+  width: 150px;
+}
+
 .description {
-  width: 70%;
+  width: 50%;
+  /* overflow: scroll; */
 }
 
 .timeFrame {
-  width: 15px;
+  width: 19px;
   height: 100%;
   float: left;
+  border-width: 0px 1px 0px 0px;
+  border-style: dotted;
+  border-color: #eeeeee;
+}
+
+.weekend {
   background-color: #eeeeee;
+  border-width: 0px 1px 0px 0px;
+  border-style: solid;
+  border-color: #ffffff;
 }
 
 /* ---------------------------------styled className----------------------------------- */
 .modeBar {
+  margin: auto 2px;
   border-width: 0px 0px 5px 0px;
   border-style: solid;
   border-color: #eeeeee;
+}
+
+.highlight {
+  border-color: #e6f252;
+}
+
+.date {
+  display: flex;
+}
+.d {
+  padding-left: 2px;
+  width: 138px;
 }

@@ -5,7 +5,7 @@ function DisplayMode() {
   return (
     <div className="DisplayMode ">
       <button className="modeBar Focus"> Focus </button>
-      <button className="modeBar Balance"> 1 : 1 </button>
+      <button className="modeBar Balance highlight"> 1 : 1 </button>
       <button className="modeBar Overlay"> Overlay </button>
     </div>
   );
