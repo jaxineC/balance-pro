@@ -4,7 +4,7 @@ import unfold from "../icon/001-unfold-1.png";
 
 function Divider() {
   return (
-    <div className="Divider ">
+    <div className="Unfold ">
       <img src={unfold} alt="work project" className="icon" />
     </div>
   );

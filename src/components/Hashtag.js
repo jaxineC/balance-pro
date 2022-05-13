@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Hashtag() {
+function Hashtag(props) {
   return (
-    <div className="Hashtags">
-      <span className="Hashtag TextS">#Hashtag</span>
-      <span className="Hashtag TextS">#Hashtag again</span>
-      <span className="Hashtag TextS">#Hashtag again and again</span>
-      <span className="TextM theme bold">+</span>
-    </div>
+    // <div className="Hashtags">
+    <span className="Hashtag TextS"># {props.text}</span>
+    // {/* <span className="TextM theme bold"> >>> +</span> */}
+    // </div>
   );
 }
 

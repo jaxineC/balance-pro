@@ -6,11 +6,11 @@ import WelcomeImg from "../components/WelcomeImg";
 import LoginBox from "../components/LoginBox";
 import Logo from "../components/Logo";
 
-function IndexPage() {
+function IndexPage({ userID, setUserID }) {
   return (
     <main className="IndexPage">
       <WelcomeImg />
-      <LoginBox />
+      <LoginBox userID={userID} setUserID={setUserID} />
       <Logo />
       <Background />
     </main>

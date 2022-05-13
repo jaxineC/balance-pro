@@ -1,4 +1,5 @@
 .ProjectPage {
+  box-sizing: border-box;
   grid-template-columns: 1fr;
   grid-template-rows: 11% 39% 11% 39%;
   width: 100%;
@@ -14,35 +15,37 @@
   gap: 2.5%;
 }
 
-.Hashtags {
-  align-self: flex-end;
-  margin-bottom: 9px;
-}
-.Hashtag {
-  margin-right: 10px;
-  align-self: flex-end;
-  height: 20px;
-  padding: 1px 8px;
-  background-color: #e6f252;
-  color: #888888;
-  border-style: none;
-  border-radius: 5px;
-}
 .Timeline {
   border-width: 0px 0px 1px 0px;
   border-style: solid;
   border-color: #888888;
+  width: 100vw;
+  overflow-x: scroll;
 }
+.Timeline::-webkit-scrollbar {
+  display: none;
+}
+
 .DateBar {
+  /* box-sizing: border-box; */
   padding: 0px 20px;
-  border-width: 0px 0px 1px 0px;
-  border-style: solid;
-  border-color: #888888;
   color: #888888;
+  width: 100vw;
+  display: -webkit-inline-box;
+  overflow-x: visible;
+  white-space: nowrap;
 }
 
 .TimeCanvas {
   height: calc(100% - 33px);
+  width: 100%;
+  display: -webkit-inline-box;
+  overflow-x: visible;
+  white-space: nowrap;
+}
+
+.TimeCanvas::-webkit-scrollbar {
+  display: none;
 }
 
 .DisplayMode {
@@ -52,6 +55,12 @@
 }
 
 .Divider {
+  border-width: 0px 0px 1px 0px;
+  border-style: solid;
+  border-color: #888888;
+}
+
+.Unfold {
   width: 100%;
   text-align: center;
   position: fixed;
@@ -67,6 +76,8 @@
 /* ----------------------------------element---------------------------------- */
 .projectName {
   width: 150px;
+  white-space: nowrap;
+  overflow: visible;
 }
 
 .description {
@@ -77,15 +88,15 @@
 .timeFrame {
   width: 19px;
   height: 100%;
-  float: left;
-  border-width: 0px 1px 0px 0px;
+  /* float: left; */
+  border-width: 0px 0px 0px 1px;
   border-style: dotted;
   border-color: #eeeeee;
 }
 
 .weekend {
   background-color: #eeeeee;
-  border-width: 0px 1px 0px 0px;
+  border-width: 0px 0px 0px 1px;
   border-style: solid;
   border-color: #ffffff;
 }
@@ -102,10 +113,12 @@
   border-color: #e6f252;
 }
 
-.date {
-  display: flex;
-}
 .d {
   padding-left: 2px;
+  width: 137px;
+  border-left: 1px solid #eeeeee;
+  border-bottom: 1px solid #888888;
+}
+.today {
   width: 138px;
 }

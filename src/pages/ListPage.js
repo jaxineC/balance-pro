@@ -6,13 +6,26 @@ import AddProject from "../components/AddProject";
 import ProjectList from "../components/ProjectList";
 import Background from "../components/Background";
 
-function ListPage() {
+function ListPage({ userID, setSelectedProjects }) {
+  const [projectList, setprojectList] = useState([]);
+
   return (
     <main className="ListPage">
-      <WelcomeTxt />
-      <AddProject />
-      <ProjectList cat="work" />
-      <ProjectList cat="life" />
+      <WelcomeTxt userID={userID} />
+      <AddProject userID={userID} />
+      <ProjectList
+        cat="work"
+        userID={userID}
+        projectList={projectList}
+        setSelectedProjects={setSelectedProjects}
+      />
+
+      <ProjectList
+        cat="life"
+        userID={userID}
+        projectList={projectList}
+        setSelectedProjects={setSelectedProjects}
+      />
       <Background />
     </main>
   );
