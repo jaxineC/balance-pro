@@ -42,6 +42,7 @@
   display: -webkit-inline-box;
   overflow-x: visible;
   white-space: nowrap;
+  position: relative;
 }
 
 .TimeCanvas::-webkit-scrollbar {
@@ -71,6 +72,31 @@
   position: fixed;
   bottom: 15px;
   right: 20px;
+}
+
+.Task {
+  width: 140px;
+  height: 20px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  margin: 2px 0px;
+
+  color: #000000;
+
+  position: absolute;
+  top: 0px;
+  left: 1220px;
+}
+
+.TimeCanvas > .taskList > :hover {
+  border-color: #888888;
+  border-width: 1px 4px 1px 4px;
+}
+
+.TimeCanvas > .taskList > :focus {
+  border-color: #ab52f2;
+  border-width: 1px 4px 1px 4px;
 }
 
 /* ----------------------------------element---------------------------------- */

@@ -1,3 +1,4 @@
+import { render } from "@testing-library/react";
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import DateBar from "./DateBar";
@@ -20,19 +21,6 @@ function Timeline({ XPosition, setXPosition }) {
     refContainer.current.scrollLeft = 1200;
   }, []);
 
-  function printTest(event) {
-    console.log(
-      event.target.parentElement.parentElement.className +
-        ": " +
-        event.target.parentElement.parentElement.offsetLeft
-    );
-    console.log(
-      event.target.parentElement.parentElement.className +
-        ": " +
-        event.target.parentElement.parentElement.scrollLeft
-    );
-  }
-
   // ---------------------------------------------variables for rendering styles
   const divStyle = {
     // color: 'blue',
@@ -40,12 +28,7 @@ function Timeline({ XPosition, setXPosition }) {
   };
 
   return (
-    <div
-      onClick={printTest}
-      className="Timeline "
-      style={divStyle}
-      ref={refContainer}
-    >
+    <div className="Timeline " style={divStyle} ref={refContainer}>
       <DateBar setZDay={setZDay} ZDay={ZDay} />
       <TimeCanvas ZDay={ZDay} />
     </div>

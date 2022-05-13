@@ -9,6 +9,8 @@ function TimeCanvas({ ZDay }) {
   let totalWks = 25;
   let totalDays = totalWks * 7;
   let frames = [];
+  let workTasks = [];
+  let taskList = [];
   // fix prevWks=6 + today's wk +nextWks=18
   for (let i = 1; i <= totalDays; i++) {
     if (i % 7 === 0 || (i + 1) % 7 === 0) {
@@ -27,14 +29,37 @@ function TimeCanvas({ ZDay }) {
   //   }
   // }
 
+  function handleAddTask() {
+    // let taskID = Date.now().toString();
+    // setWorkTasks();
+    workTasks.push("Task01");
+    const taskList = workTasks.map((task) => (
+      <taskList key={task.toString()} value={task} className="Task" />
+    ));
+  }
+  function printTest(event) {
+    console.log(
+      event.target.parentElement.parentElement.className +
+        ": " +
+        event.target.parentElement.parentElement.offsetLeft
+    );
+  }
+  // ---------------------------------------------variables for rendering styles
   const divStyle = {
     color: "red",
     backgroundColor: "#ffffff",
     paddingLeft: 20,
   };
+
+  const taskStyle = {
+    width: "",
+  };
   return (
-    <div className="TimeCanvas " style={divStyle}>
+    <div onClick={handleAddTask} className="TimeCanvas " style={divStyle}>
       {frames}
+      <div className="taskList">
+        <div className="Task TextS">task 01</div>
+      </div>
     </div>
   );
 }
