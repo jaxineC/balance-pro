@@ -11,13 +11,19 @@ function Timeline() {
 
   useEffect(() => {}, []);
 
+  function printTest(event) {
+    console.log(event.target.className + ": " + event.target.offsetWidth);
+    console.log(event.target.className + ": " + event.target.scrollLeft);
+  }
+
   // ---------------------------------------------variables for rendering styles
   const divStyle = {
     // color: 'blue',
     // backgroundImage: 'url(' + imgUrl + ')',
   };
+
   return (
-    <div className="Timeline " style={divStyle}>
+    <div onClick={printTest} className="Timeline " style={divStyle}>
       <DateBar setZDay={setZDay} ZDay={ZDay} />
       <TimeCanvas ZDay={ZDay} />
     </div>

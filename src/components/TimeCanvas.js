@@ -27,22 +27,13 @@ function TimeCanvas({ ZDay }) {
   //   }
   // }
 
-  function printTest(event) {
-    console.log(event.target.className + ": " + event.target.offsetWidth);
-    console.log(event.target.className + ": " + event.target.scrollLeft);
-  }
-
   const divStyle = {
     color: "red",
     backgroundColor: "#ffffff",
     paddingLeft: 20,
-    // position: "relative",
-    // left: -(7 + ZDay.DAY - 1) * 20,
-    // color: 'blue',
-    // backgroundImage: 'url(' + imgUrl + ')',
   };
   return (
-    <div onClick={printTest} className="TimeCanvas " style={divStyle}>
+    <div className="TimeCanvas " style={divStyle}>
       {frames}
     </div>
   );
