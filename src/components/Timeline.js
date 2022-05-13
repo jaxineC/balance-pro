@@ -1,19 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import DateBar from "./DateBar";
 import TimeCanvas from "./TimeCanvas";
 // import { ScrollSync, ScrollSyncPane } from "react-scroll-sync";
 
-function Timeline() {
-  const [ZDay, setZDay] = useState({ TODAY: 0, YYYY: 0, MM: 0, DD: 0, DAY: 0 }); //props???
-  const [ZPosition, setZPosition] = useState("");
-  const [XPosition, setXPosition] = useState(0);
+function Timeline({ XPosition, setXPosition }) {
+  const refContainer = useRef();
+  const [ZDay, setZDay] = useState({
+    TODAY: 0,
+    YYYY: 0,
+    MM: 0,
+    DD: 0,
+    DAY: 0,
+    MondayDate: 0,
+  }); //props???
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // scrollLeft(1200);
+    refContainer.current.scrollLeft = 1200;
+  }, []);
 
   function printTest(event) {
-    console.log(event.target.className + ": " + event.target.offsetWidth);
-    console.log(event.target.className + ": " + event.target.scrollLeft);
+    console.log(
+      event.target.parentElement.parentElement.className +
+        ": " +
+        event.target.parentElement.parentElement.offsetLeft
+    );
+    console.log(
+      event.target.parentElement.parentElement.className +
+        ": " +
+        event.target.parentElement.parentElement.scrollLeft
+    );
   }
 
   // ---------------------------------------------variables for rendering styles
@@ -23,7 +40,12 @@ function Timeline() {
   };
 
   return (
-    <div onClick={printTest} className="Timeline " style={divStyle}>
+    <div
+      onClick={printTest}
+      className="Timeline "
+      style={divStyle}
+      ref={refContainer}
+    >
       <DateBar setZDay={setZDay} ZDay={ZDay} />
       <TimeCanvas ZDay={ZDay} />
     </div>
@@ -31,3 +53,6 @@ function Timeline() {
 }
 
 export default Timeline;
+
+// MouseEvent.clientX
+// https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent

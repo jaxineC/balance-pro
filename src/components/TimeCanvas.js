@@ -12,9 +12,9 @@ function TimeCanvas({ ZDay }) {
   // fix prevWks=6 + today's wk +nextWks=18
   for (let i = 1; i <= totalDays; i++) {
     if (i % 7 === 0 || (i + 1) % 7 === 0) {
-      frames.push(<div className="timeFrame weekend"></div>);
+      frames.push(<div className="timeFrame weekend" key={i}></div>);
     } else {
-      frames.push(<div className="timeFrame"></div>);
+      frames.push(<div className="timeFrame" key={i}></div>);
     }
   }
 

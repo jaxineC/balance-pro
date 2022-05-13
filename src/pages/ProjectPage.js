@@ -11,14 +11,25 @@ function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
   const [workTasks, setWorkTasks] = useState([]);
   const [lifeTasks, setWLifeTasks] = useState([]);
   const [inputText, setInputText] = useState("");
+  const [XPosition, setXPosition] = useState(1220);
 
   return (
     <main className="ProjectPage">
       <ProjectInfo cat="work" />
-      <Timeline cat="work" inputText={inputText} />
+      <Timeline
+        cat="work"
+        inputText={inputText}
+        XPosition={XPosition}
+        setXPosition={setXPosition}
+      />
       <Unfold />
       <ProjectInfo cat="life" />
-      <Timeline cat="life" inputText={inputText} />
+      <Timeline
+        cat="life"
+        inputText={inputText}
+        XPosition={XPosition}
+        setXPosition={setXPosition}
+      />
       <DisplayMode />
       <QuickAccess setInputText={setInputText} />
     </main>

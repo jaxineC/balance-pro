@@ -5,29 +5,36 @@ function DateBar({ ZDay, setZDay }) {
   let options = { month: "long" };
   let prevRows = [];
   let nextRows = [];
-  let ZMonday = 0;
   let ZMondayDate = "";
 
   // ---------------------------------------------get TODAY & Monday
   useEffect(() => {
     let TODAY = Date.now(); //millisecond of NOW 1652242176462 (can be manipulated with math)
     let date = new Date(TODAY); //UTC Wed May 11 2022 12:09:17 GMT+0800 (can getDate/Fullyear...)
-
     let [YYYY, MM, DD, DAY] = [
       date.getFullYear(),
       new Intl.DateTimeFormat("en-US", options).format(date),
       date.getDate().toString().padStart(2, "0"),
       date.getDay(),
     ];
-    setZDay({ TODAY: TODAY, YYYY: YYYY, MM: MM, DD: DD, DAY: DAY });
-    ZMonday = TODAY - ZDay.DAY * 24 * 60 * 60 * 1000;
+    let ZMonday = TODAY - (DAY - 1) * 24 * 60 * 60 * 1000;
+    let ZMondayDate = new Date(ZMonday).getDate().toString().padStart(2, "0");
+    setZDay({
+      TODAY: TODAY,
+      YYYY: YYYY,
+      MM: MM,
+      DD: DD,
+      DAY: DAY,
+      MondayDate: ZMondayDate,
+    });
   }, []);
 
   // ---------------------------------------------render prev (8wks+ ZDay.DAY-1) days
   function Prev() {
     let prevWk = 8;
-    let prevDAY = Date.now() - (ZDay.DAY + prevWk * 7) * 24 * 60 * 60 * 1000;
-    ZMondayDate = new Date(ZMonday).getDate().toString().padStart(2, "0");
+    let prevDAY =
+      Date.now() - (ZDay.DAY + 6 + prevWk * 7) * 24 * 60 * 60 * 1000;
+
     for (let i = 1; i <= prevWk; i++) {
       let prevDate = new Date(prevDAY + 7 * 24 * 60 * 60 * 1000 * (i - 1));
       let [prevYYYY, prevMM] = [
@@ -48,7 +55,7 @@ function DateBar({ ZDay, setZDay }) {
         nextMM = ".";
       }
       prevRows.push(
-        <div className="TextS d">
+        <div className="TextS d" key={i}>
           <div>
             {nextYYYY} {nextMM}
           </div>
@@ -89,7 +96,7 @@ function DateBar({ ZDay, setZDay }) {
         nextMM = ".";
       }
       nextRows.push(
-        <div className="TextS d">
+        <div className="TextS d" key={i}>
           <div>
             {nextYYYY} {nextMM}
           </div>
@@ -124,7 +131,7 @@ function DateBar({ ZDay, setZDay }) {
         }}
       >
         <div>.{/* {ZDay.YYYY} {ZDay.MM} */}</div>
-        {ZMondayDate}
+        {ZDay.MondayDate}
       </div>
       <div className="TextS d" style={divStyle}>
         <div>
