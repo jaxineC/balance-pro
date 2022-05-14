@@ -10,6 +10,7 @@ function QuickAccess() {
         {/* <img src={globe} className="icon" /> */}
       </div>
       <div className="circle">Search</div>
+      <div className="circle">Today</div>
       <div className="circle">Help</div>
     </div>
   );

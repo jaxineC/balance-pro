@@ -114,10 +114,6 @@ function DateBar({ ZDay, setZDay }) {
     width: (8 - ZDay.DAY) * 20 - 3,
     overflow: "visible",
     backgroundColor: "#ffffff",
-    // position: "relative",
-    // left: -(7 + ZDay.DAY - 1) * 20,
-    // color: 'blue',
-    // backgroundImage: 'url(' + imgUrl + ')',
   };
 
   return (
@@ -127,7 +123,7 @@ function DateBar({ ZDay, setZDay }) {
         style={{
           width: (ZDay.DAY - 1) * 20,
           borderLeft: "1px solid #eeeeee",
-          borderBottom: "1px solid #888888",
+          borderBottom: "1px solid #666666",
         }}
       >
         <div>.{/* {ZDay.YYYY} {ZDay.MM} */}</div>

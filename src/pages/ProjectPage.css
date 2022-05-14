@@ -10,7 +10,7 @@
 /* ---------------------------------Component----------------------------------- */
 .ProjectInfo {
   margin-top: 15px;
-  padding: 0px 20px;
+  /* padding: 0px 20px; */
   display: flex;
   gap: 2.5%;
 }
@@ -18,7 +18,7 @@
 .Timeline {
   border-width: 0px 0px 1px 0px;
   border-style: solid;
-  border-color: #888888;
+  border-color: #666666;
   width: 100vw;
   overflow-x: scroll;
 }
@@ -28,8 +28,8 @@
 
 .DateBar {
   /* box-sizing: border-box; */
-  padding: 0px 20px;
-  color: #888888;
+  /* padding: 0px 20px; */
+  color: #666666;
   width: 100vw;
   display: -webkit-inline-box;
   overflow-x: visible;
@@ -58,7 +58,7 @@
 .Divider {
   border-width: 0px 0px 1px 0px;
   border-style: solid;
-  border-color: #888888;
+  border-color: #666666;
 }
 
 .Unfold {
@@ -73,9 +73,12 @@
   bottom: 15px;
   right: 20px;
 }
+.TaskList {
+}
 
 .Task {
   width: 140px;
+  /* width to be deleted after connecting to firebase */
   height: 20px;
   background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -86,11 +89,12 @@
 
   position: absolute;
   top: 0px;
-  left: 1220px;
+  left: 1200px;
+  /* top+left to be deleted after connecting to firebase */
 }
 
 .TimeCanvas > .taskList > :hover {
-  border-color: #888888;
+  border-color: #666666;
   border-width: 1px 4px 1px 4px;
 }
 
@@ -143,7 +147,7 @@
   padding-left: 2px;
   width: 137px;
   border-left: 1px solid #eeeeee;
-  border-bottom: 1px solid #888888;
+  border-bottom: 1px solid #666666;
 }
 .today {
   width: 138px;

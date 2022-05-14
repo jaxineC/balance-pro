@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import DateBar from "./DateBar";
+import TaskList from "./TaskList";
 
-function TimeCanvas({ ZDay }) {
+function TimeCanvas({ ZDay, XPosition }) {
   // ---------------------------------------------get how many weeks to render
   // let clientW = window.innerWidth;
   // let totalDays = Math.floor(ClientW / 20);
@@ -30,36 +30,25 @@ function TimeCanvas({ ZDay }) {
   // }
 
   function handleAddTask() {
-    // let taskID = Date.now().toString();
+    let taskID = Date.now().toString();
+    async function addTaskDoc() {}
     // setWorkTasks();
     workTasks.push("Task01");
     const taskList = workTasks.map((task) => (
       <taskList key={task.toString()} value={task} className="Task" />
     ));
   }
-  function printTest(event) {
-    console.log(
-      event.target.parentElement.parentElement.className +
-        ": " +
-        event.target.parentElement.parentElement.offsetLeft
-    );
-  }
+
   // ---------------------------------------------variables for rendering styles
   const divStyle = {
     color: "red",
     backgroundColor: "#ffffff",
-    paddingLeft: 20,
   };
 
-  const taskStyle = {
-    width: "",
-  };
   return (
     <div onClick={handleAddTask} className="TimeCanvas " style={divStyle}>
       {frames}
-      <div className="taskList">
-        <div className="Task TextS">task 01</div>
-      </div>
+      <TaskList ZDay={ZDay} XPosition={XPosition} />
     </div>
   );
 }
