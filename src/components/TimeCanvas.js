@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import DateBar from "./DateBar";
 import TaskList from "./TaskList";
 
-function TimeCanvas({ ZDay, XPosition, Tasks }) {
-  const [inputText, setInputText] = useState("");
+function TimeCanvas({ ZDay, XPosition, Tasks, clickPosition }) {
   // ---------------------------------------------get how many weeks to render
   // let clientW = window.innerWidth;
   // let totalDays = Math.floor(ClientW / 20);
   let totalWks = 25;
   let totalDays = totalWks * 7;
   let frames = [];
+
   // fix prevWks=6 + today's wk +nextWks=18
   for (let i = 1; i <= totalDays; i++) {
     if (i % 7 === 0 || (i + 1) % 7 === 0) {
@@ -18,6 +18,7 @@ function TimeCanvas({ ZDay, XPosition, Tasks }) {
       frames.push(<div className="timeFrame" key={i}></div>);
     }
   }
+  function handleAddTask(event) {}
 
   // ---------------------------------------------variables for rendering styles
   const divStyle = {
@@ -26,11 +27,18 @@ function TimeCanvas({ ZDay, XPosition, Tasks }) {
   };
 
   return (
-    <div className="TimeCanvas " style={divStyle}>
+    <div onClick={handleAddTask} className="TimeCanvas " style={divStyle}>
       {frames}
-      <TaskList ZDay={ZDay} XPosition={XPosition} Tasks={Tasks} />
+      <TaskList
+        ZDay={ZDay}
+        XPosition={XPosition}
+        Tasks={Tasks}
+        clickPosition={clickPosition}
+      />
     </div>
   );
 }
 
 export default TimeCanvas;
+// MouseEvent.clientX
+// https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
