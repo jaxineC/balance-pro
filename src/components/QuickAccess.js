@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function QuickAccess() {
+  const [inputText, setInputText] = useState(""); //inside quickacess or search component for search bar
+
   return (
     <div className="QuickAccess TextS">
       <div className="circle">Undo</div>

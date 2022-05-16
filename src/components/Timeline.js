@@ -5,16 +5,17 @@ import DateBar from "./DateBar";
 import TimeCanvas from "./TimeCanvas";
 // import { ScrollSync, ScrollSyncPane } from "react-scroll-sync";
 
-function Timeline({ XPosition, setXPosition }) {
+function Timeline({ projectID, XPosition, setXPosition, Tasks, setTasks }) {
   const refContainer = useRef();
   const [ZDay, setZDay] = useState({
+    //props???
     TODAY: 0,
     YYYY: 0,
     MM: 0,
     DD: 0,
     DAY: 0,
     MondayDate: 0,
-  }); //props???
+  });
 
   useEffect(() => {
     // scrollLeft(1200);
@@ -28,7 +29,7 @@ function Timeline({ XPosition, setXPosition }) {
     //     ": " +
     //     event.target.parentElement.parentElement.scrollLeft
     // );
-    //表面0,0 = 昨天 (因為我有padding20pixel給DateBar)
+    //表面0,0 = 昨天 (因為有padding20pixel給DateBar)
     //取得滑鼠在畫面距離0,0位差/20 = 以昨天為基準加幾天
     console.log(
       "clicking on" +
@@ -49,6 +50,10 @@ function Timeline({ XPosition, setXPosition }) {
     // console.log(Date.now());
   }
 
+  function test() {
+    console.log(Tasks);
+  }
+
   // ---------------------------------------------variables for rendering styles
   const divStyle = {
     // color: 'blue',
@@ -57,13 +62,13 @@ function Timeline({ XPosition, setXPosition }) {
 
   return (
     <div
-      onClick={printTest}
+      onClick={test}
       className="Timeline "
       style={divStyle}
       ref={refContainer}
     >
       <DateBar setZDay={setZDay} ZDay={ZDay} />
-      <TimeCanvas ZDay={ZDay} XPosition={XPosition} />
+      <TimeCanvas ZDay={ZDay} XPosition={XPosition} Tasks={Tasks} />
     </div>
   );
 }

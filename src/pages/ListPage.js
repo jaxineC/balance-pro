@@ -6,9 +6,7 @@ import AddProject from "../components/AddProject";
 import ProjectList from "../components/ProjectList";
 import Background from "../components/Background";
 
-function ListPage({ userID, setSelectedProjects }) {
-  const [projectList, setprojectList] = useState([]);
-
+function ListPage({ userID, projects, setProjects }) {
   return (
     <main className="ListPage">
       <WelcomeTxt userID={userID} />
@@ -16,15 +14,15 @@ function ListPage({ userID, setSelectedProjects }) {
       <ProjectList
         cat="work"
         userID={userID}
-        projectList={projectList}
-        setSelectedProjects={setSelectedProjects}
+        projects={projects}
+        setProjects={setProjects}
       />
 
       <ProjectList
         cat="life"
         userID={userID}
-        projectList={projectList}
-        setSelectedProjects={setSelectedProjects}
+        projects={projects}
+        setProjects={setProjects}
       />
       <Background />
     </main>

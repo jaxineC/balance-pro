@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Hashtag from "./Hashtag";
 
 function ProjectInfo() {
+  const [inputText, setInputText] = useState(""); //inside ProjectTinfo or Hashtag component for addHashTag
+
   function addHashTag() {}
   return (
     <div className="ProjectInfo ">

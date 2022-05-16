@@ -88,6 +88,10 @@ button {
   background: none;
 }
 
+li {
+  list-style: none;
+}
+
 /* ---------------------------------Shared Component----------------------------------- */
 .Background {
   position: fixed;
