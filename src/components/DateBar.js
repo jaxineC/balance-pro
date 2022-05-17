@@ -17,7 +17,7 @@ function DateBar({ ZDay, setZDay }) {
       date.getDate().toString().padStart(2, "0"),
       date.getDay(),
     ];
-    let ZMonday = TODAY - (DAY - 1) * 24 * 60 * 60 * 1000;
+    let ZMonday = TODAY - (DAY - 1) * 86400 * 1000;
     let ZMondayDate = new Date(ZMonday).getDate().toString().padStart(2, "0");
     setZDay({
       TODAY: TODAY,
@@ -32,16 +32,15 @@ function DateBar({ ZDay, setZDay }) {
   // ---------------------------------------------render prev (8wks+ ZDay.DAY-1) days
   function Prev() {
     let prevWk = 8;
-    let prevDAY =
-      Date.now() - (ZDay.DAY + 6 + prevWk * 7) * 24 * 60 * 60 * 1000;
+    let prevDAY = Date.now() - (ZDay.DAY + 6 + prevWk * 7) * 86400 * 1000;
 
     for (let i = 1; i <= prevWk; i++) {
-      let prevDate = new Date(prevDAY + 7 * 24 * 60 * 60 * 1000 * (i - 1));
+      let prevDate = new Date(prevDAY + 7 * 86400 * 1000 * (i - 1));
       let [prevYYYY, prevMM] = [
         prevDate.getFullYear(),
         new Intl.DateTimeFormat("en-US", options).format(prevDate),
       ];
-      let nextDate = new Date(prevDAY + 7 * 24 * 60 * 60 * 1000 * i);
+      let nextDate = new Date(prevDAY + 7 * 86400 * 1000 * i);
       let [nextYYYY, nextMM, nextDD, nextDAY] = [
         nextDate.getFullYear(),
         new Intl.DateTimeFormat("en-US", options).format(nextDate),
@@ -74,15 +73,13 @@ function DateBar({ ZDay, setZDay }) {
 
     for (let i = 1; i <= totalWk; i++) {
       let prevDate = new Date(
-        ZDay.TODAY + (8 - ZDay.DAY) * 24 * 60 * 60 * 1000 * (i - 1)
+        ZDay.TODAY + (8 - ZDay.DAY) * 86400 * 1000 * (i - 1)
       );
       let [prevYYYY, prevMM] = [
         prevDate.getFullYear(),
         new Intl.DateTimeFormat("en-US", options).format(prevDate),
       ];
-      let nextDate = new Date(
-        ZDay.TODAY + (8 - ZDay.DAY) * 24 * 60 * 60 * 1000 * i
-      );
+      let nextDate = new Date(ZDay.TODAY + (8 - ZDay.DAY) * 86400 * 1000 * i);
       let [nextYYYY, nextMM, nextDD, nextDAY] = [
         nextDate.getFullYear(),
         new Intl.DateTimeFormat("en-US", options).format(nextDate),

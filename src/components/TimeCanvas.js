@@ -2,7 +2,16 @@ import React, { useState, useEffect } from "react";
 import DateBar from "./DateBar";
 import TaskList from "./TaskList";
 
-function TimeCanvas({ ZDay, XPosition, Tasks, clickPosition }) {
+// Container/canvas for TaskList
+// Add new Task
+function TimeCanvas({
+  ZDay,
+  XPosition,
+  Tasks,
+  clickPosition,
+  clickDate,
+  setClickPosition,
+}) {
   // ---------------------------------------------get how many weeks to render
   // let clientW = window.innerWidth;
   // let totalDays = Math.floor(ClientW / 20);
@@ -28,13 +37,14 @@ function TimeCanvas({ ZDay, XPosition, Tasks, clickPosition }) {
 
   return (
     <div onClick={handleAddTask} className="TimeCanvas " style={divStyle}>
-      {frames}
       <TaskList
         ZDay={ZDay}
         XPosition={XPosition}
         Tasks={Tasks}
         clickPosition={clickPosition}
+        clickDate={clickDate}
       />
+      {frames}
     </div>
   );
 }

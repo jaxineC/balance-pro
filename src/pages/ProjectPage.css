@@ -103,6 +103,15 @@ path:hover {
   /* top+left to be deleted after connecting to firebase */
 }
 
+.Task:focus {
+  outline: 1.5px solid blueviolet;
+  box-shadow: blueviolet;
+}
+
+.Task:hover {
+  border-color: blueviolet;
+}
+
 .TimeCanvas > .taskList > :hover {
   border-color: #666666;
   border-width: 1px 4px 1px 4px;
@@ -132,6 +141,7 @@ path:hover {
   border-width: 0px 0px 0px 1px;
   border-style: dotted;
   border-color: #eeeeee;
+  z-index: -1;
 }
 
 .weekend {
@@ -161,12 +171,9 @@ path:hover {
 }
 .today {
   width: 138px;
+  display: ;
 }
 
 .hide {
   display: none;
-}
-
-.show {
-  display: block;
 }

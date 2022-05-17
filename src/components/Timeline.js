@@ -8,6 +8,7 @@ import TimeCanvas from "./TimeCanvas";
 
 function Timeline({ projectID, XPosition, setXPosition, Tasks, setTasks }) {
   const [clickPosition, setClickPosition] = useState(null);
+  const [clickDate, setClickDate] = useState(0);
   const [inputText, setInputText] = useState("");
   const refContainer = useRef();
   const [ZDay, setZDay] = useState({
@@ -28,12 +29,15 @@ function Timeline({ projectID, XPosition, setXPosition, Tasks, setTasks }) {
   }, []);
 
   function getDate(event) {
+    // find current 0,0 date on screen (scroll adjust days +click plusdays)
+    let baselineMvDays = Math.floor(
+      (refContainer.current.scrollLeft - 1220) / 20
+    );
+    let plusDays = Math.floor(event.clientX / 20);
+    let clickDay = (baselineMvDays + plusDays) * (1000 * 86400) + ZDay.TODAY;
+    setClickDate(clickDay);
     setXPosition(refContainer.current.scrollLeft); //temp
     setClickPosition(Math.floor(event.clientX / 20) * 20);
-    console.log(clickPosition);
-    console.log(XPosition);
-    let x = Tasks.length;
-    console.log(x);
 
     function renderBlankTask() {
       //取得滑鼠在畫面距離0,0位差/20 = 以昨天為基準加幾天
@@ -45,31 +49,10 @@ function Timeline({ projectID, XPosition, setXPosition, Tasks, setTasks }) {
           (refContainer.current.scrollLeft - 20 * (8 * 7 + ZDay.DAY - 1)) / 20
         ) + 1;
       let addNewTaskStartDate =
-        ZDay.TODAY + (clickX + scrollPass - 1) * (1000 * 60 * 60 * 24);
+        ZDay.TODAY + (clickX + scrollPass - 1) * (1000 * 86400);
       console.log("Clicked on " + new Date(addNewTaskStartDate));
     }
-
-    // write in firestore
-
-    // async function addTodosDoc() {
-    //   try {
-    //     const docRef = await addDoc(collection(db, "Tasks"), {
-    //       balanced: true,
-    //       cat: "work",
-    //       content: inputText,
-    //       end: addNewTaskStartDate + 7 * 24 * 60 * 60 * 1000,
-    //       projectID: "3uNnaOyYZQnAdO0oB5jQ",
-    //       start: addNewTaskStartDate,
-    //       taskID: Date.now().toString(),
-    //     });
-
-    //     console.log("Document written with ID: ", docRef.id);
-    //   } catch (event) {
-    //     console.error("Error adding document: ", event);
-    //   }
-    // }
     renderBlankTask();
-    // addTodosDoc();
   }
 
   // ---------------------------------------------variables for rendering styles
@@ -82,6 +65,8 @@ function Timeline({ projectID, XPosition, setXPosition, Tasks, setTasks }) {
         XPosition={XPosition}
         Tasks={Tasks}
         clickPosition={clickPosition}
+        clickDate={clickDate}
+        setClickPosition={setClickPosition}
       />
       {tempBlankTask}
     </div>
