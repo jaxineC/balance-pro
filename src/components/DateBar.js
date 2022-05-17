@@ -110,7 +110,8 @@ function DateBar({ ZDay, setZDay }) {
   Prev();
   Next();
   const divStyle = {
-    color: "red",
+    color: "black",
+    fontWeight: 500,
     width: (8 - ZDay.DAY) * 20 - 3,
     overflow: "visible",
     backgroundColor: "#ffffff",
