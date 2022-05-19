@@ -43,6 +43,7 @@ function TimeCanvas({
         Tasks={Tasks}
         clickPosition={clickPosition}
         clickDate={clickDate}
+        setClickPosition={setClickPosition}
       />
       {frames}
     </div>

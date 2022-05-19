@@ -4,15 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import DateBar from "./DateBar";
 import TimeCanvas from "./TimeCanvas";
-// import { ScrollSync, ScrollSyncPane } from "react-scroll-sync";
 
-function Timeline({ projectID, XPosition, setXPosition, Tasks, setTasks }) {
+function Timeline({ projectID, XPosition, setXPosition, Tasks }) {
   const [clickPosition, setClickPosition] = useState(null);
-  const [clickDate, setClickDate] = useState(0);
-  const [inputText, setInputText] = useState("");
-  const refContainer = useRef();
+  const [clickDate, setClickDate] = useState(0); //delelte this after 5/23
   const [ZDay, setZDay] = useState({
-    //props???
     TODAY: 0,
     YYYY: 0,
     MM: 0,
@@ -20,8 +16,11 @@ function Timeline({ projectID, XPosition, setXPosition, Tasks, setTasks }) {
     DAY: 0,
     MondayDate: 0,
   });
+  const [onMouseMove, setOnMouseMove] = useState(0);
+
   let tempBlankTask = "";
 
+  const refContainer = useRef();
   useEffect(() => {
     // scrollLeft(1200);
     refContainer.current.scrollLeft = 20 * (8 * 7 + ZDay.DAY - 1); //前面 8周, 考慮改用let prevWk 計算, 重複用

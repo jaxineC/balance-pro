@@ -22,14 +22,13 @@ import { db } from "../firebase.js";
 // use props= work/ life for rendering
 function ProjectPage({ userID, projects, setProjects }) {
   const [XPosition, setXPosition] = useState(1220); //let top and bottom timelines scroll synchronizely
-  const [Tasks, setTasks] = useState([]); //fetch all documents of tasks
+  const [Tasks, setTasks] = useState([]);
 
   // init fetch from firestore
   async function fetchTasks() {
     const dataRef = collection(db, "jx-tasks");
     const q = query(dataRef, orderBy("start"));
     const querySnapshot = await getDocs(q);
-    // const querySnapshot = await getDocs(collection(db, "jx-tasks"));
     let initTasks = [];
     querySnapshot.forEach((doc) => {
       initTasks = [...initTasks, doc.data()];
@@ -39,21 +38,20 @@ function ProjectPage({ userID, projects, setProjects }) {
 
   // listen: todos collection
   function docListener() {
-    const unsubscribe = onSnapshot(
-      collection(db, "taskID"),
-      (changedSnapshot) => {
-        let updatedTasks = [];
-        changedSnapshot.forEach((doc) => {
-          updatedTasks = [...updatedTasks, doc.data()];
-        });
-        setTasks(updatedTasks);
-      }
-    );
+    const dataRef = collection(db, "jx-tasks");
+    const q = query(dataRef, orderBy("start"));
+    const unsubscribe = onSnapshot(q, (changedSnapshot) => {
+      let updatedTasks = [];
+      changedSnapshot.forEach((doc) => {
+        updatedTasks = [...updatedTasks, doc.data()];
+      });
+      setTasks(updatedTasks);
+    });
   }
 
   useEffect(() => {
     fetchTasks();
-    // docListener();
+    docListener();
   }, []);
 
   return (
@@ -85,7 +83,6 @@ function ProjectPage({ userID, projects, setProjects }) {
         XPosition={XPosition}
         setXPosition={setXPosition}
         Tasks={Tasks}
-        setTasks={setTasks}
       />
       <DisplayMode />
       <QuickAccess />
