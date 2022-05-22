@@ -51,6 +51,10 @@
 }
 
 /* --------------------------------Semantic Tag------------------------------------ */
+a {
+  text-decoration: none;
+}
+
 header {
 }
 
@@ -75,6 +79,11 @@ hr {
 footer {
 }
 
+label {
+  padding: 5px 10px 1px 10px;
+  margin: 10px 5px;
+}
+
 input {
   width: 160px;
   border-style: solid;
@@ -83,6 +92,29 @@ input {
   margin: 10px;
 }
 
+.Modal > input {
+  padding: 5px 10px 1px 10px;
+  border-radius: 0px;
+  margin: 0px 0px 5px 0px;
+}
+.Modal > select {
+  padding: 5px 10px 1px 5px;
+  border-radius: 0px;
+  margin: 0px 0px 5px 0px;
+}
+
+select:focus {
+  outline-style: none;
+}
+
+.Modal > label {
+  padding: 5px 10px 1px 10px;
+  margin: 0px 0px 5px 0px;
+}
+
+.Modal > button {
+  margin-top: 10px;
+}
 button {
   border: none;
   background: none;

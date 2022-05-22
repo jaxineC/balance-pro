@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Hashtag from "./Hashtag";
 
-function ProjectInfo() {
+function ProjectInfo({ projectID, Tasks, setTasks }) {
   const [inputText, setInputText] = useState(""); //inside ProjectTinfo or Hashtag component for addHashTag
 
-  function addHashTag() {}
+  function addHashTag({}) {}
   return (
     <div className="ProjectInfo ">
       <div className="projectName">

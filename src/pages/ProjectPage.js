@@ -20,7 +20,13 @@ import { db } from "../firebase.js";
 
 // fetch Tasks (where balanced = true) from firebase ---->for both projects
 // use props= work/ life for rendering
-function ProjectPage({ userID, projects, setProjects }) {
+function ProjectPage({
+  userID,
+  projects,
+  setProjects,
+  SelectedProjects,
+  setSelectedProjects,
+}) {
   const [XPosition, setXPosition] = useState(1220); //let top and bottom timelines scroll synchronizely
   const [Tasks, setTasks] = useState([]);
 
@@ -56,12 +62,7 @@ function ProjectPage({ userID, projects, setProjects }) {
 
   return (
     <main className="ProjectPage">
-      <ProjectInfo
-        cat="work"
-        projectID={Tasks.projectID}
-        Tasks={Tasks}
-        setTasks={setTasks}
-      />
+      <ProjectInfo cat="work" Tasks={Tasks} setTasks={setTasks} />
       <Timeline
         cat="work"
         projectID={Tasks.projectID}

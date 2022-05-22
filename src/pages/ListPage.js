@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import "./ListPage.css";
 import { Link } from "react-router-dom";
+import "./ListPage.css";
 import WelcomeTxt from "../components/WelcomeTxt";
 import AddProject from "../components/AddProject";
 import ProjectList from "../components/ProjectList";
 import Background from "../components/Background";
 
-function ListPage({ userID, projects, setProjects }) {
+function ListPage({ userID, SelectedProjects, setSelectedProjects }) {
+  const [checked, setChecked] = useState(0);
+  function click() {
+    alert("Test");
+  }
   return (
     <main className="ListPage">
       <WelcomeTxt userID={userID} />
@@ -14,17 +18,29 @@ function ListPage({ userID, projects, setProjects }) {
       <ProjectList
         cat="work"
         userID={userID}
-        projects={projects}
-        setProjects={setProjects}
+        click={click}
+        checked={checked}
+        setChecked={setChecked}
+        SelectedProjects={SelectedProjects}
+        setSelectedProjects={setSelectedProjects}
       />
-
       <ProjectList
         cat="life"
         userID={userID}
-        projects={projects}
-        setProjects={setProjects}
+        checked={checked}
+        setChecked={setChecked}
+        SelectedProjects={SelectedProjects}
+        setSelectedProjects={setSelectedProjects}
       />
       <Background />
+      <Link to="/project">
+        <button
+          style={{ display: checked === 2 ? "block" : "none" }}
+          className="go TextXL bold"
+        >
+          Go!
+        </button>
+      </Link>
     </main>
   );
 }

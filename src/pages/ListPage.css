@@ -29,3 +29,83 @@
 .life {
   align-self: start;
 }
+
+.go {
+  position: fixed;
+  right: 0px;
+  bottom: 80px;
+  height: 80px;
+  width: 120px;
+  border-style: none;
+  border-radius: 40px 0px 0px 40px;
+  background-color: blueviolet;
+  color: #ffffff;
+}
+
+/* ---------------------------------switch???????----------------------------------- */
+
+label.switch {
+  margin: auto;
+  margin-left: 30px;
+}
+
+.switch {
+  position: relative;
+  top: 3px;
+  display: inline-block;
+  width: 32px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+input:checked + .slider {
+  background-color: #e6f252;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #e6f252;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 32px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

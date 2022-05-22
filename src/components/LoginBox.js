@@ -1,13 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, navigate } from "react";
+import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LoginBox() {
+  function handleClick(e) {
+    e.preventDefault();
+  }
+
   return (
-    <div className="LoginBox TextM">
+    <div
+      style={{ display: "grid", gridTemplateColumns: "30% 70%" }}
+      className="LoginBox TextM"
+    >
       <label>email</label>
-      <input placeholder="name@gmail.com"></input>
-      <br />
+      <input type="email" placeholder="name@gmail.com"></input>
       <label>password</label>
-      <input placeholder="abcd1234"></input>
+      <Link to="/list">
+        <input
+          onClick={handleClick}
+          type="password"
+          placeholder="abcd1234"
+        ></input>
+      </Link>
     </div>
   );
 }

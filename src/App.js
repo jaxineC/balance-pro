@@ -10,6 +10,7 @@ import ProjectPage from "./pages/ProjectPage.js";
 function App() {
   const [userID, setUserID] = useState(null);
   const [projects, setProjects] = useState([]);
+  const [selectedProjects, setSelectedProjects] = useState([]);
 
   return (
     <BrowserRouter>
@@ -26,6 +27,8 @@ function App() {
               userID={userID}
               projects={projects}
               setProjects={setProjects}
+              selectedProjects={selectedProjects}
+              setSelectedProjects={setSelectedProjects}
             />
           }
         />
@@ -36,6 +39,8 @@ function App() {
               userID={userID}
               projects={projects}
               setProjects={setProjects}
+              SelectedProjects={selectedProjects}
+              setSelectedProjects={setSelectedProjects}
             />
           }
         />

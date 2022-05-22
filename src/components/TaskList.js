@@ -32,49 +32,8 @@ function TaskList({
   function handleChildClick(e) {
     e.stopPropagation();
   }
-
-  //--------------------------------------------------CRUD------------------------------------------------------//
-  //--------------------------------------------------CRUD------------------------------------------------------//
-  //CREATE(ADD)
-  async function handleAddTasktoDb() {
-    try {
-      const docRef = await addDoc(collection(db, "jx-tasks"), {
-        balanced: true,
-        cat: "work",
-        content: inputText,
-        end: Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7)),
-        note: "",
-        projectID: "3uNnaOyYZQnAdO0oB5jQ",
-        start: Timestamp.fromDate(new Date(clickDate)),
-        taskID: Date.now(),
-      });
-      setClickPosition(null);
-      setInputText("");
-
-      console.log("Document written with ID: ", docRef.id);
-    } catch (event) {
-      console.error("Error adding document: ", event);
-    }
-  }
-
-  // UPDATE(REV)
-
-  // DELETE
-  async function handleDeleteTask(event) {
-    // console.log(typeof event.target.parentElement.parentElement.value);
-    const q = query(
-      collection(db, "jx-tasks"),
-      where("taskID", "==", event.target.parentElement.parentElement.value)
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(async (docItem) => {
-      await deleteDoc(doc(db, "jx-tasks", docItem.id));
-    });
-  }
-
-  //--------------------------------------------------if else statement -----------------------------------------//
-  //--------------------------------------------------if else statement -----------------------------------------//
   let handleHover = (event) => {
+    // console.log(event.target.children[0]);
     if (event.target.children[0].style.display === "none") {
       event.target.children[0].style.display = "inline";
     } else {
@@ -87,12 +46,57 @@ function TaskList({
     }
     if (event.target.children[2].style.display === "none") {
       event.target.children[2].style.display = "inline";
-      event.target.children[2].children[0].fill = "rgb(138,43,226)";
+      // event.target.children[2].children[0].fill = "rgb(138,43,226)";
     } else {
       event.target.children[2].style.display = "none";
       event.target.children[2].children[0].fill = "rgb(152,152,152)";
     }
   };
+
+  //--------------------------------------------------CRUD------------------------------------------------------//
+  //--------------------------------------------------CRUD------------------------------------------------------//
+  //CREATE(addBtn)
+  async function handleAddTasktoDb() {
+    try {
+      // let newTaskID = Date.now().toString();
+      const docRef = await addDoc(collection(db, "jx-tasks"), {
+        balanced: true,
+        cat: "work",
+        content: inputText,
+        end: Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7)),
+        note: "",
+        projectID: "3uNnaOyYZQnAdO0oB5jQ",
+        start: Timestamp.fromDate(new Date(clickDate)),
+        taskID: Date.now().toString(),
+      });
+      setClickPosition(null);
+      setInputText("");
+
+      console.log("Document written with ID: ", docRef.id);
+    } catch (event) {
+      console.error("Error adding document: ", event);
+    }
+  }
+
+  // UPDATE(editBtn)
+
+  // DELETE(deleteBtn)
+  async function handleDeleteTask(event) {
+    // console.log(Tasks[2].taskID);
+    // console.log(event.target.parentNode.parentNode.value);
+    // console.log(event.target.value === "t-1652972288422");
+    const q = query(
+      collection(db, "jx-tasks"),
+      where("taskID", "===", event.target.parentElement.parentElement.value)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (docItem) => {
+      await deleteDoc(doc(db, "jx-tasks", docItem.id));
+    });
+  }
+
+  //--------------------------------------------------if else statement -----------------------------------------//
+  //--------------------------------------------------if else statement -----------------------------------------//
 
   if (clickPosition) {
     tempNewTask = (
@@ -158,6 +162,7 @@ function TaskList({
     <li
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
+      onClick={handleDeleteTask}
       className="Task TextS"
       key={item.taskID}
       value={item.taskID}
@@ -170,7 +175,6 @@ function TaskList({
     >
       {item.content}
       <span
-        onMouseEnter={handleHover}
         className="TextS"
         style={{
           position: "absolute",
@@ -203,7 +207,7 @@ function TaskList({
         <path
           clipRule="evenodd"
           d="m14.9703 3.3437c-1.9537-.45827-3.9869-.45827-5.94055 0-2.82134.66179-5.02425 2.86471-5.68605 5.68604-.45827 1.95366-.45827 3.98686 0 5.94056.6618 2.8213 2.86472 5.0242 5.68605 5.686 1.95365.4583 3.98685.4583 5.94055 0 2.8213-.6618 5.0242-2.8647 5.686-5.686.4583-1.9537.4583-3.9869 0-5.94055-.6618-2.82133-2.8647-5.02426-5.686-5.68605zm-2.3484 4.90161c.4154-.41543.9789-.64882 1.5664-.64882 1.2234 0 2.2152.99179 2.2152 2.21522 0 .58749-.2334 1.15099-.6488 1.56639l-2.4997 2.4997c-1.1603 1.1603-2.6142 1.9835-4.20611 2.3815l-.48314.1207c-.57119.1428-1.08859-.3745-.94579-.9457l.12078-.4832c.39799-1.5919 1.22115-3.0458 2.38146-4.2061zm1.5664.49992c-.2829 0-.5541.11236-.7541.31237l-.3625.36252c-.0358.28507.1066.68298.4659 1.04228s.7572.5017 1.0423.466l.3625-.3626c.2-.2.3124-.4712.3124-.75409 0-.589-.4775-1.06648-1.0665-1.06648zm-.5712 3.14587c-.3414-.1502-.6486-.3732-.8918-.6164s-.4662-.5503-.6164-.8918l-1.1744 1.1744c-.98523.9852-1.69205 2.2128-2.04979 3.558 1.34519-.3577 2.57279-1.0646 3.55799-2.0498z"
-          fill="rgb(152,152,152)"
+          fill="rgb(138,43,226)"
           fillRule="evenodd"
         />
       </svg>
