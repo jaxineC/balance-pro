@@ -5,6 +5,7 @@ import TaskList from "./TaskList";
 // Container/canvas for TaskList
 // Add new Task
 function TimeCanvas({
+  cat,
   ZDay,
   XPosition,
   Tasks,
@@ -38,6 +39,7 @@ function TimeCanvas({
   return (
     <div onClick={handleAddTask} className="TimeCanvas " style={divStyle}>
       <TaskList
+        cat={cat}
         ZDay={ZDay}
         XPosition={XPosition}
         Tasks={Tasks}

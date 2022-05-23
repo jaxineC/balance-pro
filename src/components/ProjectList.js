@@ -24,7 +24,7 @@ function ProjectList({
   click,
   checked,
   setChecked,
-  SelectedProjects,
+  selectedProjects,
   setSelectedProjects,
 }) {
   const [WProjects, setWProjects] = useState([]);
@@ -88,7 +88,7 @@ function ProjectList({
     >
       {item.name}
       <Switch
-        SelectedProjects={SelectedProjects}
+        selectedProjects={selectedProjects}
         setSelectedProjects={setSelectedProjects}
         checked={checked}
         setChecked={setChecked}

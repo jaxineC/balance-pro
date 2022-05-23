@@ -24,7 +24,7 @@ function ProjectPage({
   userID,
   projects,
   setProjects,
-  SelectedProjects,
+  selectedProjects,
   setSelectedProjects,
 }) {
   const [XPosition, setXPosition] = useState(1220); //let top and bottom timelines scroll synchronizely
@@ -62,7 +62,12 @@ function ProjectPage({
 
   return (
     <main className="ProjectPage">
-      <ProjectInfo cat="work" Tasks={Tasks} setTasks={setTasks} />
+      <ProjectInfo
+        cat="work"
+        Tasks={Tasks}
+        setTasks={setTasks}
+        selectedProjects={selectedProjects}
+      />
       <Timeline
         cat="work"
         projectID={Tasks.projectID}
@@ -77,6 +82,7 @@ function ProjectPage({
         projectID={Tasks.projectID}
         Tasks={Tasks}
         setTasks={setTasks}
+        selectedProjects={selectedProjects}
       />
       <Timeline
         cat="life"

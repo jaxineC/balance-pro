@@ -17,6 +17,10 @@ path:hover {
   cursor: pointer;
 }
 
+ul {
+  padding-inline-start: 0px !important;
+}
+
 /* ---------------------------------Component----------------------------------- */
 .ProjectInfo {
   margin-top: 15px;
@@ -98,8 +102,8 @@ path:hover {
   color: #000000;
 
   position: absolute;
-  top: 0px;
-  left: 1200px;
+  /* top: 0px; */
+  /* left: 1200px; */
   /* top+left to be deleted after connecting to firebase */
 }
 

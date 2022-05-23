@@ -10,12 +10,16 @@ function Switch({
     event.target.checked
       ? setChecked((checked += 1))
       : setChecked((checked -= 1));
+
+    let list = selectedProjects;
+    console.log(list);
     if (event.target.checked) {
-      let list = [...selectedProjects, event.target.parentNode.value];
+      list.push(event.target.parentNode.parentNode.getAttribute("value"));
       setSelectedProjects(list);
     } else {
-      let list = selectedProjects.filter(
-        (item) => item !== event.target.parentNode.value
+      let list = selectedProjects.list.filter(
+        (item) =>
+          item !== event.target.parentNode.parentNode.getAttribute("value")
       );
       setSelectedProjects(list);
       console.log(selectedProjects);

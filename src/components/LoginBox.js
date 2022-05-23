@@ -15,12 +15,29 @@ function LoginBox() {
       <label>email</label>
       <input type="email" placeholder="name@gmail.com"></input>
       <label>password</label>
-      <Link to="/list">
-        <input
-          onClick={handleClick}
-          type="password"
-          placeholder="abcd1234"
-        ></input>
+
+      <input
+        onClick={handleClick}
+        type="password"
+        placeholder="abcd1234"
+      ></input>
+      <br />
+      <Link to="/list" style={{ position: "relative" }}>
+        <button
+          style={{
+            position: "absolute",
+            right: 80,
+            height: 25,
+            width: 80,
+            border: "1px solid #cccccc",
+            borderRadius: 5,
+            backgroundColor: "blueviolet",
+            color: "white",
+          }}
+          type="button"
+        >
+          Login
+        </button>
       </Link>
     </div>
   );

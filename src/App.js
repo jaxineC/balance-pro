@@ -39,7 +39,7 @@ function App() {
               userID={userID}
               projects={projects}
               setProjects={setProjects}
-              SelectedProjects={selectedProjects}
+              selectedProjects={selectedProjects}
               setSelectedProjects={setSelectedProjects}
             />
           }

@@ -15,6 +15,7 @@ import { db } from "../firebase.js";
 // render Tasks (fetch from firestore)
 // update Tasks (stretch/drag/delete)
 function TaskList({
+  cat,
   ZDay,
   XPosition,
   Tasks,
@@ -22,6 +23,39 @@ function TaskList({
   setClickPosition,
   clickDate,
 }) {
+  //--------------------------------------------------fetch & listen---------------------------------------//
+  //--------------------------------------------------fetch & listen---------------------------------------//
+
+  // init fetch from firestore
+  // async function fetchTasks() {
+  //   const dataRef = collection(db, "jx-tasks");
+  //   const q = query(dataRef, orderBy("start"));
+  //   const querySnapshot = await getDocs(q);
+  //   let initTasks = [];
+  //   querySnapshot.forEach((doc) => {
+  //     initTasks = [...initTasks, doc.data()];
+  //   });
+  //   setTasks(initTasks);
+  // }
+
+  // listen: todos collection
+  // function docListener() {
+  //   const dataRef = collection(db, "jx-tasks");
+  //   const q = query(dataRef, orderBy("start"));
+  //   const unsubscribe = onSnapshot(q, (changedSnapshot) => {
+  //     let updatedTasks = [];
+  //     changedSnapshot.forEach((doc) => {
+  //       updatedTasks = [...updatedTasks, doc.data()];
+  //     });
+  //     setTasks(updatedTasks);
+  //   });
+  // }
+
+  // useEffect(() => {
+  //   fetchTasks();
+  //   docListener();
+  // }, []);
+
   //--------------------------------------------------useState & variables---------------------------------------//
   //--------------------------------------------------useState & variables---------------------------------------//
   const [inputText, setInputText] = useState("");
@@ -61,7 +95,7 @@ function TaskList({
       // let newTaskID = Date.now().toString();
       const docRef = await addDoc(collection(db, "jx-tasks"), {
         balanced: true,
-        cat: "work",
+        cat: cat,
         content: inputText,
         end: Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7)),
         note: "",
@@ -87,7 +121,11 @@ function TaskList({
     // console.log(event.target.value === "t-1652972288422");
     const q = query(
       collection(db, "jx-tasks"),
-      where("taskID", "===", event.target.parentElement.parentElement.value)
+      where(
+        "taskID",
+        "===",
+        event.target.parentElement.parentElement.getAttribute("value")
+      )
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(async (docItem) => {
@@ -103,7 +141,7 @@ function TaskList({
       <div
         style={{
           top: Tasks.length * 22,
-          left: clickPosition + XPosition + 150,
+          left: clickPosition + XPosition + 130,
           borderStyle: "none",
           borderRadius: 5,
           backgroundColor: "buleviolet",

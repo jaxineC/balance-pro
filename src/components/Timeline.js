@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import DateBar from "./DateBar";
 import TimeCanvas from "./TimeCanvas";
 
-function Timeline({ projectID, XPosition, setXPosition, Tasks }) {
+function Timeline({ cat, projectID, XPosition, setXPosition, Tasks }) {
   const [clickPosition, setClickPosition] = useState(null);
   const [clickDate, setClickDate] = useState(0); //delelte this after 5/23
   const [ZDay, setZDay] = useState({
@@ -60,6 +60,7 @@ function Timeline({ projectID, XPosition, setXPosition, Tasks }) {
     <div onClick={getDate} className="Timeline " ref={refContainer}>
       <DateBar setZDay={setZDay} ZDay={ZDay} />
       <TimeCanvas
+        cat={cat}
         ZDay={ZDay}
         XPosition={XPosition}
         Tasks={Tasks}

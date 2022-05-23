@@ -6,7 +6,7 @@ import AddProject from "../components/AddProject";
 import ProjectList from "../components/ProjectList";
 import Background from "../components/Background";
 
-function ListPage({ userID, SelectedProjects, setSelectedProjects }) {
+function ListPage({ userID, selectedProjects, setSelectedProjects }) {
   const [checked, setChecked] = useState(0);
   function click() {
     alert("Test");
@@ -21,7 +21,7 @@ function ListPage({ userID, SelectedProjects, setSelectedProjects }) {
         click={click}
         checked={checked}
         setChecked={setChecked}
-        SelectedProjects={SelectedProjects}
+        selectedProjects={selectedProjects}
         setSelectedProjects={setSelectedProjects}
       />
       <ProjectList
@@ -29,7 +29,7 @@ function ListPage({ userID, SelectedProjects, setSelectedProjects }) {
         userID={userID}
         checked={checked}
         setChecked={setChecked}
-        SelectedProjects={SelectedProjects}
+        selectedProjects={selectedProjects}
         setSelectedProjects={setSelectedProjects}
       />
       <Background />
