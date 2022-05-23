@@ -7,6 +7,7 @@ import TimeCanvas from "./TimeCanvas";
 
 function Timeline({ cat, projectID, XPosition, setXPosition, Tasks }) {
   const [clickPosition, setClickPosition] = useState(null);
+  const [mouseDragX, setMouseDragX] = useState(0);
   const [clickDate, setClickDate] = useState(0); //delelte this after 5/23
   const [ZDay, setZDay] = useState({
     TODAY: 0,
@@ -16,7 +17,6 @@ function Timeline({ cat, projectID, XPosition, setXPosition, Tasks }) {
     DAY: 0,
     MondayDate: 0,
   });
-  const [onMouseMove, setOnMouseMove] = useState(0);
 
   let tempBlankTask = "";
 

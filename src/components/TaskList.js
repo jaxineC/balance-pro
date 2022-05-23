@@ -29,6 +29,11 @@ function TaskList({
   const [WTasks, setWTasks] = useState([]);
   const [LTasks, setLTasks] = useState([]);
   const [Tasks, setTasks] = useState([]);
+  const [onMouseMove, setOnMouseMove] = useState(0);
+  function handleMouseDragX(event) {
+    // event.stopImmediatePropagation();
+    console.log(event.clientX);
+  }
 
   //--------------------------------------------------fetch & listen---------------------------------------//
   //--------------------------------------------------fetch & listen---------------------------------------//
@@ -43,7 +48,6 @@ function TaskList({
       querySnapshot.forEach((doc) => {
         initTasks = [...initTasks, doc.data()];
       });
-      setWTasks(initTasks);
       setTasks(initTasks);
     } else {
       const dataRef = collection(db, "jx-tasks");
@@ -148,6 +152,9 @@ function TaskList({
   }
 
   // UPDATE(editBtn)
+  function handleDrag() {
+    console.log("hi");
+  }
 
   // DELETE(deleteBtn)
   async function handleDeleteTask(event) {
@@ -226,6 +233,9 @@ function TaskList({
 
   const taskItems = Tasks.map((item) => (
     <li
+      onDrag={handleDrag}
+      onMouseDown={handleMouseDragX}
+      onMouseUp={handleMouseDragX}
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
       className="Task TextS"

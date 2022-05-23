@@ -43,6 +43,13 @@
   color: #ffffff;
 }
 
+.ListPage > .Link > .go:hover {
+  outline-style: none;
+  background-color: blueviolet;
+  color: #ffffff;
+  box-shadow: rgb(204 204 204) 1px 5px 10px;
+}
+
 /* ---------------------------------switch???????----------------------------------- */
 
 label.switch {

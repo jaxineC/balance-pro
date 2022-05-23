@@ -13,6 +13,11 @@ function IndexPage({ userID, setUserID }) {
       <LoginBox userID={userID} setUserID={setUserID} />
       <Logo />
       <Background />
+      <Link className="Link" to="/list">
+        <button style={{ display: "block" }} className="go TextL">
+          Login
+        </button>
+      </Link>
     </main>
   );
 }

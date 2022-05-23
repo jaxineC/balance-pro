@@ -3,25 +3,22 @@ import { Link } from "react-router-dom";
 
 function Hashtag({ cat, workInfo, lifeInfo }) {
   // const [ hashtag, setHashtag] = useState([]);
-  let tags = null;
-  if (workInfo != [] && lifeInfo != []) {
-    if (cat == "work") {
-      console.log(workInfo.hashtag);
-      let x = workInfo.hashtag;
-      tags = x.map((item, index) => (
-        <span key={index} className="Hashtag TextS">
-          #{item}
-        </span>
-      ));
-    } else {
-      console.log(lifeInfo.hashtag);
-      let x = lifeInfo.hashtag;
-      tags = x.map((item, index) => (
-        <span key={index} className="Hashtag TextS">
-          #{item}
-        </span>
-      ));
-    }
+  let tags = "";
+  if (cat == "work") {
+    let x = workInfo.hashtag;
+    tags = x.map((item, index) => (
+      <span key={index} className="Hashtag TextS">
+        #{item}
+      </span>
+    ));
+  } else {
+    console.log(lifeInfo.hashtag);
+    let x = lifeInfo.hashtag;
+    tags = x.map((item, index) => (
+      <span key={index} className="Hashtag TextS">
+        #{item}
+      </span>
+    ));
   }
 
   return (

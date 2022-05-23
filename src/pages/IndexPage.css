@@ -23,3 +23,21 @@
   width: 90%;
   margin: auto;
 }
+
+.go {
+  position: fixed;
+  right: 0px;
+  bottom: 80px;
+  height: 80px;
+  width: 120px;
+  border-style: none;
+  border-radius: 40px 0px 0px 40px;
+  background-color: #dddddd;
+  color: #ffffff;
+}
+
+.IndexPage > .Link > .go:hover {
+  outline: blueviolet solid 2px;
+  background-color: #ffffff;
+  color: blueviolet;
+}

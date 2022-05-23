@@ -22,7 +22,7 @@ function LoginBox() {
         placeholder="abcd1234"
       ></input>
       <br />
-      <Link to="/list" style={{ position: "relative" }}>
+      {/* <Link to="/list" style={{ position: "relative" }}>
         <button
           style={{
             position: "absolute",
@@ -38,7 +38,7 @@ function LoginBox() {
         >
           Login
         </button>
-      </Link>
+      </Link> */}
     </div>
   );
 }

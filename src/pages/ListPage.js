@@ -33,7 +33,7 @@ function ListPage({ userID, selectedProjects, setSelectedProjects }) {
         setSelectedProjects={setSelectedProjects}
       />
       <Background />
-      <Link to="/project">
+      <Link className="Link" to="/project">
         <button
           style={{ display: checked === 2 ? "block" : "none" }}
           className="go TextXL bold"

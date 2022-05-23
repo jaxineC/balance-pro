@@ -24,18 +24,48 @@ function ProjectInfo({
   setSelectedProjects,
 }) {
   const [inputText, setInputText] = useState(""); //inside ProjectTinfo or Hashtag component for addHashTag
-  const [workInfo, setWorkInfo] = useState({});
-  const [lifeInfo, setLifeInfo] = useState({});
+  const [projectInfo, setprojectInfo] = useState({});
+  const [hashtag, setHashtag] = useState([]);
 
   async function fetchInfo(cat) {
     if (cat === "work") {
       const docRef = doc(db, "jx-projects", selectedProjects[0]);
       const docSnap = await getDoc(docRef);
-      setWorkInfo(docSnap.data());
+      setprojectInfo(docSnap.data());
+      setHashtag(docSnap.data().hashtag);
     } else {
       const docRef = doc(db, "jx-projects", selectedProjects[1]);
       const docSnap = await getDoc(docRef);
-      setLifeInfo(docSnap.data());
+      setprojectInfo(docSnap.data());
+      setHashtag(docSnap.data().hashtag);
+    }
+  }
+  // listen: todos collection
+  function docListener(cat, projectID) {
+    if (cat === "work") {
+      const docRef = doc(db, "jx-projects", selectedProjects[0]);
+      const unsubscribe = onSnapshot(docRef, (changedSnapshot) => {
+        let updatedTasks = [];
+        changedSnapshot.forEach((doc) => {
+          updatedTasks = [...updatedTasks, doc.data()];
+        });
+        setprojectInfo(updatedTasks);
+        setHashtag(doc.data().hashtag);
+      });
+    } else {
+      const docRef = doc(db, "jx-projects", selectedProjects[1]);
+      const unsubscribe = onSnapshot(docRef, (changedSnapshot) => {
+        let updatedTasks = [];
+        changedSnapshot.forEach((doc) => {
+          updatedTasks = [...updatedTasks, doc.data()];
+        });
+        let updatedTags = [];
+        changedSnapshot.forEach((doc) => {
+          updatedTags = [...updatedTags, doc.data().hashtag];
+        });
+        setprojectInfo(updatedTasks);
+        setHashtag(doc.data().hashtag);
+      });
     }
   }
 
@@ -43,34 +73,32 @@ function ProjectInfo({
 
   useEffect(() => {
     fetchInfo(cat);
-    //   // docListener();
+    docListener();
   }, []);
 
   //------------------------------------------------------------------------------
+  const tags = hashtag.map((item, index) => (
+    <li key={index} className="Hashtag TextS">
+      # {item}
+    </li>
+  ));
 
+  console.log(hashtag);
   return (
     <div className="ProjectInfo ">
       <div className="projectName">
         <div className="TextL">
-          {cat === "work" ? workInfo.name : lifeInfo.name}
+          {cat === "work" ? projectInfo.name : projectInfo.name}
         </div>
         <div className="TextS">2021/12/27 ~ 2022/07/08</div>
       </div>
-      <span className="Hashtags TextS">
-        <ul className="Hashtags">
-          <li className="Hashtag TextS"># Hashtag</li>
-          <li className="Hashtag TextS"># Hashtag</li>
-          {/* <li className="Hashtag TextS">
-            {cat == "work"
-              ? "#" + workInfo.hashtag[0]
-              : "#" + workInfo.hashtag[1]}
-          </li> */}
-        </ul>
+      <ul className="Hashtags TextS">
+        {tags}
         <button onClick={addHashTag} className="TextS theme bold">
           {" "}
           >>>+{" "}
         </button>
-      </span>
+      </ul>
     </div>
   );
 }
