@@ -1,12 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Hashtag(props) {
+function Hashtag({ cat, workInfo, lifeInfo }) {
+  // const [ hashtag, setHashtag] = useState([]);
+  let tags = null;
+  if (workInfo != [] && lifeInfo != []) {
+    if (cat == "work") {
+      console.log(workInfo.hashtag);
+      let x = workInfo.hashtag;
+      tags = x.map((item, index) => (
+        <span key={index} className="Hashtag TextS">
+          #{item}
+        </span>
+      ));
+    } else {
+      console.log(lifeInfo.hashtag);
+      let x = lifeInfo.hashtag;
+      tags = x.map((item, index) => (
+        <span key={index} className="Hashtag TextS">
+          #{item}
+        </span>
+      ));
+    }
+  }
+
   return (
-    // <div className="Hashtags">
-    <span className="Hashtag TextS"># {props.text}</span>
-    // {/* <span className="TextM theme bold"> >>> +</span> */}
-    // </div>
+    <ul className="Hashtags">
+      <span>{tags}</span>
+    </ul>
   );
 }
 

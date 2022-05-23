@@ -13,6 +13,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
+import { render } from "react-dom";
 
 function ProjectInfo({
   cat,
@@ -44,6 +45,9 @@ function ProjectInfo({
     fetchInfo(cat);
     //   // docListener();
   }, []);
+
+  //------------------------------------------------------------------------------
+
   return (
     <div className="ProjectInfo ">
       <div className="projectName">
@@ -53,8 +57,15 @@ function ProjectInfo({
         <div className="TextS">2021/12/27 ~ 2022/07/08</div>
       </div>
       <span className="Hashtags TextS">
-        <Hashtag text="Hashtag01" />
-        <Hashtag text="Hashtag02" />
+        <ul className="Hashtags">
+          <li className="Hashtag TextS"># Hashtag</li>
+          <li className="Hashtag TextS"># Hashtag</li>
+          {/* <li className="Hashtag TextS">
+            {cat == "work"
+              ? "#" + workInfo.hashtag[0]
+              : "#" + workInfo.hashtag[1]}
+          </li> */}
+        </ul>
         <button onClick={addHashTag} className="TextS theme bold">
           {" "}
           >>>+{" "}

@@ -4,6 +4,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  setDoc,
   addDoc,
   deleteDoc,
   query,
@@ -126,7 +127,8 @@ function TaskList({
   async function handleAddTasktoDb() {
     try {
       // let newTaskID = Date.now().toString();
-      const docRef = await addDoc(collection(db, "jx-tasks"), {
+      let docID = "t-" + Date.now().toString();
+      const docRef = await setDoc(doc(db, "jx-tasks", docID), {
         balanced: true,
         cat: cat,
         content: inputText,
@@ -134,12 +136,12 @@ function TaskList({
         note: "",
         projectID: projectID,
         start: Timestamp.fromDate(new Date(clickDate)),
-        taskID: Date.now().toString(),
+        taskID: docID,
       });
       setClickPosition(null);
       setInputText("");
 
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Document written with ID: ", docID);
     } catch (event) {
       console.error("Error adding document: ", event);
     }
@@ -149,21 +151,14 @@ function TaskList({
 
   // DELETE(deleteBtn)
   async function handleDeleteTask(event) {
-    // console.log(Tasks[2].taskID);
-    // console.log(event.target.parentNode.parentNode.value);
-    // console.log(event.target.value === "t-1652972288422");
-    const q = query(
-      collection(db, "jx-tasks"),
-      where(
-        "taskID",
-        "===",
+    await deleteDoc(
+      doc(
+        db,
+        "jx-tasks",
         event.target.parentElement.parentElement.getAttribute("value")
       )
     );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(async (docItem) => {
-      await deleteDoc(doc(db, "jx-tasks", docItem.id));
-    });
+    console.log(event.target.parentNode.parentNode.getAttribute("value"));
   }
 
   //--------------------------------------------------if else statement -----------------------------------------//
@@ -233,7 +228,6 @@ function TaskList({
     <li
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
-      onClick={handleDeleteTask}
       className="Task TextS"
       key={item.taskID}
       value={item.taskID}
@@ -259,7 +253,6 @@ function TaskList({
       </span>
       <svg
         className="editBtn"
-        onClick={handleDeleteTask}
         style={{
           display: "none",
           height: 22,
