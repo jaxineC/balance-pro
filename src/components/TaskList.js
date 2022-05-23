@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   addDoc,
   deleteDoc,
@@ -9,52 +10,83 @@ import {
   where,
   onSnapshot,
   Timestamp,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 
 // render Tasks (fetch from firestore)
 // update Tasks (stretch/drag/delete)
 function TaskList({
+  projectID,
   cat,
   ZDay,
   XPosition,
-  Tasks,
   clickPosition,
   setClickPosition,
   clickDate,
 }) {
-  //--------------------------------------------------fetch & listen---------------------------------------//
-  //--------------------------------------------------fetch & listen---------------------------------------//
+  const [WTasks, setWTasks] = useState([]);
+  const [LTasks, setLTasks] = useState([]);
+  const [Tasks, setTasks] = useState([]);
 
+  //--------------------------------------------------fetch & listen---------------------------------------//
+  //--------------------------------------------------fetch & listen---------------------------------------//
   // init fetch from firestore
-  // async function fetchTasks() {
-  //   const dataRef = collection(db, "jx-tasks");
-  //   const q = query(dataRef, orderBy("start"));
-  //   const querySnapshot = await getDocs(q);
-  //   let initTasks = [];
-  //   querySnapshot.forEach((doc) => {
-  //     initTasks = [...initTasks, doc.data()];
-  //   });
-  //   setTasks(initTasks);
-  // }
-
+  async function fetchTasks(cat, projectID) {
+    if (cat === "work") {
+      const dataRef = collection(db, "jx-tasks");
+      const q1 = query(dataRef, where("projectID", "==", projectID));
+      const q2 = query(q1, orderBy("start"));
+      const querySnapshot = await getDocs(q2);
+      let initTasks = [];
+      querySnapshot.forEach((doc) => {
+        initTasks = [...initTasks, doc.data()];
+      });
+      setWTasks(initTasks);
+      setTasks(initTasks);
+    } else {
+      const dataRef = collection(db, "jx-tasks");
+      const q1 = query(dataRef, where("projectID", "==", projectID));
+      const q2 = query(q1, orderBy("start"));
+      const querySnapshot = await getDocs(q2);
+      let initTasks = [];
+      querySnapshot.forEach((doc) => {
+        initTasks = [...initTasks, doc.data()];
+      });
+      setTasks(initTasks);
+    }
+  }
   // listen: todos collection
-  // function docListener() {
-  //   const dataRef = collection(db, "jx-tasks");
-  //   const q = query(dataRef, orderBy("start"));
-  //   const unsubscribe = onSnapshot(q, (changedSnapshot) => {
-  //     let updatedTasks = [];
-  //     changedSnapshot.forEach((doc) => {
-  //       updatedTasks = [...updatedTasks, doc.data()];
-  //     });
-  //     setTasks(updatedTasks);
-  //   });
-  // }
+  function docListener(cat, projectID) {
+    if (cat === "work") {
+      const dataRef = collection(db, "jx-tasks");
+      const q1 = query(dataRef, where("projectID", "==", projectID));
+      const q2 = query(q1, orderBy("start"));
+      const unsubscribe = onSnapshot(q2, (changedSnapshot) => {
+        let updatedTasks = [];
+        changedSnapshot.forEach((doc) => {
+          updatedTasks = [...updatedTasks, doc.data()];
+        });
+        setTasks(updatedTasks);
+      });
+    } else {
+      const dataRef = collection(db, "jx-tasks");
+      const q1 = query(dataRef, where("projectID", "==", projectID));
+      const q2 = query(q1, orderBy("start"));
+      const unsubscribe = onSnapshot(q2, (changedSnapshot) => {
+        let updatedTasks = [];
+        changedSnapshot.forEach((doc) => {
+          updatedTasks = [...updatedTasks, doc.data()];
+        });
+        setTasks(updatedTasks);
+      });
+    }
+  }
 
-  // useEffect(() => {
-  //   fetchTasks();
-  //   docListener();
-  // }, []);
+  useEffect(() => {
+    fetchTasks(cat, projectID);
+    docListener(cat, projectID);
+  }, []);
 
   //--------------------------------------------------useState & variables---------------------------------------//
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -66,6 +98,7 @@ function TaskList({
   function handleChildClick(e) {
     e.stopPropagation();
   }
+
   let handleHover = (event) => {
     // console.log(event.target.children[0]);
     if (event.target.children[0].style.display === "none") {
@@ -99,7 +132,7 @@ function TaskList({
         content: inputText,
         end: Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7)),
         note: "",
-        projectID: "3uNnaOyYZQnAdO0oB5jQ",
+        projectID: projectID,
         start: Timestamp.fromDate(new Date(clickDate)),
         taskID: Date.now().toString(),
       });

@@ -29,7 +29,7 @@ function AddProject() {
 
   async function handleAddProject() {
     let col = "jx-projects";
-    let docID = Date.now().toString();
+    let docID = "T-" + Date.now().toString();
     let data = {
       balanced: false,
       cat: category,

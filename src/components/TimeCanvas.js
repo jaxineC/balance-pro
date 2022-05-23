@@ -12,6 +12,7 @@ function TimeCanvas({
   clickPosition,
   clickDate,
   setClickPosition,
+  projectID,
 }) {
   // ---------------------------------------------get how many weeks to render
   // let clientW = window.innerWidth;
@@ -46,6 +47,7 @@ function TimeCanvas({
         clickPosition={clickPosition}
         clickDate={clickDate}
         setClickPosition={setClickPosition}
+        projectID={projectID}
       />
       {frames}
     </div>

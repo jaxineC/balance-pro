@@ -28,68 +28,53 @@ function ProjectPage({
   setSelectedProjects,
 }) {
   const [XPosition, setXPosition] = useState(1220); //let top and bottom timelines scroll synchronizely
-  const [Tasks, setTasks] = useState([]);
+  // const [Tasks, setTasks] = useState([]);
 
   // init fetch from firestore
-  async function fetchTasks() {
-    const dataRef = collection(db, "jx-tasks");
-    const q = query(dataRef, orderBy("start"));
-    const querySnapshot = await getDocs(q);
-    let initTasks = [];
-    querySnapshot.forEach((doc) => {
-      initTasks = [...initTasks, doc.data()];
-    });
-    setTasks(initTasks);
-  }
+  // async function fetchTasks() {
+  //   const dataRef = collection(db, "jx-tasks");
+  //   const q = query(dataRef, orderBy("start"));
+  //   const querySnapshot = await getDocs(q);
+  //   let initTasks = [];
+  //   querySnapshot.forEach((doc) => {
+  //     initTasks = [...initTasks, doc.data()];
+  //   });
+  //   setTasks(initTasks);
+  // }
 
   // listen: todos collection
-  function docListener() {
-    const dataRef = collection(db, "jx-tasks");
-    const q = query(dataRef, orderBy("start"));
-    const unsubscribe = onSnapshot(q, (changedSnapshot) => {
-      let updatedTasks = [];
-      changedSnapshot.forEach((doc) => {
-        updatedTasks = [...updatedTasks, doc.data()];
-      });
-      setTasks(updatedTasks);
-    });
-  }
+  // function docListener() {
+  //   const dataRef = collection(db, "jx-tasks");
+  //   const q = query(dataRef, orderBy("start"));
+  //   const unsubscribe = onSnapshot(q, (changedSnapshot) => {
+  //     let updatedTasks = [];
+  //     changedSnapshot.forEach((doc) => {
+  //       updatedTasks = [...updatedTasks, doc.data()];
+  //     });
+  //     setTasks(updatedTasks);
+  //   });
+  // }
 
-  useEffect(() => {
-    fetchTasks();
-    docListener();
-  }, []);
-
+  // useEffect(() => {
+  //   fetchTasks();
+  //   docListener();
+  // }, []);
   return (
     <main className="ProjectPage">
-      <ProjectInfo
-        cat="work"
-        Tasks={Tasks}
-        setTasks={setTasks}
-        selectedProjects={selectedProjects}
-      />
+      <ProjectInfo cat="work" selectedProjects={selectedProjects} />
       <Timeline
         cat="work"
-        projectID={Tasks.projectID}
+        projectID={selectedProjects[0]}
         XPosition={XPosition}
         setXPosition={setXPosition}
-        Tasks={Tasks}
-        setTasks={setTasks}
       />
       <Unfold />
-      <ProjectInfo
-        cat="life"
-        projectID={Tasks.projectID}
-        Tasks={Tasks}
-        setTasks={setTasks}
-        selectedProjects={selectedProjects}
-      />
+      <ProjectInfo cat="life" selectedProjects={selectedProjects} />
       <Timeline
         cat="life"
-        projectID={Tasks.projectID}
+        projectID={selectedProjects[1]}
         XPosition={XPosition}
         setXPosition={setXPosition}
-        Tasks={Tasks}
       />
       <DisplayMode />
       <QuickAccess />

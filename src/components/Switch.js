@@ -12,7 +12,6 @@ function Switch({
       : setChecked((checked -= 1));
 
     let list = selectedProjects;
-    console.log(list);
     if (event.target.checked) {
       list.push(event.target.parentNode.parentNode.getAttribute("value"));
       setSelectedProjects(list);
@@ -22,7 +21,6 @@ function Switch({
           item !== event.target.parentNode.parentNode.getAttribute("value")
       );
       setSelectedProjects(list);
-      console.log(selectedProjects);
     }
   }
   return (

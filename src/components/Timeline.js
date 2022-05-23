@@ -67,6 +67,7 @@ function Timeline({ cat, projectID, XPosition, setXPosition, Tasks }) {
         clickPosition={clickPosition}
         clickDate={clickDate}
         setClickPosition={setClickPosition}
+        projectID={projectID}
       />
       {tempBlankTask}
     </div>
