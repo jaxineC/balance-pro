@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { render } from "react-dom";
+import { fetchAllData } from "./dbCRUD";
 
 function ProjectInfo({
   cat,
@@ -55,16 +56,9 @@ function ProjectInfo({
     } else {
       const docRef = doc(db, "jx-projects", selectedProjects[1]);
       const unsubscribe = onSnapshot(docRef, (changedSnapshot) => {
-        let updatedTasks = [];
-        changedSnapshot.forEach((doc) => {
-          updatedTasks = [...updatedTasks, doc.data()];
-        });
-        let updatedTags = [];
-        changedSnapshot.forEach((doc) => {
-          updatedTags = [...updatedTags, doc.data().hashtag];
-        });
-        setprojectInfo(updatedTasks);
-        setHashtag(doc.data().hashtag);
+        let updatedInfo = changedSnapshot.data();
+        setprojectInfo(updatedInfo);
+        setHashtag(updatedInfo.hashtag);
       });
     }
   }
@@ -83,7 +77,6 @@ function ProjectInfo({
     </li>
   ));
 
-  console.log(hashtag);
   return (
     <div className="ProjectInfo ">
       <div className="projectName">

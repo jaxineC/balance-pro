@@ -6,6 +6,7 @@ import {
   getDocs,
   setDoc,
   addDoc,
+  updateDoc,
   deleteDoc,
   query,
   where,
@@ -26,13 +27,17 @@ function TaskList({
   setClickPosition,
   clickDate,
 }) {
-  const [WTasks, setWTasks] = useState([]);
-  const [LTasks, setLTasks] = useState([]);
+  const [isEditTask, setIsEditTask] = useState(false);
   const [Tasks, setTasks] = useState([]);
   const [onMouseMove, setOnMouseMove] = useState(0);
+  const [contentInput, setContentInput] = useState(0);
+  const [noteInput, setNoteInput] = useState(0);
+  const [startDateInput, setStartDateInput] = useState(0);
+  const [endDateInput, setEndDateInput] = useState(0);
+
   function handleMouseDragX(event) {
     // event.stopImmediatePropagation();
-    console.log(event.clientX);
+    // console.log(event.clientX);
   }
 
   //--------------------------------------------------fetch & listen---------------------------------------//
@@ -125,6 +130,8 @@ function TaskList({
     }
   };
 
+  function handleInput() {}
+
   //--------------------------------------------------CRUD------------------------------------------------------//
   //--------------------------------------------------CRUD------------------------------------------------------//
   //CREATE(addBtn)
@@ -152,9 +159,23 @@ function TaskList({
   }
 
   // UPDATE(editBtn)
-  function handleDrag() {
-    console.log("hi");
+  async function handleEdit(event) {
+    const queryRef = doc(
+      db,
+      "jx-tasks",
+      event.target.parentElement.parentElement.getAttribute("value")
+    );
+    await updateDoc(queryRef, {
+      content: true,
+      end: true,
+      note: true,
+      projectID: true,
+      start: true,
+    });
   }
+  function handleInput() {}
+  function handleDrag() {}
+  function handleStretch() {}
 
   // DELETE(deleteBtn)
   async function handleDeleteTask(event) {
@@ -231,6 +252,9 @@ function TaskList({
   //--------------------------------------------------RENDER------------------------------------------------------//
   //--------------------------------------------------RENDER------------------------------------------------------//
 
+  function renderEditTask() {
+    setIsEditTask(true);
+  }
   const taskItems = Tasks.map((item) => (
     <li
       onDrag={handleDrag}
@@ -262,6 +286,7 @@ function TaskList({
         {item.note}
       </span>
       <svg
+        onClick={renderEditTask}
         className="editBtn"
         style={{
           display: "none",
@@ -322,6 +347,71 @@ function TaskList({
     <ul onClick={handleChildClick} className="TaskList TextS">
       {taskItems}
       {tempNewTask}
+      <div
+        style={{
+          width: 300,
+          backgroundColor: "rgb(230, 242, 82, 0.8)",
+          boxShadow: "1px 3px 8px #cccccc",
+          position: "fixed",
+          top: 150,
+          display: isEditTask === true ? "grid" : "none",
+          borderStyle: "solid",
+          borderWidth: 1,
+          borderColor: "#cccccc",
+          borderRadius: 5,
+          padding: 15,
+          gridTemplateColumns: "35% 65%",
+        }}
+        className="TextM Modal"
+      >
+        <label>Task content</label>
+        <input
+          onChange={(event) => setContentInput(event.target.value)}
+          value={contentInput}
+          placeholder="Task content"
+          className="contentInput"
+        ></input>
+
+        <label>Note</label>
+        <input
+          onChange={(event) => setNoteInput(event.target.value)}
+          value={noteInput}
+          placeholder=""
+          className="startInput"
+        ></input>
+
+        <label>Start from</label>
+        <input
+          onChange={(event) => setStartDateInput(event.target.value)}
+          value={startDateInput}
+          // value={Date.now().strftime("%Y-%m-%d")}
+          type="date"
+          className="startInput"
+        ></input>
+
+        <label>End on</label>
+        <input
+          onChange={(event) => setEndDateInput(event.target.value)}
+          value={endDateInput}
+          // value={Date.now().strftime("%Y-%m-%d")}
+          type="date"
+          className="startInput"
+        ></input>
+        <button
+          style={{
+            height: 25,
+            width: 80,
+            border: "1px solid #cccccc",
+            borderRadius: 5,
+            backgroundColor: "blueviolet",
+            color: "white",
+          }}
+          onClick={handleEdit}
+          type="button"
+        >
+          Confirm
+        </button>
+      </div>
     </ul>
   );
 }

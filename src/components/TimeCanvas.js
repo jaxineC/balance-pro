@@ -33,7 +33,6 @@ function TimeCanvas({
 
   // ---------------------------------------------variables for rendering styles
   const divStyle = {
-    color: "red",
     backgroundColor: "#ffffff",
   };
 

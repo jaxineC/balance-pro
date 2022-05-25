@@ -23,7 +23,7 @@ function AddProject() {
   const [nameInput, setNameInput] = useState("");
   const [startDateInput, setStartDateInput] = useState("");
 
-  function showNewProjectModal() {
+  function RenderNewProjectModal() {
     setIsAddProject(true);
   }
 
@@ -54,7 +54,7 @@ function AddProject() {
   }
   return (
     <div className="AddProject">
-      <button onClick={showNewProjectModal} type="button" className="TextM">
+      <button onClick={RenderNewProjectModal} type="button" className="TextM">
         + New Project
       </button>
       <div

@@ -11,11 +11,12 @@ import {
   limit,
   onSnapshot,
 } from "firebase/firestore";
+import { db } from "../firebase.js";
 
 // Create ------------------------------------------------------------------------------------------
 // const taskID = Date.now().toString();
 // let docID = taskID;
-async function addData(db, col, docID, data) {
+async function addData(col, docID, data) {
   try {
     // const docRef = await addDoc(collection(db, col), data);
     await setDoc(doc(db, col, docID), data);
@@ -26,12 +27,13 @@ async function addData(db, col, docID, data) {
 }
 
 // Read - get data once----------------------------------------------------------------------------
-async function fetchAllData(db, col, docID) {
+async function fetchAllData(col, docID) {
   const docRef = doc(db, col, docID);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
+    return docSnap.data();
+    // console.log("Document data:", docSnap.data());
   } else {
     // doc.data() will be undefined in this case
     console.log("No such document!");
@@ -39,7 +41,7 @@ async function fetchAllData(db, col, docID) {
 }
 
 // Read - with query ------------------------------------------------------------------------
-async function fetchData(db, col, cat) {
+async function fetchData(cat, col, docID) {
   const dataRef = query(collection(db, col));
   const q = query(dataRef, where("cat", "==", cat));
   const querySnapshot = await getDocs(q);
