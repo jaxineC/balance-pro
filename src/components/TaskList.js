@@ -17,11 +17,9 @@ import {
 import { db } from "../firebase.js";
 import EditTaskModal from "./EditTaskModal.js";
 import AddTaskModal from "./AddTaskModal.js";
-
 import Task from "./Task.js";
 
 // render Tasks (fetch from firestore)
-// update Tasks (stretch/drag/delete)
 function TaskList({
   cat,
   clickPosition,

@@ -23,32 +23,50 @@ import StretchBtn from "./StretchBtn.js";
 function Task({ item, Tasks, setTargetTask, setIsEditTask }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
+  const [isDrag, setIsDrag] = useState(false);
   const [initMouseClientX, setInitMouseClientX] = useState(0);
+  const [clientMouseX, setClientMouseX] = useState(0);
+  const [deltaX, setDeltaX] = useState(0);
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
   // react
-  function handleDrag(event) {
-    // event.stopImmediatePropagation();
-    // console.log(event.clientX);
-    // console.log(event.target.getAttribute("value"));
-    // console.log(event.target.style.left);
+
+  function initDrag(event) {
+    setIsDrag(true);
     setInitMouseClientX(event.clientX);
   }
 
-  // firestore
-  function handleDrop(event) {
-    // console.log(event.clientX);
-    // console.log(event.target.getAttribute("value"));
-    // console.log(event.clientX - initMouseClientX);
-    event.target.style.left =
-      event.target.style.left + event.clientX - initMouseClientX;
-    // setMouseClientX(event.clientX);
-    // event.stopImmediatePropagation();
-    // console.log(event.clientX);
+  function endDrag(event) {
+    setIsDrag(false);
+    let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
+    console.log(x);
+    console.log(item.start.seconds);
+    console.log(item.start.seconds + x);
+    console.log(new Date(item.start.seconds));
+    console.log(new Date(item.start.seconds + x));
+    // updateData(db, "jx-tasks", item.taskID, {
+    //   end: new Date((item.end.seconds + x) * 1000),
+    //   start: new Date((item.start.seconds + x) * 1000),
+    // });
+  }
+
+  async function updateData(db, col, docID, data) {
+    const queryRef = doc(db, col, docID);
+    await updateDoc(queryRef, data);
+  }
+
+  function handleDrag(event) {
+    if (isDrag) {
+      // setClientMouseX(event.clientX);
+      let x = event.clientX - initMouseClientX;
+      setDeltaX(x);
+      // console.log(x);
+    }
   }
 
   function handleHover(event) {
+    // useState later
     //taskNote
     if (event.target.children[0].style.display === "none") {
       event.target.children[0].style.display = "inline";
@@ -94,8 +112,9 @@ function Task({ item, Tasks, setTargetTask, setIsEditTask }) {
   //--------------------------------------------------RENDER-----------------------------------------------------//
   return (
     <li
-      onMouseDown={handleDrag}
-      onMouseUp={handleDrop}
+      onMouseDown={initDrag}
+      onMouseUp={endDrag}
+      onMouseMove={handleDrag}
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
       className="Task TextS"
@@ -104,7 +123,9 @@ function Task({ item, Tasks, setTargetTask, setIsEditTask }) {
         width: ((item.end - item.start) / (60 * 60 * 24)) * 20,
         top: Tasks.indexOf(item) * 22,
         left:
-          1220 + Math.floor((item.start.toDate() - Date.now()) / 86400000) * 20,
+          1220 +
+          Math.floor((item.start.toDate() - Date.now()) / 86400000) * 20 +
+          deltaX,
       }}
     >
       {item.content}
