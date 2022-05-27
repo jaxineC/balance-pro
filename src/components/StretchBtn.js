@@ -99,7 +99,7 @@ function StretchBtn({ date, item }) {
         x="0px"
         y="0px"
         viewBox="76 -76 512 512"
-        enable-background="new 76 -76 512 512"
+        enableBackground="new 76 -76 512 512"
       >
         {path}
       </svg>
