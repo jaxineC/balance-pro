@@ -127,6 +127,10 @@ ul {
 }
 
 /* ----------------------------------element---------------------------------- */
+.stretchBtn {
+  cursor: col-resize;
+}
+
 .projectName {
   width: 150px;
   white-space: nowrap;

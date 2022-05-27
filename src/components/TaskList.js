@@ -38,13 +38,31 @@ function TaskList({
   const [isEditTask, setIsEditTask] = useState(false);
   const [Tasks, setTasks] = useState([]);
   const [targetTask, setTargetTask] = useState("");
+  const [initMouseClientX, setInitMouseClientX] = useState(0);
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
-  function handleMouseDragX(event) {
+  // react
+  function handleDrag(event) {
+    // event.stopImmediatePropagation();
+    // console.log(event.clientX);
+    // console.log(event.target.getAttribute("value"));
+    // console.log(event.target.style.left);
+    setInitMouseClientX(event.clientX);
+  }
+
+  // firestore
+  function handleDrop(event) {
+    // console.log(event.clientX);
+    // console.log(event.target.getAttribute("value"));
+    // console.log(event.clientX - initMouseClientX);
+    event.target.style.left =
+      event.target.style.left + event.clientX - initMouseClientX;
+    // setMouseClientX(event.clientX);
     // event.stopImmediatePropagation();
     // console.log(event.clientX);
   }
+
   function handleChildClick(e) {
     e.stopPropagation();
   }
@@ -88,8 +106,6 @@ function TaskList({
     setTargetTask(docID);
     setIsEditTask(true);
   }
-
-  function handleDrag() {}
 
   //--------------------------------------------------CRUD-------------------------------------------------------// 2
   //--------------------------------------------------CRUD-------------------------------------------------------//
@@ -153,8 +169,8 @@ function TaskList({
   //--------------------------------------------------RENDER-----------------------------------------------------//
   const taskItems = Tasks.map((item) => (
     <li
-      onClick={renderEditTaskModal}
-      onDrag={handleDrag}
+      onMouseDown={handleDrag}
+      onMouseUp={handleDrop}
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
       className="Task TextS"
@@ -181,6 +197,7 @@ function TaskList({
         {item.note}
       </span>
       <svg
+        onClick={renderEditTaskModal}
         className="editBtn"
         style={{
           display: "none",
