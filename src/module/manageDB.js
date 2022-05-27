@@ -4,12 +4,14 @@ import {
   setDoc,
   getDoc, //get data once
   getDocs,
+  updateDoc,
   deleteDoc,
   query,
   orderBy,
   where,
   limit,
   onSnapshot,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 
@@ -27,7 +29,7 @@ async function addData(col, docID, data) {
 }
 
 // Read - get data once----------------------------------------------------------------------------
-async function fetchAllData(col, docID) {
+async function fetchData(col, docID) {
   const docRef = doc(db, col, docID);
   const docSnap = await getDoc(docRef);
 
@@ -41,7 +43,7 @@ async function fetchAllData(col, docID) {
 }
 
 // Read - with query ------------------------------------------------------------------------
-async function fetchData(cat, col, docID) {
+async function fetchQueryResult(cat, col, docID) {
   const dataRef = query(collection(db, col));
   const q = query(dataRef, where("cat", "==", cat));
   const querySnapshot = await getDocs(q);
@@ -68,8 +70,8 @@ function docListener() {}
 
 export {
   addData,
-  fetchAllData,
   fetchData,
+  fetchQueryResult,
   updateData,
   deleteData,
   docListener,

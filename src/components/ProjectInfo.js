@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { render } from "react-dom";
-import { fetchAllData } from "./dbCRUD";
+import { fetchAllData } from "../module/manageDB.js";
 
 function ProjectInfo({
   cat,

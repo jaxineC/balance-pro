@@ -1,13 +1,15 @@
 import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
-import { render } from "@testing-library/react";
+import { getDefaultNormalizer, render } from "@testing-library/react";
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import DateBar from "./DateBar";
 import TimeCanvas from "./TimeCanvas";
 
 function Timeline({ cat, projectID, XPosition, setXPosition, Tasks }) {
+  //--------------------------------------------------useState & variables---------------------------------------// 0
+  //--------------------------------------------------useState & variables---------------------------------------//
+  const [isAddTask, setIsAddTask] = useState(false);
   const [clickPosition, setClickPosition] = useState(null);
-  const [mouseDragX, setMouseDragX] = useState(0);
   const [clickDate, setClickDate] = useState(0); //delelte this after 5/23
   const [ZDay, setZDay] = useState({
     TODAY: 0,
@@ -17,15 +19,22 @@ function Timeline({ cat, projectID, XPosition, setXPosition, Tasks }) {
     DAY: 0,
     MondayDate: 0,
   });
-
-  let tempBlankTask = "";
-
   const refContainer = useRef();
   useEffect(() => {
     // scrollLeft(1200);
     refContainer.current.scrollLeft = 20 * (8 * 7 + ZDay.DAY - 1); //前面 8周, 考慮改用let prevWk 計算, 重複用
     // setXPosition(refContainer.current.scrollLeft);
   }, []);
+
+  //--------------------------------------------------handle event-----------------------------------------------// 1
+  //--------------------------------------------------handle event-----------------------------------------------//
+  function handleAddTask(event) {
+    getDate(event);
+    if (isAddTask) {
+      setIsAddTask(false);
+    }
+    // renderAddTaskModal();
+  }
 
   function getDate(event) {
     // find current 0,0 date on screen (scroll adjust days +click plusdays)
@@ -38,7 +47,7 @@ function Timeline({ cat, projectID, XPosition, setXPosition, Tasks }) {
     setXPosition(refContainer.current.scrollLeft); //temp
     setClickPosition(Math.floor(event.clientX / 20) * 20);
 
-    function renderBlankTask() {
+    function renderAddTaskModal() {
       //取得滑鼠在畫面距離0,0位差/20 = 以昨天為基準加幾天
       let clickX = Math.floor(event.clientX / 20);
       //然後取得 (scroollLeft-1200)/20 = 畫面往未來移幾天 => 昨天加點差+滑動差 = 使用者點的日子
@@ -49,15 +58,20 @@ function Timeline({ cat, projectID, XPosition, setXPosition, Tasks }) {
         ) + 1;
       let addNewTaskStartDate =
         ZDay.TODAY + (clickX + scrollPass - 1) * (1000 * 86400);
+
+      setIsAddTask(true);
       console.log("Clicked on " + new Date(addNewTaskStartDate));
     }
-    renderBlankTask();
+
+    renderAddTaskModal();
   }
 
-  // ---------------------------------------------variables for rendering styles
-
+  //--------------------------------------------------CRUD-------------------------------------------------------// 2
+  //--------------------------------------------------CRUD-------------------------------------------------------//
+  //--------------------------------------------------RENDER-----------------------------------------------------// 3
+  //--------------------------------------------------RENDER-----------------------------------------------------//
   return (
-    <div onClick={getDate} className="Timeline " ref={refContainer}>
+    <div onClick={handleAddTask} className="Timeline " ref={refContainer}>
       <DateBar setZDay={setZDay} ZDay={ZDay} />
       <TimeCanvas
         cat={cat}
@@ -68,8 +82,9 @@ function Timeline({ cat, projectID, XPosition, setXPosition, Tasks }) {
         clickDate={clickDate}
         setClickPosition={setClickPosition}
         projectID={projectID}
+        isAddTask={isAddTask}
       />
-      {tempBlankTask}
+      {/* {tempBlankTask} */}
     </div>
   );
 }

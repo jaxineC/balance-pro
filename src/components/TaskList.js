@@ -2,46 +2,97 @@ import React, { useState, useEffect } from "react";
 import {
   collection,
   doc,
-  getDoc,
-  getDocs,
   setDoc,
-  addDoc,
+  getDoc, //get data once
+  getDocs,
   updateDoc,
   deleteDoc,
   query,
+  orderBy,
   where,
+  limit,
   onSnapshot,
   Timestamp,
-  orderBy,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
+import EditTaskModal from "./EditTaskModal.js";
+import AddTaskModal from "./AddTaskModal.js";
+import DeleteBtn from "./DeleteBtn.js";
+import StretchBtn from "./StretchBtn.js";
 
 // render Tasks (fetch from firestore)
 // update Tasks (stretch/drag/delete)
 function TaskList({
-  projectID,
   cat,
-  ZDay,
-  XPosition,
   clickPosition,
-  setClickPosition,
   clickDate,
+  isAddTask,
+  projectID,
+  setClickPosition,
+  XPosition,
+  ZDay,
+  setIsAddTask,
 }) {
+  //--------------------------------------------------useState & variables---------------------------------------// 0
+  //--------------------------------------------------useState & variables---------------------------------------//
   const [isEditTask, setIsEditTask] = useState(false);
   const [Tasks, setTasks] = useState([]);
-  const [onMouseMove, setOnMouseMove] = useState(0);
-  const [contentInput, setContentInput] = useState(0);
-  const [noteInput, setNoteInput] = useState(0);
-  const [startDateInput, setStartDateInput] = useState(0);
-  const [endDateInput, setEndDateInput] = useState(0);
+  const [targetTask, setTargetTask] = useState("");
 
+  //--------------------------------------------------handle event-----------------------------------------------// 1
+  //--------------------------------------------------handle event-----------------------------------------------//
   function handleMouseDragX(event) {
     // event.stopImmediatePropagation();
     // console.log(event.clientX);
   }
+  function handleChildClick(e) {
+    e.stopPropagation();
+  }
 
-  //--------------------------------------------------fetch & listen---------------------------------------//
-  //--------------------------------------------------fetch & listen---------------------------------------//
+  function handleHover(event) {
+    //taskNote
+    if (event.target.children[0].style.display === "none") {
+      event.target.children[0].style.display = "inline";
+    } else {
+      event.target.children[0].style.display = "none";
+    }
+    //editBtn
+    if (event.target.children[1].style.display === "none") {
+      event.target.children[1].style.display = "inline";
+    } else {
+      event.target.children[1].style.display = "none";
+    }
+    //stretchBtn
+    if (event.target.children[2].style.display === "none") {
+      event.target.children[2].style.display = "inline";
+    } else {
+      event.target.children[2].style.display = "none";
+      // event.target.children[2].children[0].fill = "rgb(152,152,152)";
+    }
+    //stretchBtn
+    if (event.target.children[3].style.display === "none") {
+      event.target.children[3].style.display = "inline";
+    } else {
+      event.target.children[3].style.display = "none";
+    }
+    //deleteBtn
+    if (event.target.children[4].style.display === "none") {
+      event.target.children[4].style.display = "inline";
+    } else {
+      event.target.children[4].style.display = "none";
+    }
+  }
+
+  function renderEditTaskModal(event) {
+    let docID = event.target.getAttribute("value");
+    setTargetTask(docID);
+    setIsEditTask(true);
+  }
+
+  function handleDrag() {}
+
+  //--------------------------------------------------CRUD-------------------------------------------------------// 2
+  //--------------------------------------------------CRUD-------------------------------------------------------//
   // init fetch from firestore
   async function fetchTasks(cat, projectID) {
     if (cat === "work") {
@@ -98,168 +149,12 @@ function TaskList({
     docListener(cat, projectID);
   }, []);
 
-  //--------------------------------------------------useState & variables---------------------------------------//
-  //--------------------------------------------------useState & variables---------------------------------------//
-  const [inputText, setInputText] = useState("");
-  let tempNewTask = "";
-
-  //--------------------------------------------------handle event-----------------------------------------------//
-  //--------------------------------------------------handle event-----------------------------------------------//
-  function handleChildClick(e) {
-    e.stopPropagation();
-  }
-
-  let handleHover = (event) => {
-    // console.log(event.target.children[0]);
-    if (event.target.children[0].style.display === "none") {
-      event.target.children[0].style.display = "inline";
-    } else {
-      event.target.children[0].style.display = "none";
-    }
-    if (event.target.children[1].style.display === "none") {
-      event.target.children[1].style.display = "inline";
-    } else {
-      event.target.children[1].style.display = "none";
-    }
-    if (event.target.children[2].style.display === "none") {
-      event.target.children[2].style.display = "inline";
-      // event.target.children[2].children[0].fill = "rgb(138,43,226)";
-    } else {
-      event.target.children[2].style.display = "none";
-      event.target.children[2].children[0].fill = "rgb(152,152,152)";
-    }
-  };
-
-  function handleInput() {}
-
-  //--------------------------------------------------CRUD------------------------------------------------------//
-  //--------------------------------------------------CRUD------------------------------------------------------//
-  //CREATE(addBtn)
-  async function handleAddTasktoDb() {
-    try {
-      // let newTaskID = Date.now().toString();
-      let docID = "t-" + Date.now().toString();
-      const docRef = await setDoc(doc(db, "jx-tasks", docID), {
-        balanced: true,
-        cat: cat,
-        content: inputText,
-        end: Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7)),
-        note: "",
-        projectID: projectID,
-        start: Timestamp.fromDate(new Date(clickDate)),
-        taskID: docID,
-      });
-      setClickPosition(null);
-      setInputText("");
-
-      console.log("Document written with ID: ", docID);
-    } catch (event) {
-      console.error("Error adding document: ", event);
-    }
-  }
-
-  // UPDATE(editBtn)
-  async function handleEdit(event) {
-    const queryRef = doc(
-      db,
-      "jx-tasks",
-      event.target.parentElement.parentElement.getAttribute("value")
-    );
-    await updateDoc(queryRef, {
-      content: true,
-      end: true,
-      note: true,
-      projectID: true,
-      start: true,
-    });
-  }
-  function handleInput() {}
-  function handleDrag() {}
-  function handleStretch() {}
-
-  // DELETE(deleteBtn)
-  async function handleDeleteTask(event) {
-    await deleteDoc(
-      doc(
-        db,
-        "jx-tasks",
-        event.target.parentElement.parentElement.getAttribute("value")
-      )
-    );
-    console.log(event.target.parentNode.parentNode.getAttribute("value"));
-  }
-
-  //--------------------------------------------------if else statement -----------------------------------------//
-  //--------------------------------------------------if else statement -----------------------------------------//
-
-  if (clickPosition) {
-    tempNewTask = (
-      <div
-        style={{
-          top: Tasks.length * 22,
-          left: clickPosition + XPosition + 130,
-          borderStyle: "none",
-          borderRadius: 5,
-          backgroundColor: "buleviolet",
-          objectFit: "scaleDown",
-        }}
-      >
-        <input
-          className="Task TextS"
-          autoFocus
-          type="text"
-          placeholder="New task"
-          value={inputText}
-          onChange={(event) => setInputText(event.target.value)}
-          style={{
-            width: 140,
-            top: Tasks.length * 22,
-            left: clickPosition + XPosition,
-            padding: 0,
-            border: 1,
-            borderStyle: "solid",
-            borderColor: "blueviolet",
-          }}
-        ></input>
-        <svg
-          className="addBtn"
-          onClick={handleAddTasktoDb}
-          style={{
-            height: 22,
-            position: "absolute",
-            left: clickPosition + XPosition + 145,
-            top: Tasks.length * 22 + 2,
-            padding: 0,
-            margin: 0,
-          }}
-          fill="none"
-          height="22"
-          viewBox="0 0 24 24"
-          width="18"
-          // xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clipRule="evenodd"
-            d="m9.02975 3.3437c1.95365-.45827 3.98685-.45827 5.94055 0 2.8213.66179 5.0242 2.86472 5.686 5.68605.4583 1.95365.4583 3.98685 0 5.94055-.6618 2.8213-2.8647 5.0242-5.686 5.686-1.9537.4583-3.9869.4583-5.94055 0-2.82133-.6618-5.02425-2.8647-5.68605-5.686-.45827-1.9537-.45827-3.9869 0-5.94056.6618-2.82133 2.86472-5.02425 5.68605-5.68604zm6.02265 7.1336c.2165-.2319.2039-.59535-.028-.8118-.2319-.21644-.5953-.20391-.8118.028l-2.9448 3.1552-1.49422-1.4942c-.22431-.2243-.58798-.2243-.81228 0-.22431.2243-.22431.588 0 .8123l1.9146 1.9146c.1101.1101.2603.1708.416.1681.1558-.0027.3037-.0685.41-.1824z"
-            fill="rgb(152, 152, 152)"
-            fillRule="evenodd"
-          />
-        </svg>
-      </div>
-    );
-  }
-
-  //--------------------------------------------------RENDER------------------------------------------------------//
-  //--------------------------------------------------RENDER------------------------------------------------------//
-
-  function renderEditTask() {
-    setIsEditTask(true);
-  }
+  //--------------------------------------------------RENDER-----------------------------------------------------// 3
+  //--------------------------------------------------RENDER-----------------------------------------------------//
   const taskItems = Tasks.map((item) => (
     <li
+      onClick={renderEditTaskModal}
       onDrag={handleDrag}
-      onMouseDown={handleMouseDragX}
-      onMouseUp={handleMouseDragX}
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
       className="Task TextS"
@@ -274,19 +169,18 @@ function TaskList({
     >
       {item.content}
       <span
-        className="TextS"
+        className="taskNote TextXS"
         style={{
+          color: "#666",
           position: "absolute",
           top: 18,
           left: 0,
           display: "none",
-          // display: "none",
         }}
       >
         {item.note}
       </span>
       <svg
-        onClick={renderEditTask}
         className="editBtn"
         style={{
           display: "none",
@@ -310,108 +204,34 @@ function TaskList({
           fillRule="evenodd"
         />
       </svg>
-      <svg
-        className="deleteBtn"
-        onClick={handleDeleteTask}
-        style={{
-          display: "none",
-          height: 22,
-          position: "absolute",
-          left: ((item.end - item.start) / (60 * 60 * 24)) * 20 + 2,
-          top: -2,
-          padding: 0,
-          margin: 0,
-        }}
-        fill="none"
-        height="22"
-        viewBox="0 0 24 24"
-        width="18"
-        // xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clipRule="evenodd"
-          d="m9.02975 3.3437c1.95365-.45827 3.98685-.45827 5.94055 0 2.8213.66179 5.0242 2.86472 5.686 5.68605.4583 1.95365.4583 3.98685 0 5.94055-.6618 2.8213-2.8647 5.0242-5.686 5.686-1.9537.4583-3.9869.4583-5.94055 0-2.82133-.6618-5.02425-2.8647-5.68605-5.686-.45827-1.9537-.45827-3.9869 0-5.94056.6618-2.82133 2.86472-5.02425 5.68605-5.68604zm1.68415 6.55788c-.2243-.22431-.588-.22431-.81232 0-.22431.22432-.22431.58802 0 .81232l1.28612 1.2861-1.28612 1.2861c-.22431.2243-.22431.588 0 .8123.22432.2243.58802.2243.81232 0l1.2861-1.2861 1.2861 1.2861c.2243.2243.588.2243.8123 0s.2243-.588 0-.8123l-1.2861-1.2861 1.2861-1.2861c.2243-.2243.2243-.588 0-.81232-.2243-.22431-.588-.22431-.8123 0l-1.2861 1.28612z"
-          fill="rgb(152,152,152)"
-          fillRule="evenodd"
-        />
-      </svg>
+      <StretchBtn date="start" item="item" />
+      <StretchBtn date="end" item="item" />
+      <DeleteBtn item="item" />
     </li>
   ));
 
-  let taskStyle = {
-    width: 140,
-    top: 20,
-    left: 1220,
-  };
   return (
     <ul onClick={handleChildClick} className="TaskList TextS">
       {taskItems}
-      {tempNewTask}
-      <div
-        style={{
-          width: 300,
-          backgroundColor: "rgb(230, 242, 82, 0.8)",
-          boxShadow: "1px 3px 8px #cccccc",
-          position: "fixed",
-          top: 150,
-          display: isEditTask === true ? "grid" : "none",
-          borderStyle: "solid",
-          borderWidth: 1,
-          borderColor: "#cccccc",
-          borderRadius: 5,
-          padding: 15,
-          gridTemplateColumns: "35% 65%",
-        }}
-        className="TextM Modal"
-      >
-        <label>Task content</label>
-        <input
-          onChange={(event) => setContentInput(event.target.value)}
-          value={contentInput}
-          placeholder="Task content"
-          className="contentInput"
-        ></input>
-
-        <label>Note</label>
-        <input
-          onChange={(event) => setNoteInput(event.target.value)}
-          value={noteInput}
-          placeholder=""
-          className="startInput"
-        ></input>
-
-        <label>Start from</label>
-        <input
-          onChange={(event) => setStartDateInput(event.target.value)}
-          value={startDateInput}
-          // value={Date.now().strftime("%Y-%m-%d")}
-          type="date"
-          className="startInput"
-        ></input>
-
-        <label>End on</label>
-        <input
-          onChange={(event) => setEndDateInput(event.target.value)}
-          value={endDateInput}
-          // value={Date.now().strftime("%Y-%m-%d")}
-          type="date"
-          className="startInput"
-        ></input>
-        <button
-          style={{
-            height: 25,
-            width: 80,
-            border: "1px solid #cccccc",
-            borderRadius: 5,
-            backgroundColor: "blueviolet",
-            color: "white",
-          }}
-          onClick={handleEdit}
-          type="button"
-        >
-          Confirm
-        </button>
-      </div>
+      <AddTaskModal
+        cat={cat}
+        clickPosition={clickPosition}
+        isAddTask={isAddTask}
+        projectID={projectID}
+        setClickPosition={setClickPosition}
+        Tasks={Tasks}
+        XPosition={XPosition}
+        setIsAddTask={setIsAddTask}
+        clickDate={clickDate}
+        targetTask={targetTask}
+        setTargetTask={setTargetTask}
+      />
+      <EditTaskModal
+        isEditTask={isEditTask}
+        setIsEditTask={setIsEditTask}
+        targetTask={targetTask}
+        setTargetTask={setTargetTask}
+      />
     </ul>
   );
 }
