@@ -6,15 +6,22 @@ import FooterSec from "./components/FooterSec";
 import IndexPage from "./pages/IndexPage";
 import ListPage from "./pages/ListPage.js";
 import ProjectPage from "./pages/ProjectPage.js";
+import SignUpModal from "./components/SignUpModal";
 
 function App() {
   const [userID, setUserID] = useState(null);
   const [projects, setProjects] = useState([]);
   const [selectedProjects, setSelectedProjects] = useState([]);
+  const [isSignUp, setIsSignUp] = useState(false);
 
   return (
     <BrowserRouter>
-      <HeaderSec />
+      <HeaderSec
+        userID={userID}
+        isSignUp={isSignUp}
+        setIsSignUp={setIsSignUp}
+      />
+      <SignUpModal isSignUp={isSignUp} setIsSignUp={setIsSignUp} />
       <Routes>
         <Route
           path="/"
@@ -45,6 +52,7 @@ function App() {
           }
         />
       </Routes>
+
       <FooterSec />
     </BrowserRouter>
   );

@@ -41,3 +41,21 @@
   background-color: #ffffff;
   color: blueviolet;
 }
+
+.SignupForm > input {
+  width: 225px;
+  height: 30px;
+  border: 1px solid;
+  border-radius: 5px;
+  border-color: #dddddd;
+}
+.SignupForm > input:hover {
+  border-color: blueviolet;
+}
+
+.SignupForm > button {
+  width: 240px;
+  height: 30px;
+  border-style: none;
+  border-radius: 15px;
+}

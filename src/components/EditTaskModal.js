@@ -16,18 +16,15 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 
-function EditTaskModal({
-  isEditTask,
-  setIsEditTask,
-  targetTask,
-  setTargetTask,
-}) {
+function EditTaskModal({ isEditTask, setIsEditTask, targetTask }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [contentInput, setContentInput] = useState("");
   const [noteInput, setNoteInput] = useState("");
-  const [startDateInput, setStartDateInput] = useState(0);
-  const [endDateInput, setEndDateInput] = useState(0);
+  const [startDateInput, setStartDateInput] = useState(Date.now());
+  const [endDateInput, setEndDateInput] = useState(
+    Date.now() + 60 * 60 * 24 * 1000
+  );
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
@@ -45,6 +42,12 @@ function EditTaskModal({
       note: noteInput,
       start: new Date(startDateInput),
     });
+    console.log("confirmed");
+    setIsEditTask(false);
+    setContentInput();
+    setNoteInput();
+    setStartDateInput();
+    setEndDateInput();
   }
 
   //--------------------------------------------------RENDER-----------------------------------------------------// 3

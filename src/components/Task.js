@@ -40,15 +40,11 @@ function Task({ item, Tasks, setTargetTask, setIsEditTask }) {
   function endDrag(event) {
     setIsDrag(false);
     let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
-    console.log(x);
-    console.log(item.start.seconds);
-    console.log(item.start.seconds + x);
-    console.log(new Date(item.start.seconds));
-    console.log(new Date(item.start.seconds + x));
-    // updateData(db, "jx-tasks", item.taskID, {
-    //   end: new Date((item.end.seconds + x) * 1000),
-    //   start: new Date((item.start.seconds + x) * 1000),
-    // });
+    updateData(db, "jx-tasks", item.taskID, {
+      end: new Date(item.end.seconds * 1000 + x),
+      start: new Date(item.start.seconds * 1000 + x),
+    });
+    setDeltaX(0);
   }
 
   async function updateData(db, col, docID, data) {
@@ -101,7 +97,9 @@ function Task({ item, Tasks, setTargetTask, setIsEditTask }) {
   }
 
   function renderEditTaskModal(event) {
-    let docID = event.target.getAttribute("value");
+    let docID = item.taskID;
+    // let docID = event.target.getAttribute("value");
+    console.log(docID);
     setTargetTask(docID);
     setIsEditTask(true);
   }
