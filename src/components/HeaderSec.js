@@ -2,10 +2,30 @@ import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Logo45b from "../media/Logo45b.png";
+import { getAuth, signOut } from "firebase/auth";
 
-function HeaderSec({ userID, isSignUp, setIsSignUp }) {
+function HeaderSec({
+  userID,
+  setUserID,
+  isSignUp,
+  setIsSignUp,
+  isLoggedIn,
+  setIsLoggedIn,
+}) {
   function renderSignUpModal() {
     setIsSignUp(true);
+  }
+
+  function handleSignOut() {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        setIsLoggedIn(false);
+        console.log("Sign-out successful.");
+      })
+      .catch((error) => {
+        console.log("An error happened.");
+      });
   }
 
   return (
@@ -18,9 +38,12 @@ function HeaderSec({ userID, isSignUp, setIsSignUp }) {
       </Link>
 
       <nav>
-        <span onClick={renderSignUpModal} className="navBar padH">
+        <span
+          onClick={isLoggedIn ? handleSignOut : renderSignUpModal}
+          className="navBar padH"
+        >
           {" "}
-          {userID ? "Log out" : "Sign up"}{" "}
+          {isLoggedIn ? "Log out" : "Sign up"}{" "}
         </span>{" "}
         | <span className="padH"> About </span> |{" "}
         <span className="padH"> Contact Us </span>
