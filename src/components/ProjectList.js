@@ -27,37 +27,29 @@ function ProjectList({
   selectedProjects,
   setSelectedProjects,
 }) {
-  const [WProjects, setWProjects] = useState([]);
-  const [LProjects, setLProjects] = useState([]);
+  const [projects, setProjects] = useState([]);
+  let col = userID.uid;
 
   async function fetchData() {
-    const dataRef = query(collection(db, "jx-projects"));
+    const dataRef = query(collection(db, col));
     const q = query(dataRef, where("cat", "==", cat));
     const querySnapshot = await getDocs(q);
     let projectList = [];
     querySnapshot.forEach((doc) => {
       projectList = [...projectList, doc.data()];
     });
-    if (cat == "work") {
-      setWProjects(projectList);
-    } else {
-      setLProjects(projectList);
-    }
+    setProjects(projectList);
   }
 
   function docListener() {
-    const dataRef = collection(db, "jx-projects");
+    const dataRef = collection(db, col);
     const q = query(dataRef, where("cat", "==", cat));
     const unsubscribe = onSnapshot(q, (changedSnapshot) => {
       let updatedProjects = [];
       changedSnapshot.forEach((doc) => {
         updatedProjects = [...updatedProjects, doc.data()];
       });
-      if (cat == "work") {
-        setWProjects(updatedProjects);
-      } else {
-        setLProjects(updatedProjects);
-      }
+      setProjects(updatedProjects);
     });
   }
 
@@ -73,14 +65,7 @@ function ProjectList({
     justifyContent: "flexEnd",
   };
 
-  let x;
-  if (cat === "work") {
-    x = WProjects;
-  } else {
-    x = LProjects;
-  }
-
-  let projectItems = x.map((item) => (
+  let projectItems = projects.map((item) => (
     <li
       style={{ display: "flex", marginBottom: 10 }}
       key={item.projectID}

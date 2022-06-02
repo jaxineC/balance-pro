@@ -16,7 +16,13 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 
-function EditTaskModal({ isEditTask, setIsEditTask, targetTask }) {
+function EditTaskModal({
+  userID,
+  isEditTask,
+  setIsEditTask,
+  targetTask,
+  projectID,
+}) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [contentInput, setContentInput] = useState("");
@@ -25,6 +31,7 @@ function EditTaskModal({ isEditTask, setIsEditTask, targetTask }) {
   const [endDateInput, setEndDateInput] = useState(
     Date.now() + 60 * 60 * 24 * 1000
   );
+  let col = `${userID.uid}/${projectID}/tasks`;
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
@@ -35,7 +42,7 @@ function EditTaskModal({ isEditTask, setIsEditTask, targetTask }) {
   //--------------------------------------------------CRUD-------------------------------------------------------//
   // UPDATE(editBtn)
   async function handleEdit(event) {
-    const queryRef = doc(db, "jx-tasks", targetTask);
+    const queryRef = doc(db, col, targetTask);
     await updateDoc(queryRef, {
       content: contentInput,
       end: new Date(endDateInput),

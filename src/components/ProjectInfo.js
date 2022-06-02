@@ -17,6 +17,7 @@ import { render } from "react-dom";
 import { fetchAllData } from "../module/manageDB.js";
 
 function ProjectInfo({
+  userID,
   cat,
   projectID,
   Tasks,
@@ -27,15 +28,16 @@ function ProjectInfo({
   const [inputText, setInputText] = useState(""); //inside ProjectTinfo or Hashtag component for addHashTag
   const [projectInfo, setprojectInfo] = useState({});
   const [hashtag, setHashtag] = useState([]);
+  let col = userID.uid;
 
   async function fetchInfo(cat) {
     if (cat === "work") {
-      const docRef = doc(db, "jx-projects", selectedProjects[0]);
+      const docRef = doc(db, col, selectedProjects[0]);
       const docSnap = await getDoc(docRef);
       setprojectInfo(docSnap.data());
       setHashtag(docSnap.data().hashtag);
     } else {
-      const docRef = doc(db, "jx-projects", selectedProjects[1]);
+      const docRef = doc(db, col, selectedProjects[1]);
       const docSnap = await getDoc(docRef);
       setprojectInfo(docSnap.data());
       setHashtag(docSnap.data().hashtag);
@@ -44,7 +46,7 @@ function ProjectInfo({
   // listen: todos collection
   function docListener(cat, projectID) {
     if (cat === "work") {
-      const docRef = doc(db, "jx-projects", selectedProjects[0]);
+      const docRef = doc(db, col, selectedProjects[0]);
       const unsubscribe = onSnapshot(docRef, (changedSnapshot) => {
         let updatedTasks = [];
         changedSnapshot.forEach((doc) => {
@@ -54,7 +56,7 @@ function ProjectInfo({
         setHashtag(doc.data().hashtag);
       });
     } else {
-      const docRef = doc(db, "jx-projects", selectedProjects[1]);
+      const docRef = doc(db, col, selectedProjects[1]);
       const unsubscribe = onSnapshot(docRef, (changedSnapshot) => {
         let updatedInfo = changedSnapshot.data();
         setprojectInfo(updatedInfo);

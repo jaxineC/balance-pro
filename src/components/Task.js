@@ -20,13 +20,21 @@ import AddTaskModal from "./AddTaskModal.js";
 import DeleteBtn from "./DeleteBtn.js";
 import StretchBtn from "./StretchBtn.js";
 
-function Task({ item, Tasks, setTargetTask, setIsEditTask }) {
+function Task({
+  userID,
+  item,
+  projectID,
+  Tasks,
+  setTargetTask,
+  setIsEditTask,
+}) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [isDrag, setIsDrag] = useState(false);
   const [initMouseClientX, setInitMouseClientX] = useState(0);
   const [clientMouseX, setClientMouseX] = useState(0);
   const [deltaX, setDeltaX] = useState(0);
+  let col = `${userID.uid}/${projectID}/tasks`;
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
@@ -40,7 +48,7 @@ function Task({ item, Tasks, setTargetTask, setIsEditTask }) {
   function endDrag(event) {
     setIsDrag(false);
     let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
-    updateData(db, "jx-tasks", item.taskID, {
+    updateData(db, col, item.taskID, {
       end: new Date(item.end.seconds * 1000 + x),
       start: new Date(item.start.seconds * 1000 + x),
     });
@@ -164,9 +172,19 @@ function Task({ item, Tasks, setTargetTask, setIsEditTask }) {
           fillRule="evenodd"
         />
       </svg>
-      <StretchBtn date="start" item="item" />
-      <StretchBtn date="end" item="item" />
-      <DeleteBtn item="item" />
+      <StretchBtn
+        date="start"
+        item="item"
+        userID={userID}
+        projectID={projectID}
+      />
+      <StretchBtn
+        date="end"
+        item="item"
+        userID={userID}
+        projectID={projectID}
+      />
+      <DeleteBtn item="item" userID={userID} projectID={projectID} />
     </li>
   );
 }

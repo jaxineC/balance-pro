@@ -8,33 +8,36 @@ import LoginBox from "../components/LoginBox";
 import Logo from "../components/Logo";
 import { getAuth, signOut } from "firebase/auth";
 
-function IndexPage({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
+function IndexPage({ userID, setUserID }) {
   // const user = useContext(UserContext);
   const [isReady, setIsReady] = useState(false);
+
+  function getCurrentUserInfo() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      setUserID(user);
+    } else {
+      console.log("User is not logged in");
+    }
+  }
+  useEffect(() => {
+    getCurrentUserInfo();
+  }, []);
 
   return (
     <main className="IndexPage">
       <WelcomeImg />
-      {isLoggedIn ? (
-        <WelcomBack
-          userID={userID}
-          setUserID={setUserID}
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-        />
+      {userID ? (
+        <WelcomBack userID={userID} setUserID={setUserID} />
       ) : (
-        <LoginBox
-          userID={userID}
-          setUserID={setUserID}
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-        />
+        <LoginBox userID={userID} setUserID={setUserID} />
       )}
       <Logo />
       <Background />
       <Link className="Link" to="/list">
         <button
-          style={{ display: isLoggedIn ? "block" : "none" }}
+          style={{ display: userID ? "block" : "none" }}
           className="go TextL"
         >
           Enter

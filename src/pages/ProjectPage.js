@@ -6,71 +6,32 @@ import Unfold from "../components/Unfold";
 import QuickAccess from "../components/QuickAccess";
 import ProjectInfo from "../components/ProjectInfo";
 import Timeline from "../components/Timeline";
-import {
-  collection,
-  doc,
-  getDocs,
-  deleteDoc,
-  query,
-  orderBy,
-  where,
-  onSnapshot,
-} from "firebase/firestore";
-import { db } from "../firebase.js";
 
-// fetch Tasks (where balanced = true) from firebase ---->for both projects
-// use props= work/ life for rendering
-function ProjectPage({
-  userID,
-  projects,
-  setProjects,
-  selectedProjects,
-  setSelectedProjects,
-}) {
-  const [XPosition, setXPosition] = useState(1220); //let top and bottom timelines scroll synchronizely
-  // const [Tasks, setTasks] = useState([]);
+function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
+  const [XPosition, setXPosition] = useState(1220);
 
-  // init fetch from firestore
-  // async function fetchTasks() {
-  //   const dataRef = collection(db, "jx-tasks");
-  //   const q = query(dataRef, orderBy("start"));
-  //   const querySnapshot = await getDocs(q);
-  //   let initTasks = [];
-  //   querySnapshot.forEach((doc) => {
-  //     initTasks = [...initTasks, doc.data()];
-  //   });
-  //   setTasks(initTasks);
-  // }
-
-  // listen: todos collection
-  // function docListener() {
-  //   const dataRef = collection(db, "jx-tasks");
-  //   const q = query(dataRef, orderBy("start"));
-  //   const unsubscribe = onSnapshot(q, (changedSnapshot) => {
-  //     let updatedTasks = [];
-  //     changedSnapshot.forEach((doc) => {
-  //       updatedTasks = [...updatedTasks, doc.data()];
-  //     });
-  //     setTasks(updatedTasks);
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   fetchTasks();
-  //   docListener();
-  // }, []);
   return (
     <main className="ProjectPage">
-      <ProjectInfo cat="work" selectedProjects={selectedProjects} />
+      <ProjectInfo
+        userID={userID}
+        cat="work"
+        selectedProjects={selectedProjects}
+      />
       <Timeline
+        userID={userID}
         cat="work"
         projectID={selectedProjects[0]}
         XPosition={XPosition}
         setXPosition={setXPosition}
       />
       <Unfold />
-      <ProjectInfo cat="life" selectedProjects={selectedProjects} />
+      <ProjectInfo
+        userID={userID}
+        cat="life"
+        selectedProjects={selectedProjects}
+      />
       <Timeline
+        userID={userID}
         cat="life"
         projectID={selectedProjects[1]}
         XPosition={XPosition}

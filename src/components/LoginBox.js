@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
+function LoginBox({ userID, setUserID }) {
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [message, setMessage] = useState("");
@@ -13,14 +13,7 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
     const auth = getAuth();
     const user = auth.currentUser;
     if (user) {
-      setUserID({
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-        emailVerified: user.emailVerified,
-      });
-      return user;
+      setUserID(user);
     } else {
       console.log("User is not logged in");
     }
@@ -32,7 +25,7 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        setIsLoggedIn(true);
+        setUserID(user);
         getCurrentUserInfo();
         setEmailInput("");
         setPasswordInput("");
@@ -71,7 +64,7 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
         }}
         value={passwordInput}
         type="password"
-        placeholder="abcd1234"
+        placeholder="123456"
       ></input>
       <div
         className="TextS"
@@ -84,14 +77,6 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
         }}
       >
         {loginErrorMessage}
-      </div>
-      <div
-        onClick={() => {
-          const auth = getAuth();
-          console.log(auth.currentUser.displayName);
-        }}
-      >
-        TEST
       </div>
     </div>
   );

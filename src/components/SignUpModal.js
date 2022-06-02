@@ -7,14 +7,7 @@ import {
 import { doc, collection, setDoc, setCol } from "firebase/firestore";
 import { db } from "../firebase.js";
 
-function SignUpModal({
-  isSignUp,
-  setIsSignUp,
-  userID,
-  setUserID,
-  isLoggedIn,
-  setIsLoggedIn,
-}) {
+function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -64,11 +57,9 @@ function SignUpModal({
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        updateProfile(auth.currentUser, { displayName: nameInput });
-        setUserID(userID);
-        setIsLoggedIn(true);
-        getCurrentUserInfo();
-        initUserFirestore();
+        updateProfile(userCredential.user, { displayName: nameInput });
+        initUserFirestore(user);
+        setUserID(user);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -79,37 +70,17 @@ function SignUpModal({
       });
   }
 
-  function getCurrentUserInfo() {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user) {
-      // updateProfile(auth.currentUser, { displayName: nameInput });
-      setUserID({
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-        emailVerified: user.emailVerified,
-      });
-      // return user;
-    } else {
-      console.log("User is not logged in");
-    }
-  }
-
-  async function initUserFirestore() {
-    await setDoc(doc(db, userID.uid + "-p", "data"), {
-      email: userID.email,
-      displayName: userID.displayName,
-      selectedProjects: [],
-      userID: userID.uid,
-      welcomeTXT1: "Enter Your Own Welcome Text Here.",
-      welcomeTXT2: "And the welcome text content here.",
+  async function initUserFirestore(user) {
+    await setDoc(doc(db, user.uid, "selectedProjects"), {
+      work: "",
+      life: "",
     });
-    await setDoc(doc(db, userID.uid + "-t", "data"), {});
-    console.log(
-      `created user collection as ${userID.uid}-p and ${userID.uid}-t`
-    );
+    await setDoc(doc(db, user.uid, "welcomeTXT"), {
+      txt1: "Your Own Greeting Here.",
+      txt2: "And the text content here.",
+    });
+    console.log(`created user collection as ${user.uid}`);
+    console.log(`displayName as ${user.displayName}`);
   }
 
   return (

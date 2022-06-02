@@ -71,7 +71,7 @@ function DateBar({ ZDay, setZDay }) {
     // let totalNumber = Math.floor(ClientW / 140);
     let totalWk = 16;
 
-    for (let i = 1; i <= totalWk; i++) {
+    for (let i = 0; i <= totalWk; i++) {
       let prevDate = new Date(
         ZDay.TODAY + (8 - ZDay.DAY) * 86400 * 1000 * (i - 1)
       );
@@ -79,7 +79,9 @@ function DateBar({ ZDay, setZDay }) {
         prevDate.getFullYear(),
         new Intl.DateTimeFormat("en-US", options).format(prevDate),
       ];
-      let nextDate = new Date(ZDay.TODAY + (8 - ZDay.DAY) * 86400 * 1000 * i);
+      let nextDate = new Date(
+        ZDay.TODAY + (8 - ZDay.DAY) * 86400 * 1000 + 7 * i * 86400 * 1000
+      );
       let [nextYYYY, nextMM, nextDD, nextDAY] = [
         nextDate.getFullYear(),
         new Intl.DateTimeFormat("en-US", options).format(nextDate),

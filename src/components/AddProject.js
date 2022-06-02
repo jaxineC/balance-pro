@@ -17,7 +17,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 
-function AddProject() {
+function AddProject({ userID }) {
   const [isAddProject, setIsAddProject] = useState(false);
   const [category, setCategory] = useState("");
   const [nameInput, setNameInput] = useState("");
@@ -28,13 +28,13 @@ function AddProject() {
   }
 
   async function handleAddProject() {
-    let col = "jx-projects";
-    let docID = "T-" + Date.now().toString();
+    let col = userID.uid;
+    let docID = "P-" + Date.now().toString();
     let data = {
       balanced: false,
       cat: category,
       end: Timestamp.fromDate(new Date(Date.now() + 86400000 * 7)),
-      hashtag: [],
+      hashtag: ["Add your hashtag here"],
       name: nameInput,
       projectID: docID,
       // start: Timestamp.fromDate(new Date(Date.now())),
@@ -54,7 +54,12 @@ function AddProject() {
   }
   return (
     <div className="AddProject">
-      <button onClick={RenderNewProjectModal} type="button" className="TextM">
+      <button
+        onClick={RenderNewProjectModal}
+        type="button"
+        className="TextL"
+        style={{ color: "blueviolet" }}
+      >
         + New Project
       </button>
       <div

@@ -4,14 +4,7 @@ import { Link } from "react-router-dom";
 import Logo45b from "../media/Logo45b.png";
 import { getAuth, signOut } from "firebase/auth";
 
-function HeaderSec({
-  userID,
-  setUserID,
-  isSignUp,
-  setIsSignUp,
-  isLoggedIn,
-  setIsLoggedIn,
-}) {
+function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
   function renderSignUpModal() {
     setIsSignUp(true);
   }
@@ -20,7 +13,7 @@ function HeaderSec({
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        setIsLoggedIn(false);
+        setUserID(null);
         console.log("Sign-out successful.");
       })
       .catch((error) => {
@@ -39,11 +32,11 @@ function HeaderSec({
 
       <nav>
         <span
-          onClick={isLoggedIn ? handleSignOut : renderSignUpModal}
+          onClick={userID ? handleSignOut : renderSignUpModal}
           className="navBar padH"
         >
           {" "}
-          {isLoggedIn ? "Log out" : "Sign up"}{" "}
+          {userID ? "Log out" : "Sign up"}{" "}
         </span>{" "}
         | <span className="padH"> About </span> |{" "}
         <span className="padH"> Contact Us </span>

@@ -16,10 +16,15 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 
-function StretchBtn({ date, item }) {
+function StretchBtn({ date, item, userID, projectID }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [isHovered, setIsHovered] = useState(false);
+  const [isStretch, setIsStretch] = useState(false);
+  const [initMouseClientX, setInitMouseClientX] = useState(0);
+  const [deltaX, setDeltaX] = useState(0);
+
+  let col = `${userID.uid}/${projectID}/tasks`;
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
 
@@ -30,31 +35,29 @@ function StretchBtn({ date, item }) {
       setIsHovered(true);
     }
   }
-
-  function triggerDrag(event) {
-    console.log(event.clientX);
+  function initStretch(event) {
+    event.stopPropagation();
+    setIsStretch(true);
+    setInitMouseClientX(event.clientX);
   }
 
-  function triggerDrop(event) {
-    console.log(event.clientX);
+  function endStretch(event) {
+    let data = {};
+    date === "start"
+      ? (data = { start: new Date(item.start.seconds * 1000 + x) })
+      : (data = { end: new Date(item.end.seconds * 1000 + x) });
+    setIsStretch(false);
+    let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
+    updateData(db, col, item.taskID, data);
+    setDeltaX(0);
   }
-
   //--------------------------------------------------CRUD-------------------------------------------------------// 2
   //--------------------------------------------------CRUD-------------------------------------------------------//
-  async function handleStretch(event) {
-    let data = {};
-    if (date === "start") {
-      data = { start: true };
-    } else {
-      data = { end: true };
-    }
-    const queryRef = doc(
-      db,
-      "jx-tasks",
-      event.target.parentElement.parentElement.getAttribute("value")
-    );
+  async function updateData(db, col, docID, data) {
+    const queryRef = doc(db, col, docID);
     await updateDoc(queryRef, data);
   }
+
   //--------------------------------------------------RENDER-----------------------------------------------------// 3
   //--------------------------------------------------RENDER-----------------------------------------------------//
 
@@ -74,6 +77,8 @@ function StretchBtn({ date, item }) {
     //   {date === "start" ? item.start : item.end}
     // </div>
     <button
+      onMouseDown={initStretch}
+      onMouseUp={endStretch}
       onMouseEnter={renderStretchBtn}
       onMouseLeave={renderStretchBtn}
       className="stretchBtn"

@@ -8,9 +8,7 @@ import Background from "../components/Background";
 
 function ListPage({ userID, selectedProjects, setSelectedProjects }) {
   const [checked, setChecked] = useState(0);
-  function click() {
-    alert("Test");
-  }
+
   return (
     <main className="ListPage">
       <WelcomeTxt userID={userID} />
@@ -18,7 +16,6 @@ function ListPage({ userID, selectedProjects, setSelectedProjects }) {
       <ProjectList
         cat="work"
         userID={userID}
-        click={click}
         checked={checked}
         setChecked={setChecked}
         selectedProjects={selectedProjects}

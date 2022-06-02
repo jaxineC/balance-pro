@@ -17,6 +17,7 @@ import {
 import { db } from "../firebase.js";
 
 function AddTaskModal({
+  userID,
   cat,
   clickDate,
   clickPosition,
@@ -30,10 +31,9 @@ function AddTaskModal({
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [inputText, setInputText] = useState("");
-  let tempNewTask = "";
-  // useEffect(() => {
-  //   setModal(isAddTask);
-  // }, []);
+  // let col = userID.uid + "-t";
+  let col = `${userID.uid}/${projectID}/tasks`;
+
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
   //--------------------------------------------------CRUD-------------------------------------------------------// 2
@@ -53,7 +53,7 @@ function AddTaskModal({
       taskID: docID,
     };
     try {
-      const docRef = await setDoc(doc(db, "jx-tasks", docID), data);
+      const docRef = await setDoc(doc(db, col, docID), data);
       setClickPosition(null);
       setInputText("");
       console.log("Document written with ID: ", docID);

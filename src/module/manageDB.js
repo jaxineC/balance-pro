@@ -56,8 +56,13 @@ async function fetchQueryResult(cat, col, docID) {
 }
 
 // Update -----------------------------------------------------------------------------------------
-async function updateData(db, col, docID, data) {
-  await db.collection(col).doc(docID).update(data);
+// async function updateData(col, docID, data) {
+//   await db.collection(col).doc(docID).update(data);
+// }
+
+async function updateData(col, docID, data) {
+  const queryRef = doc(db, col, docID);
+  await updateDoc(queryRef, data);
 }
 
 // Delete -----------------------------------------------------------------------------------------
@@ -66,7 +71,11 @@ async function deleteData(db, col, docID) {
 }
 
 // Listner
-function docListener() {}
+function docListener() {
+  const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
+    console.log("Current data: ", doc.data());
+  });
+}
 
 export {
   addData,

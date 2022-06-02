@@ -21,6 +21,7 @@ import Task from "./Task.js";
 
 // render Tasks (fetch from firestore)
 function TaskList({
+  userID,
   cat,
   clickPosition,
   clickDate,
@@ -36,6 +37,8 @@ function TaskList({
   const [isEditTask, setIsEditTask] = useState(false);
   const [Tasks, setTasks] = useState([]);
   const [targetTask, setTargetTask] = useState("");
+  // let col = userID.uid + "-t";
+  let col = `${userID.uid}/${projectID}/tasks`;
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
@@ -48,35 +51,22 @@ function TaskList({
   //--------------------------------------------------CRUD-------------------------------------------------------//
   // init fetch from firestore
   async function fetchTasks(cat, projectID) {
-    if (cat === "work") {
-      const dataRef = collection(db, "jx-tasks");
-      const q1 = query(dataRef, where("projectID", "==", projectID));
-      const q2 = query(q1, orderBy("start"));
-      const querySnapshot = await getDocs(q2);
-      let initTasks = [];
-      querySnapshot.forEach((doc) => {
-        initTasks = [...initTasks, doc.data()];
-      });
-      setTasks(initTasks);
-    } else {
-      const dataRef = collection(db, "jx-tasks");
-      const q1 = query(dataRef, where("projectID", "==", projectID));
-      const q2 = query(q1, orderBy("start"));
-      const querySnapshot = await getDocs(q2);
-      let initTasks = [];
-      querySnapshot.forEach((doc) => {
-        initTasks = [...initTasks, doc.data()];
-      });
-      setTasks(initTasks);
-    }
+    const dataRef = collection(db, col);
+    const q = query(dataRef, orderBy("start"));
+    const querySnapshot = await getDocs(q);
+    let initTasks = [];
+    querySnapshot.forEach((doc) => {
+      initTasks = [...initTasks, doc.data()];
+    });
+    setTasks(initTasks);
   }
+
   // listen: todos collection
   function docListener(cat, projectID) {
     if (cat === "work") {
-      const dataRef = collection(db, "jx-tasks");
-      const q1 = query(dataRef, where("projectID", "==", projectID));
-      const q2 = query(q1, orderBy("start"));
-      const unsubscribe = onSnapshot(q2, (changedSnapshot) => {
+      const dataRef = collection(db, col);
+      const q = query(dataRef, orderBy("start"));
+      const unsubscribe = onSnapshot(q, (changedSnapshot) => {
         let updatedTasks = [];
         changedSnapshot.forEach((doc) => {
           updatedTasks = [...updatedTasks, doc.data()];
@@ -84,10 +74,9 @@ function TaskList({
         setTasks(updatedTasks);
       });
     } else {
-      const dataRef = collection(db, "jx-tasks");
-      const q1 = query(dataRef, where("projectID", "==", projectID));
-      const q2 = query(q1, orderBy("start"));
-      const unsubscribe = onSnapshot(q2, (changedSnapshot) => {
+      const dataRef = collection(db, col);
+      const q = query(dataRef, orderBy("start"));
+      const unsubscribe = onSnapshot(q, (changedSnapshot) => {
         let updatedTasks = [];
         changedSnapshot.forEach((doc) => {
           updatedTasks = [...updatedTasks, doc.data()];
@@ -106,6 +95,8 @@ function TaskList({
   //--------------------------------------------------RENDER-----------------------------------------------------//
   const taskItems = Tasks.map((item) => (
     <Task
+      projectID={projectID}
+      userID={userID}
       key={item.taskID}
       item={item}
       Tasks={Tasks}
@@ -118,6 +109,7 @@ function TaskList({
     <ul onClick={handleChildClick} className="TaskList TextS">
       {taskItems}
       <AddTaskModal
+        userID={userID}
         cat={cat}
         clickPosition={clickPosition}
         isAddTask={isAddTask}
@@ -131,10 +123,12 @@ function TaskList({
         setTargetTask={setTargetTask}
       />
       <EditTaskModal
+        userID={userID}
         isEditTask={isEditTask}
         setIsEditTask={setIsEditTask}
         targetTask={targetTask}
         setTargetTask={setTargetTask}
+        projectID={projectID}
       />
     </ul>
   );

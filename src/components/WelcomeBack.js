@@ -9,26 +9,6 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
   const [message, setMessage] = useState("");
   const [loginErrorMessage, setLoginErrorMessage] = useState("");
 
-  function getCurrentUserInfo() {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user) {
-      setUserID({
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-        emailVerified: user.emailVerified,
-      });
-      return user;
-    } else {
-      console.log("User is not logged in");
-    }
-  }
-  useEffect(() => {
-    getCurrentUserInfo();
-  }, []);
-
   return (
     <div
       style={{ display: "flex", flexDirection: "column" }}
@@ -41,7 +21,7 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
           margin: "0px 5px",
         }}
       >
-        Hey {userID.displayName},
+        Hey {userID.displayName ? userID.displayName : "newcomer"},
       </div>
       <div
         className="TextL bold"
@@ -50,7 +30,7 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
           margin: "0px 5px",
         }}
       >
-        Welcome back!
+        Welcome {userID.displayName ? "back!" : "!"}
       </div>
     </div>
   );

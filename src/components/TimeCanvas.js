@@ -4,6 +4,7 @@ import DateBar from "./DateBar";
 import TaskList from "./TaskList";
 
 function TimeCanvas({
+  userID,
   cat,
   clickPosition,
   clickDate,
@@ -45,6 +46,7 @@ function TimeCanvas({
   return (
     <div className="TimeCanvas " style={divStyle}>
       <TaskList
+        userID={userID}
         cat={cat}
         ZDay={ZDay}
         XPosition={XPosition}
