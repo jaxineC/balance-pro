@@ -19,6 +19,7 @@ import EditTaskModal from "./EditTaskModal.js";
 import AddTaskModal from "./AddTaskModal.js";
 import DeleteBtn from "./DeleteBtn.js";
 import StretchBtn from "./StretchBtn.js";
+import ConnectBtn from "./ConnectBtn.js";
 
 function Task({
   userID,
@@ -27,32 +28,39 @@ function Task({
   Tasks,
   setTargetTask,
   setIsEditTask,
+  editTaskContent,
+  setEditTaskContent,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [isDrag, setIsDrag] = useState(false);
+  const [deltaX, setDeltaX] = useState(0);
   const [initMouseClientX, setInitMouseClientX] = useState(0);
   const [clientMouseX, setClientMouseX] = useState(0);
-  const [deltaX, setDeltaX] = useState(0);
+  const [clientPosition, setClientPosition] = useState([]);
+  const [stretchX, setStretchX] = useState([0, 0]); //[start, end]
+  const [isStretch, setIsStretch] = useState(false);
   let col = `${userID.uid}/${projectID}/tasks`;
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
-  // react
 
   function initDrag(event) {
+    console.log("initDrag:" + isDrag);
     setIsDrag(true);
     setInitMouseClientX(event.clientX);
   }
 
   function endDrag(event) {
-    setIsDrag(false);
-    let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
-    updateData(db, col, item.taskID, {
-      end: new Date(item.end.seconds * 1000 + x),
-      start: new Date(item.start.seconds * 1000 + x),
-    });
-    setDeltaX(0);
+    if (isDrag === true) {
+      setIsDrag(false);
+      setDeltaX(0);
+      let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
+      updateData(db, col, item.taskID, {
+        end: new Date(item.end.seconds * 1000 + x),
+        start: new Date(item.start.seconds * 1000 + x),
+      });
+    }
   }
 
   async function updateData(db, col, docID, data) {
@@ -65,51 +73,66 @@ function Task({
       // setClientMouseX(event.clientX);
       let x = event.clientX - initMouseClientX;
       setDeltaX(x);
-      // console.log(x);
     }
   }
 
   function handleHover(event) {
-    // useState later
-    //taskNote
-    if (event.target.children[0].style.display === "none") {
-      event.target.children[0].style.display = "inline";
-    } else {
-      event.target.children[0].style.display = "none";
+    let stretchBtnStartNode = event.currentTarget.children[0];
+    if (stretchBtnStartNode) {
+      if (stretchBtnStartNode.style.display === "none") {
+        stretchBtnStartNode.style.display = "inline";
+      } else {
+        stretchBtnStartNode.style.display = "none";
+      }
     }
-    //editBtn
-    if (event.target.children[1].style.display === "none") {
-      event.target.children[1].style.display = "inline";
-    } else {
-      event.target.children[1].style.display = "none";
+
+    let taskNoteNode = event.currentTarget.children[2];
+    if (taskNoteNode.style.dispaly) {
+      if (taskNoteNode.style.display === "none") {
+        taskNoteNode.style.display = "inline";
+      } else {
+        taskNoteNode.style.display = "none";
+      }
     }
-    //stretchBtn
-    if (event.target.children[2].style.display === "none") {
-      event.target.children[2].style.display = "inline";
-    } else {
-      event.target.children[2].style.display = "none";
-      // event.target.children[2].children[0].fill = "rgb(152,152,152)";
+
+    let editBtnNode = event.currentTarget.children[3];
+    if (editBtnNode) {
+      if (editBtnNode.style.display === "none") {
+        editBtnNode.style.display = "inline";
+      } else {
+        editBtnNode.style.display = "none";
+      }
     }
-    //stretchBtn
-    if (event.target.children[3].style.display === "none") {
-      event.target.children[3].style.display = "inline";
-    } else {
-      event.target.children[3].style.display = "none";
+
+    let stretchBtnEndNode = event.currentTarget.children[4];
+    if (stretchBtnEndNode) {
+      if (stretchBtnEndNode.style.display === "none") {
+        stretchBtnEndNode.style.display = "inline";
+      } else {
+        stretchBtnEndNode.style.display = "none";
+      }
     }
-    //deleteBtn
-    if (event.target.children[4].style.display === "none") {
-      event.target.children[4].style.display = "inline";
-    } else {
-      event.target.children[4].style.display = "none";
+
+    let delteBtnNode = event.currentTarget.children[5];
+    if (delteBtnNode) {
+      if (delteBtnNode.style.display === "none") {
+        delteBtnNode.style.display = "inline";
+      } else {
+        delteBtnNode.style.display = "none";
+      }
     }
   }
 
   function renderEditTaskModal(event) {
     let docID = item.taskID;
+    setEditTaskContent(item.content);
     // let docID = event.target.getAttribute("value");
-    console.log(docID);
     setTargetTask(docID);
     setIsEditTask(true);
+  }
+
+  function handleChildHover(e) {
+    e.stopPropagation();
   }
 
   //--------------------------------------------------CRUD-------------------------------------------------------// 2
@@ -118,23 +141,53 @@ function Task({
   //--------------------------------------------------RENDER-----------------------------------------------------//
   return (
     <li
-      onMouseDown={initDrag}
-      onMouseUp={endDrag}
-      onMouseMove={handleDrag}
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
       className="Task TextS"
       value={item.taskID}
       style={{
-        width: ((item.end - item.start) / (60 * 60 * 24)) * 20,
+        width:
+          ((item.end - item.start) / (60 * 60 * 24)) * 20 -
+          stretchX[0] +
+          stretchX[1],
         top: Tasks.indexOf(item) * 22,
         left:
           1220 +
           Math.floor((item.start.toDate() - Date.now()) / 86400000) * 20 +
-          deltaX,
+          deltaX +
+          stretchX[0],
       }}
     >
-      {item.content}
+      <StretchBtn
+        date="start"
+        item={item}
+        userID={userID}
+        projectID={projectID}
+        stretchX={stretchX}
+        setStretchX={setStretchX}
+        isStretch={isStretch}
+        setIsStretch={setIsStretch}
+      />
+      <div
+        className="TaskContent"
+        onMouseDown={(event) => {
+          if (isStretch === false) {
+            initDrag(event);
+          }
+        }}
+        onMouseUp={(event) => {
+          if (isStretch === false) {
+            endDrag(event);
+          }
+        }}
+        onMouseMove={handleDrag}
+        style={{
+          width: ((item.end - item.start) / (60 * 60 * 24)) * 20,
+          cursor: "default",
+        }}
+      >
+        {item.content}
+      </div>
       <span
         className="taskNote TextXS"
         style={{
@@ -154,7 +207,8 @@ function Task({
           display: "none",
           height: 22,
           position: "absolute",
-          left: ((item.end - item.start) / (60 * 60 * 24)) * 20 - 20,
+          // left: ((item.end - item.start) / (60 * 60 * 24)) * 20 - 20,
+          right: 5,
           top: -2,
           padding: 0,
           margin: 0,
@@ -172,19 +226,34 @@ function Task({
           fillRule="evenodd"
         />
       </svg>
-      <StretchBtn
-        date="start"
-        item="item"
-        userID={userID}
-        projectID={projectID}
-      />
+
       <StretchBtn
         date="end"
+        item={item}
+        userID={userID}
+        projectID={projectID}
+        stretchX={stretchX}
+        setStretchX={setStretchX}
+        isStretch={isStretch}
+        setIsStretch={setIsStretch}
+      />
+      <DeleteBtn item="item" userID={userID} projectID={projectID} />
+      <ConnectBtn
+        cat="start"
         item="item"
         userID={userID}
         projectID={projectID}
+        clientPosition={clientPosition}
+        setClientPosition={setClientPosition}
       />
-      <DeleteBtn item="item" userID={userID} projectID={projectID} />
+      <ConnectBtn
+        cat="end"
+        item="item"
+        userID={userID}
+        projectID={projectID}
+        clientPosition={clientPosition}
+        setClientPosition={setClientPosition}
+      />
     </li>
   );
 }

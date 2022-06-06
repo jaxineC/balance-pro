@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AddTaskModal from "./AddTaskModal";
 import DateBar from "./DateBar";
 import TaskList from "./TaskList";
+import EditTaskModal from "./EditTaskModal.js";
 
 function TimeCanvas({
   userID,
@@ -18,7 +19,9 @@ function TimeCanvas({
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
-
+  const [isEditTask, setIsEditTask] = useState(false);
+  const [targetTask, setTargetTask] = useState("");
+  const [editTaskContent, setEditTaskContent] = useState("");
   // let clientW = window.innerWidth;
   // let totalDays = Math.floor(ClientW / 20);
   let totalWks = 25;
@@ -57,6 +60,22 @@ function TimeCanvas({
         projectID={projectID}
         isAddTask={isAddTask}
         setIsAddTask={setIsAddTask}
+        isEditTask={isEditTask}
+        setIsEditTask={setIsEditTask}
+        targetTask={targetTask}
+        setTargetTask={setTargetTask}
+        editTaskContent={editTaskContent}
+        setEditTaskContent={setEditTaskContent}
+      />
+      <EditTaskModal
+        userID={userID}
+        isEditTask={isEditTask}
+        setIsEditTask={setIsEditTask}
+        targetTask={targetTask}
+        setTargetTask={setTargetTask}
+        projectID={projectID}
+        editTaskContent={editTaskContent}
+        setEditTaskContent={setEditTaskContent}
       />
       {frames}
     </div>

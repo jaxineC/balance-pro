@@ -19,9 +19,9 @@ import { db } from "../firebase.js";
 
 function AddProject({ userID }) {
   const [isAddProject, setIsAddProject] = useState(false);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("work");
   const [nameInput, setNameInput] = useState("");
-  const [startDateInput, setStartDateInput] = useState("");
+  const [startDateInput, setStartDateInput] = useState(Date.now().toString());
 
   function RenderNewProjectModal() {
     setIsAddProject(true);
@@ -34,7 +34,7 @@ function AddProject({ userID }) {
       balanced: false,
       cat: category,
       end: Timestamp.fromDate(new Date(Date.now() + 86400000 * 7)),
-      hashtag: ["Add your hashtag here"],
+      hashtag: ["hashtag"],
       name: nameInput,
       projectID: docID,
       // start: Timestamp.fromDate(new Date(Date.now())),

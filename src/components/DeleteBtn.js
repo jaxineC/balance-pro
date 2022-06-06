@@ -45,7 +45,7 @@ function DeleteBtn({ isHover, userID, projectID }) {
         display: isHover ? "inline" : "none",
         height: 22,
         position: "absolute",
-        right: -20,
+        right: -27,
         top: -2,
         padding: 0,
         margin: 0,

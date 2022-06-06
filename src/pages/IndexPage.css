@@ -1,10 +1,12 @@
 .IndexPage {
-  grid-template-columns: 55% 25% 15%;
+  grid-template-columns: 53% 27% 15%;
+  grid-template-rows: 1fr;
 }
 
 /* ---------------------------------Component----------------------------------- */
 .WelcomeImg {
-  width: 60%;
+  height: 95%;
+  overflow-y: hidden;
   margin: auto;
 }
 
@@ -12,7 +14,7 @@
   width: 100%;
   width: 100%;
   margin: auto;
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255);
   z-index: 99;
   padding: 10px;
   /* border: 1px #eeeeee solid;
@@ -50,15 +52,57 @@
   border-color: #dddddd;
 }
 .SignupForm > input:hover {
-  border-color: blueviolet;
+  border-color: #8a2be2;
 }
 
 .SignupForm > button {
-  width: 160px;
+  width: 225px;
   height: 30px;
   border-style: none;
   border-radius: 15px;
   margin: 10px 0px;
   text-align: center;
   place-self: center;
+}
+
+/* --------------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+}
+
+@media only screen and (max-width: 600px) {
+  main {
+    height: calc(100vh - 45px);
+    overflow: clip;
+  }
+  .IndexPage {
+    grid-template-columns: 100%;
+    grid-template-rows: 70% 20%;
+  }
+  .WelcomeImg {
+    height: 100% !important;
+    width: !important;
+    object-fit: cover !important;
+    margin: auto;
+    overflow: hidden;
+  }
+  .LoginBox {
+    width: 100%;
+    width: 100%;
+    margin: auto;
+    background: none;
+    z-index: 99;
+    padding: 10px;
+    /* border: 1px #eeeeee solid;
+    border-radius: 5px;  */
+  }
+  input {
+    background: none;
+  }
+  .Logo {
+    display: "none";
+  }
+}
+
+/* --------------------------------------------------------------------------------- */
+@keyframes App-logo-spin {
 }

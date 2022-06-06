@@ -1,30 +1,56 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import {
+  collection,
+  doc,
+  setDoc,
+  getDoc, //get data once
+  getDocs,
+  deleteDoc,
+  query,
+  orderBy,
+  where,
+  limit,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../firebase.js";
+import { updateData } from "../module/manageDB.js";
 
-function Hashtag({ cat, workInfo, lifeInfo }) {
-  // const [ hashtag, setHashtag] = useState([]);
-  let tags = "";
-  if (cat == "work") {
-    let x = workInfo.hashtag;
-    tags = x.map((item, index) => (
-      <span key={index} className="Hashtag TextS">
-        #{item}
-      </span>
-    ));
-  } else {
-    console.log(lifeInfo.hashtag);
-    let x = lifeInfo.hashtag;
-    tags = x.map((item, index) => (
-      <span key={index} className="Hashtag TextS">
-        #{item}
-      </span>
-    ));
+function Hashtag({ userID, projectID, item, i }) {
+  //--------------------------------------------------useState & variables---------------------------------------// 0
+  //--------------------------------------------------useState & variables---------------------------------------//
+  const [hashtagInput, setHashtagInput] = useState("");
+  let col = userID.uid;
+  let docID = projectID;
+  //--------------------------------------------------handle event-----------------------------------------------// 1
+  //--------------------------------------------------handle event-----------------------------------------------//
+  // setHashtagInput(item);
+  function handleHashtagUpdate() {
+    let data = { hashtag: [hashtagInput] };
+    updateData(col, docID, data);
   }
 
+  //--------------------------------------------------CRUD-------------------------------------------------------// 2
+  //--------------------------------------------------CRUD-------------------------------------------------------//
+  //--------------------------------------------------RENDER-----------------------------------------------------// 3
+  //--------------------------------------------------RENDER-----------------------------------------------------//
   return (
-    <ul className="Hashtags">
-      <span>{tags}</span>
-    </ul>
+    <li>
+      <input
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            handleHashtagUpdate();
+          }
+        }}
+        className="TextXL bold txt1Input"
+        onChange={(event) => {
+          setHashtagInput(event.target.value);
+        }}
+        value={hashtagInput}
+        style={{
+          borderStyle: "none",
+        }}
+      ></input>
+    </li>
   );
 }
 

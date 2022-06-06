@@ -21,15 +21,18 @@ function StretchBtn({
   item,
   userID,
   projectID,
+  isDrag,
+  setIsDrag,
   stretchX,
   setStretchX,
-  isStretch,
-  setIsStretch,
+  deltaX,
+  setDeltaX,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [isHovered, setIsHovered] = useState(false);
   const [initMouseClientX, setInitMouseClientX] = useState(0);
+  const [isStretch, setIsStretch] = useState(false);
 
   let col = `${userID.uid}/${projectID}/tasks`;
   //--------------------------------------------------handle event-----------------------------------------------// 1
@@ -44,30 +47,32 @@ function StretchBtn({
   }
   function initStretch(event) {
     setIsStretch(true);
+    setIsDrag(false);
     setInitMouseClientX(event.clientX);
   }
 
   function endStretch(event) {
-    if (isStretch === true) {
-      setIsStretch(false);
-      setStretchX([0, 0]);
-      let data = {};
-      let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
-      if (date === "start") {
-        data = { start: new Date(item.start.seconds * 1000 + x) };
-        // Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7))
-      } else {
-        data = { end: new Date(item.end.seconds * 1000 + x) };
-      }
-      updateData(db, col, item.taskID, data);
+    let data = {};
+    let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
+    if (date === "start") {
+      data = { start: new Date(item.start.seconds * 1000 + x) };
+    } else {
+      data = { end: new Date(item.end.seconds * 1000 + x) };
     }
+    updateData(db, col, item.taskID, data);
+    setIsStretch(false);
+    setDeltaX(0);
   }
 
   function handleStretch(event) {
     if (isStretch) {
       // setClientMouseX(event.clientX);
       let x = event.clientX - initMouseClientX;
-      date === "start" ? setStretchX([x, 0]) : setStretchX([0, x]);
+      date === "start" ? setDeltaX(x) : setDeltaX(0);
+      console.log(deltaX);
+      date === "start" ? setStretchX(-x) : setStretchX(deltaX);
+      console.log(stretchX);
+      // console.log(x);
     }
   }
 
@@ -80,17 +85,6 @@ function StretchBtn({
 
   //--------------------------------------------------RENDER-----------------------------------------------------// 3
   //--------------------------------------------------RENDER-----------------------------------------------------//
-
-  let path = "";
-  if (date === "start") {
-    path = (
-      <path d="M335.3,308.2L207.1,180L335.3,51.8L365.5,82l-98.1,98.1l98.1,98.1L335.3,308.2z M414.3,52H457v256h-42.7V52z" />
-    );
-  } else {
-    path = (
-      <path d="M298.5,278.2l98.1-98.1L298.5,82l30.2-30.2L457,180L328.7,308.2L298.5,278.2z M249.7,308h-42.7V52h42.7V308z" />
-    );
-  }
 
   return (
     // <div className="StretchBtn TextS" style={{ display: "none" }}>
@@ -131,7 +125,12 @@ function StretchBtn({
         viewBox="76 -76 512 512"
         enableBackground="new 76 -76 512 512"
       >
-        {path}
+        <path
+          clipRule="evenodd"
+          d="m12 7.25c.4142 0 .75.33579.75.75v3.25h3.25c.4142 0 .75.3358.75.75s-.3358.75-.75.75h-3.25v3.25c0 .4142-.3358.75-.75.75s-.75-.3358-.75-.75v-3.25h-3.25c-.41421 0-.75-.3358-.75-.75s.33579-.75.75-.75h3.25v-3.25c0-.41421.3358-.75.75-.75z"
+          fill="rgb(0,0,0)"
+          fillRule="evenodd"
+        />
       </svg>
     </button>
   );

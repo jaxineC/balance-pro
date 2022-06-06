@@ -3,6 +3,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { doc, collection, setDoc, setCol } from "firebase/firestore";
 import { db } from "../firebase.js";
@@ -70,14 +72,43 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
       });
   }
 
+  function handeGoogleAuth() {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        updateProfile(user, { displayName: user.displayName });
+        initUserFirestore(user);
+        setUserID(user);
+        closeModal();
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(errorMessage);
+        // ...
+      });
+  }
+
   async function initUserFirestore(user) {
     await setDoc(doc(db, user.uid, "selectedProjects"), {
       work: "",
       life: "",
     });
     await setDoc(doc(db, user.uid, "welcomeTXT"), {
-      txt1: "Your Own Greeting Here.",
-      txt2: "And the text content here.",
+      txt1: "Greeting text.",
+      txt2: "You can enter your own every-day greeting text above. And some big chunck of text content here. --- just click, type, and hit enter!",
     });
     console.log(`created user collection as ${user.uid}`);
     console.log(`displayName as ${user.displayName}`);
@@ -187,28 +218,29 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
         </button>
         <div style={{ textAlign: "center" }}> OR </div>
         <button
+          onMouseEnter={(event) => {
+            event.target.style.backgroundColor = "blueviolet";
+            event.target.parentNode.children[8].style.backgroundColor =
+              "#bbbbbb";
+          }}
+          onMouseLeave={(event) => {
+            event.target.style.backgroundColor = "#bbbbbb";
+            event.target.parentNode.children[8].style.backgroundColor =
+              "blueviolet";
+          }}
+          onClick={handeGoogleAuth}
           style={{
             border: "1px solid #eeeeee",
             backgroundColor: "#bbbbbb",
             color: "white",
           }}
-          onClick={handleSubmit}
           type="button"
         >
           Contiune with Google
         </button>
-        <button
-          style={{
-            border: "1px solid #eeeeee",
-            backgroundColor: "#bbbbbb",
-            color: "white",
-          }}
-          onClick={handleSubmit}
-          type="button"
-        >
-          Contiune with Facebook
-        </button>
-        <div style={{ textAlign: "center" }}>Already a member? Log in</div>
+        <div style={{ textAlign: "center" }}>
+          Already a member? close popup window to Log in
+        </div>
         <svg
           onClick={closeModal}
           className="closeBtn"

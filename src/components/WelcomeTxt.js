@@ -75,7 +75,7 @@ function WelcomeTxt({ userID, setUserID }) {
           fontFamily: "Segoe UI, sans-serif",
         }}
       ></input>
-      <input
+      <textarea
         onKeyDown={(event) => {
           if (event.key === "Enter") {
             handleGreetingUpdate();
@@ -98,10 +98,9 @@ function WelcomeTxt({ userID, setUserID }) {
           fontFamily: "Segoe UI, sans-serif",
           verticalAlign: "top",
           overflowWrap: "break-word",
-          wordWrap: "break-word",
           hyphens: "auto",
         }}
-      ></input>
+      ></textarea>
     </div>
   );
 }

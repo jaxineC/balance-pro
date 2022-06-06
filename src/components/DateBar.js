@@ -64,16 +64,13 @@ function DateBar({ ZDay, setZDay }) {
     }
   }
   // ZDay itself +position: relative; left:140px*10+20px*(ZDay.DAY-1)
-
   // ---------------------------------------------render next (15wks+ 7-ZDay.DAY) days
   function Next() {
-    // let clientW = window.innerWidth;
-    // let totalNumber = Math.floor(ClientW / 140);
     let totalWk = 16;
 
     for (let i = 0; i <= totalWk; i++) {
       let prevDate = new Date(
-        ZDay.TODAY + (8 - ZDay.DAY) * 86400 * 1000 * (i - 1)
+        ZDay.TODAY + (8 - ZDay.DAY) * 86400 * 1000 + 7 * 86400 * 1000 * (i - 1)
       );
       let [prevYYYY, prevMM] = [
         prevDate.getFullYear(),
@@ -91,7 +88,7 @@ function DateBar({ ZDay, setZDay }) {
       if (nextYYYY === prevYYYY) {
         nextYYYY = null;
       }
-      if (nextMM == prevMM) {
+      if (nextMM === prevMM) {
         nextMM = ".";
       }
       nextRows.push(

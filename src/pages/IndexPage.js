@@ -17,8 +17,6 @@ function IndexPage({ userID, setUserID }) {
     const user = auth.currentUser;
     if (user) {
       setUserID(user);
-    } else {
-      console.log("User is not logged in");
     }
   }
   useEffect(() => {

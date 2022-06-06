@@ -1,7 +1,13 @@
 import React, { useState, useEffect, navigate } from "react";
 import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import googleIcon from "../icon/Google.png";
 
 function LoginBox({ userID, setUserID }) {
   const [emailInput, setEmailInput] = useState("");
@@ -41,6 +47,33 @@ function LoginBox({ userID, setUserID }) {
         console.log(errorMessage);
       });
   }
+
+  function handeGoogleAuth() {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        setUserID(user);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(errorMessage);
+        // ...
+      });
+  }
+
   return (
     <div
       style={{ display: "grid", gridTemplateColumns: "30% 70%" }}
@@ -64,7 +97,7 @@ function LoginBox({ userID, setUserID }) {
         }}
         value={passwordInput}
         type="password"
-        placeholder="123456"
+        placeholder="6+ characters"
       ></input>
       <div
         className="TextS"
@@ -77,6 +110,33 @@ function LoginBox({ userID, setUserID }) {
         }}
       >
         {loginErrorMessage}
+      </div>
+      <div
+        className="TextS"
+        style={{
+          width: 130,
+          height: 22,
+          gridColumn: "1/3",
+          padding: "5px 0px 1px 10px",
+          textAlign: "center",
+          placeSelf: "center",
+        }}
+      >
+        or sign in with{" "}
+        <span onClick={handeGoogleAuth}>
+          <img
+            style={{
+              height: 16,
+              backgroundColor: "white",
+              borderRadius: 7,
+              padding: "1px",
+              cursor: "pointer",
+            }}
+            className="icon"
+            src={googleIcon}
+            alt="google icon"
+          />
+        </span>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
-import EditTaskModal from "./EditTaskModal.js";
+
 import AddTaskModal from "./AddTaskModal.js";
 import Task from "./Task.js";
 
@@ -31,12 +31,18 @@ function TaskList({
   XPosition,
   ZDay,
   setIsAddTask,
+  isEditTask,
+  setIsEditTask,
+  targetTask,
+  setTargetTask,
+  editTaskContent,
+  setEditTaskContent,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
-  const [isEditTask, setIsEditTask] = useState(false);
+
   const [Tasks, setTasks] = useState([]);
-  const [targetTask, setTargetTask] = useState("");
+
   // let col = userID.uid + "-t";
   let col = `${userID.uid}/${projectID}/tasks`;
 
@@ -102,6 +108,8 @@ function TaskList({
       Tasks={Tasks}
       setTargetTask={setTargetTask}
       setIsEditTask={setIsEditTask}
+      editTaskContent={editTaskContent}
+      setEditTaskContent={setEditTaskContent}
     />
   ));
 
@@ -121,14 +129,6 @@ function TaskList({
         clickDate={clickDate}
         targetTask={targetTask}
         setTargetTask={setTargetTask}
-      />
-      <EditTaskModal
-        userID={userID}
-        isEditTask={isEditTask}
-        setIsEditTask={setIsEditTask}
-        targetTask={targetTask}
-        setTargetTask={setTargetTask}
-        projectID={projectID}
       />
     </ul>
   );

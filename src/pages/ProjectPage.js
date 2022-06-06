@@ -6,12 +6,35 @@ import Unfold from "../components/Unfold";
 import QuickAccess from "../components/QuickAccess";
 import ProjectInfo from "../components/ProjectInfo";
 import Timeline from "../components/Timeline";
+import Overlay from "../components/Overlay.js";
+import HoverTxt from "../components/HoverTxt.js";
 
 function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
   const [XPosition, setXPosition] = useState(1220);
+  const [focus, setFocus] = useState("balance"); //"balance", "work", "life", "overlay"
+  const [instruction, setInstruction] = useState("");
+  const [mousePosition, setMousePosition] = useState([]);
+  let divStyle;
+  if (focus === "balance") {
+    divStyle = {
+      gridTemplateRows: "11% calc(39% - 1px) 11% calc(39% - 1px) 0%",
+    };
+  } else if (focus === "work") {
+    divStyle = {
+      gridTemplateRows: "11% calc(78% - 2px) 11% 0% 0%",
+    };
+  } else if (focus === "life") {
+    divStyle = {
+      gridTemplateRows: "11% 0% 11% calc(78% - 2px) 0%",
+    };
+  } else {
+    divStyle = {
+      gridTemplateRows: "11% 0% 11% 0% calc(78% - 2px)",
+    };
+  }
 
   return (
-    <main className="ProjectPage">
+    <main className="ProjectPage" style={divStyle}>
       <ProjectInfo
         userID={userID}
         cat="work"
@@ -24,7 +47,22 @@ function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
         XPosition={XPosition}
         setXPosition={setXPosition}
       />
-      <Unfold />
+      <Unfold
+        focus={focus}
+        setFocus={setFocus}
+        mousePosition={mousePosition}
+        setMousePosition={setMousePosition}
+        instruction={instruction}
+        setInstruction={setInstruction}
+      />
+      {/* <Unfold
+        cat="life"
+        focus={focus}
+        mousePosition={mousePosition}
+        setMousePosition={setMousePosition}
+        instruction={instruction}
+        setInstruction={setInstruction}
+      /> */}
       <ProjectInfo
         userID={userID}
         cat="life"
@@ -37,8 +75,15 @@ function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
         XPosition={XPosition}
         setXPosition={setXPosition}
       />
-      <DisplayMode />
+      <Overlay
+        userID={userID}
+        projectID={selectedProjects}
+        XPosition={XPosition}
+        setXPosition={setXPosition}
+      />
+      <DisplayMode focus={focus} setFocus={setFocus} />
       <QuickAccess />
+      <HoverTxt instruction={instruction} mousePosition={mousePosition} />
     </main>
   );
 }

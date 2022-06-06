@@ -15,7 +15,7 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
       className="LoginBox TextM"
     >
       <div
-        className="TextL bold"
+        className="TextXL bold"
         style={{
           padding: "5px 0px 1px 10px",
           margin: "0px 5px",
@@ -24,7 +24,7 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
         Hey {userID.displayName ? userID.displayName : "newcomer"},
       </div>
       <div
-        className="TextL bold"
+        className="TextXL bold"
         style={{
           padding: "5px 0px 1px 10px",
           margin: "0px 5px",

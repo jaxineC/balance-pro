@@ -22,14 +22,14 @@
 
 .FooterSec {
   box-sizing: border-box;
-  height: 80px;
-  width: 100%;
+  width: 120px;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: fixed;
+  left: calc(50vw - 60px);
   bottom: 0px;
   z-index: 99;
 }
@@ -63,7 +63,6 @@ nav {
 
 main {
   height: calc(100vh - 45px);
-  /* height: calc(100% - 45px); */
   display: grid;
   column-gap: 2.5%;
   align-content: center;
@@ -134,8 +133,8 @@ li {
 
 /* ----------------------------------element---------------------------------- */
 .icon {
-  height: 20px;
-  padding: 0px 10px;
+  height: 15px;
+  padding: 0px 5px;
 }
 
 .image {
@@ -146,7 +145,7 @@ li {
 .placeholder {
   margin: auto;
   height: 200px;
-  opacity: 0.1;
+  opacity: 0.9;
   background-color: azure;
 }
 
@@ -195,7 +194,7 @@ li {
 }
 
 .padV {
-  padding: 10px 0px;
+  padding: 5px 0px;
 }
 
 .bold {
@@ -213,7 +212,7 @@ li {
 @media (prefers-reduced-motion: no-preference) {
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 600px) {
 }
 
 /* --------------------------------------------------------------------------------- */

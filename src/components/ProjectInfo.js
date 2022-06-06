@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Hashtag from "./Hashtag";
+// import Hashtag from "./Hashtag";
 import {
   collection,
   doc,
@@ -27,7 +27,8 @@ function ProjectInfo({
 }) {
   const [inputText, setInputText] = useState(""); //inside ProjectTinfo or Hashtag component for addHashTag
   const [projectInfo, setprojectInfo] = useState({});
-  const [hashtag, setHashtag] = useState([]);
+  const [hashtags, setHashtags] = useState([]);
+  const [hashtagInput, setHashtagInput] = useState("");
   let col = userID.uid;
 
   async function fetchInfo(cat) {
@@ -35,12 +36,12 @@ function ProjectInfo({
       const docRef = doc(db, col, selectedProjects[0]);
       const docSnap = await getDoc(docRef);
       setprojectInfo(docSnap.data());
-      setHashtag(docSnap.data().hashtag);
+      setHashtags(docSnap.data().hashtag);
     } else {
       const docRef = doc(db, col, selectedProjects[1]);
       const docSnap = await getDoc(docRef);
       setprojectInfo(docSnap.data());
-      setHashtag(docSnap.data().hashtag);
+      setHashtags(docSnap.data().hashtag);
     }
   }
   // listen: todos collection
@@ -53,14 +54,14 @@ function ProjectInfo({
           updatedTasks = [...updatedTasks, doc.data()];
         });
         setprojectInfo(updatedTasks);
-        setHashtag(doc.data().hashtag);
+        setHashtags(doc.data().hashtag);
       });
     } else {
       const docRef = doc(db, col, selectedProjects[1]);
       const unsubscribe = onSnapshot(docRef, (changedSnapshot) => {
         let updatedInfo = changedSnapshot.data();
         setprojectInfo(updatedInfo);
-        setHashtag(updatedInfo.hashtag);
+        setHashtags(updatedInfo.hashtag);
       });
     }
   }
@@ -73,11 +74,34 @@ function ProjectInfo({
   }, []);
 
   //------------------------------------------------------------------------------
-  const tags = hashtag.map((item, index) => (
-    <li key={index} className="Hashtag TextS">
-      # {item}
-    </li>
-  ));
+  const tags = hashtags.map(
+    (item, index) => (
+      <li key={index} className="Hashtag TextS">
+        # <span>{hashtags[index]}</span>
+      </li>
+    )
+
+    // setHashtagInput(item);
+    // return (
+    //   <li key={index} className="Hashtag TextS">
+    //     #{" "}
+    //     <input
+    //       onChange={(event) => {
+    //         setHashtagInput(event.target.value);
+    //       }}
+    //       value={hashtagInput}
+    //     ></input>
+    //   </li>
+    // );
+  );
+
+  // let startDate = new Date(projectInfo.start.second * 1000);
+  // let options = { month: "long" };
+  // let [YYYY, MM, DD] = [
+  //   startDate.getFullYear(),
+  //   new Intl.DateTimeFormat("en-US", options).format(startDate),
+  //   startDate.getDate().toString().padStart(2, "0"),
+  // ];
 
   return (
     <div className="ProjectInfo ">
@@ -85,7 +109,15 @@ function ProjectInfo({
         <div className="TextL">
           {cat === "work" ? projectInfo.name : projectInfo.name}
         </div>
-        <div className="TextS">2021/12/27 ~ 2022/07/08</div>
+        <div
+          onClick={() => {
+            console.log(projectInfo.start.seconds);
+          }}
+          className="TextS"
+        >
+          {/* {YYYY}/{MM}/{DD} */}
+          ~2022/05/09
+        </div>
       </div>
       <ul className="Hashtags TextS">
         {tags}
