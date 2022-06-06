@@ -53,8 +53,7 @@ function ProjectList({
         updatedProjects = [...updatedProjects, doc.data()];
       });
       setProjects(updatedProjects);
-      setTxt(`You don't have any ${cat} project yet. <br />
-      Hit '+New prject' to add one.`);
+      setTxt(`${cat} projects will be listed here.`);
     });
   }
 

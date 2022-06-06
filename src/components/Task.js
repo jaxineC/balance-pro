@@ -28,8 +28,8 @@ function Task({
   Tasks,
   setTargetTask,
   setIsEditTask,
-  editTaskContent,
-  setEditTaskContent,
+  editTaskItem,
+  setEditTaskItem,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -125,10 +125,11 @@ function Task({
 
   function renderEditTaskModal(event) {
     let docID = item.taskID;
-    setEditTaskContent(item.content);
+    setEditTaskItem(item);
     // let docID = event.target.getAttribute("value");
     setTargetTask(docID);
     setIsEditTask(true);
+    console.log(editTaskItem.start);
   }
 
   function handleChildHover(e) {

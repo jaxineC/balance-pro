@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import googleIcon from "../icon/Google.png";
+import fbIcon from "../icon/facebook.png";
 
 function LoginBox({ userID, setUserID }) {
   const [emailInput, setEmailInput] = useState("");
@@ -114,29 +115,41 @@ function LoginBox({ userID, setUserID }) {
       <div
         className="TextS"
         style={{
-          width: 130,
-          height: 22,
-          gridColumn: "1/3",
+          gridColumn: "2/3",
           padding: "5px 0px 1px 10px",
           textAlign: "center",
-          placeSelf: "center",
+          placeSelf: "flex-start",
         }}
       >
         or sign in with{" "}
-        <span onClick={handeGoogleAuth}>
+        <button onClick={handeGoogleAuth}>
           <img
             style={{
               height: 16,
+              placeSelf: "flex-start",
               backgroundColor: "white",
               borderRadius: 7,
-              padding: "1px",
+              padding: "1px 5px",
               cursor: "pointer",
             }}
             className="icon"
             src={googleIcon}
             alt="google icon"
           />
-        </span>
+          <img
+            style={{
+              height: 16,
+              placeSelf: "flex-start",
+              backgroundColor: "white",
+              borderRadius: 7,
+              padding: "1px 5px",
+              cursor: "pointer",
+            }}
+            className="icon"
+            src={fbIcon}
+            alt="fb icon"
+          />
+        </button>
       </div>
     </div>
   );

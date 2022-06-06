@@ -23,6 +23,7 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
   useEffect(() => {
     // scrollLeft(1200);
     refContainer.current.scrollLeft = 20 * (8 * 7 - 1); //前面 8周
+    // refContainer.current.scrollLeft = XPosition;
     // setXPosition(refContainer.current.scrollLeft);
   }, []);
 

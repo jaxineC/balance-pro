@@ -82,7 +82,7 @@ function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
         setXPosition={setXPosition}
       />
       <DisplayMode focus={focus} setFocus={setFocus} />
-      <QuickAccess />
+      <QuickAccess XPosition={XPosition} setXPosition={setXPosition} />
       <HoverTxt instruction={instruction} mousePosition={mousePosition} />
     </main>
   );

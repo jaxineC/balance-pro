@@ -23,8 +23,8 @@ function EditTaskModal({
   projectID,
   targetTask,
   setTargetTask,
-  editTaskContent,
-  setEditTaskContent,
+  editTaskItem,
+  setEditTaskItem,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -68,11 +68,11 @@ function EditTaskModal({
       style={{
         boxSizing: "border-box",
         width: 320,
-        height: "100%",
+        height: "200px",
         backgroundColor: "rgb(240, 240, 240, 0.8)",
         boxShadow: "1px 3px 8px #cccccc",
-        position: "absolute",
-        left: 1000,
+        position: "fixed",
+        left: 0,
         display: isEditTask === true ? "grid" : "none",
         borderStyle: "solid",
         borderWidth: 1,
@@ -89,7 +89,7 @@ function EditTaskModal({
           color: "blueviolet",
         }}
       >
-        Editing task " <span className="bold">{editTaskContent}</span> "
+        Editing task " <span className="bold">{editTaskItem.content}</span> "
       </div>
       <label>Task</label>
       <input
@@ -97,6 +97,7 @@ function EditTaskModal({
         value={contentInput}
         placeholder="Content"
         className="contentInput"
+        style={{ height: 20 }}
       ></input>
 
       <label>Note</label>
@@ -105,12 +106,14 @@ function EditTaskModal({
         value={noteInput}
         placeholder="Add notes"
         className="startInput"
+        style={{ height: 20 }}
       ></input>
 
       <label>Start from</label>
       <input
         onChange={(event) => setStartDateInput(event.target.value)}
         value={startDateInput}
+        style={{ height: 20 }}
         // value={Date.now().strftime("%Y-%m-%d")}
         type="date"
         className="startInput"
@@ -123,6 +126,7 @@ function EditTaskModal({
         // value={Date.now().strftime("%Y-%m-%d")}
         type="date"
         className="startInput"
+        style={{ height: 20 }}
       ></input>
       <svg
         className="DeleteBtn"

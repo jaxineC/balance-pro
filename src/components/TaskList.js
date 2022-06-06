@@ -35,8 +35,8 @@ function TaskList({
   setIsEditTask,
   targetTask,
   setTargetTask,
-  editTaskContent,
-  setEditTaskContent,
+  editTaskItem,
+  setEditTaskItem,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -108,8 +108,8 @@ function TaskList({
       Tasks={Tasks}
       setTargetTask={setTargetTask}
       setIsEditTask={setIsEditTask}
-      editTaskContent={editTaskContent}
-      setEditTaskContent={setEditTaskContent}
+      editTaskItem={editTaskItem}
+      setEditTaskItem={setEditTaskItem}
     />
   ));
 

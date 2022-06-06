@@ -21,7 +21,7 @@ function TimeCanvas({
   //--------------------------------------------------useState & variables---------------------------------------//
   const [isEditTask, setIsEditTask] = useState(false);
   const [targetTask, setTargetTask] = useState("");
-  const [editTaskContent, setEditTaskContent] = useState("");
+  const [editTaskItem, setEditTaskItem] = useState("");
   // let clientW = window.innerWidth;
   // let totalDays = Math.floor(ClientW / 20);
   let totalWks = 25;
@@ -64,8 +64,8 @@ function TimeCanvas({
         setIsEditTask={setIsEditTask}
         targetTask={targetTask}
         setTargetTask={setTargetTask}
-        editTaskContent={editTaskContent}
-        setEditTaskContent={setEditTaskContent}
+        editTaskItem={editTaskItem}
+        setEditTaskItem={setEditTaskItem}
       />
       <EditTaskModal
         userID={userID}
@@ -74,8 +74,8 @@ function TimeCanvas({
         targetTask={targetTask}
         setTargetTask={setTargetTask}
         projectID={projectID}
-        editTaskContent={editTaskContent}
-        setEditTaskContent={setEditTaskContent}
+        editTaskItem={editTaskItem}
+        setEditTaskItem={setEditTaskItem}
       />
       {frames}
     </div>
