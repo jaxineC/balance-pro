@@ -31,6 +31,15 @@
   align-self: start;
 }
 
+.goTxt {
+  position: fixed;
+  right: 0px;
+  bottom: 60px;
+  border-style: none;
+  border-radius: 40px 0px 0px 40px;
+  color: blueviolet;
+}
+
 .go {
   position: fixed;
   right: 0px;

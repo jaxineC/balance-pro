@@ -29,9 +29,9 @@ function DisplayMode({ focus, setFocus }) {
         {" "}
         1 : 1{" "}
       </button>
-      {/* <button
+      <button
         onClick={() => {
-          setFocus("both");
+          setFocus("overlay");
         }}
         className="modeBar Overlay"
         style={{
@@ -40,7 +40,7 @@ function DisplayMode({ focus, setFocus }) {
       >
         {" "}
         Overlay{" "}
-      </button> */}
+      </button>
     </div>
   );
 }

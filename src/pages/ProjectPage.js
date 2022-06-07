@@ -6,7 +6,6 @@ import Unfold from "../components/Unfold";
 import QuickAccess from "../components/QuickAccess";
 import ProjectInfo from "../components/ProjectInfo";
 import Timeline from "../components/Timeline";
-import Overlay from "../components/Overlay.js";
 import HoverTxt from "../components/HoverTxt.js";
 
 function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
@@ -55,14 +54,6 @@ function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
         instruction={instruction}
         setInstruction={setInstruction}
       />
-      {/* <Unfold
-        cat="life"
-        focus={focus}
-        mousePosition={mousePosition}
-        setMousePosition={setMousePosition}
-        instruction={instruction}
-        setInstruction={setInstruction}
-      /> */}
       <ProjectInfo
         userID={userID}
         cat="life"
@@ -75,8 +66,9 @@ function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
         XPosition={XPosition}
         setXPosition={setXPosition}
       />
-      <Overlay
+      <Timeline
         userID={userID}
+        cat="overlay"
         projectID={selectedProjects}
         XPosition={XPosition}
         setXPosition={setXPosition}

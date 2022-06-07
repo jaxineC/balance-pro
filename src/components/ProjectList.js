@@ -42,6 +42,11 @@ function ProjectList({
       projectList = [...projectList, doc.data()];
     });
     setProjects(projectList);
+    // if (projectList[0]) {
+    //   let list = selectedProjects;
+    //   cat === "work" ? (list[0] = projectList[0]) : (list[1] = projectList[0]);
+    //   setSelectedProjects(list);
+    // }
   }
 
   function docListener() {
@@ -129,6 +134,7 @@ function ProjectList({
         </svg>
       </span>
       <Switch
+        cat={cat}
         selectedProjects={selectedProjects}
         setSelectedProjects={setSelectedProjects}
         checked={checked}
@@ -136,6 +142,7 @@ function ProjectList({
       />
     </li>
   ));
+
   return (
     <ul style={ulStyle} className={cat}>
       {projects[0] ? projectItems : hintTxt}

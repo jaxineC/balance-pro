@@ -11,8 +11,8 @@ import googleIcon from "../icon/Google.png";
 import fbIcon from "../icon/facebook.png";
 
 function LoginBox({ userID, setUserID }) {
-  const [emailInput, setEmailInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
+  const [emailInput, setEmailInput] = useState("test@balancepro.me");
+  const [passwordInput, setPasswordInput] = useState("000000");
   const [message, setMessage] = useState("");
   const [loginErrorMessage, setLoginErrorMessage] = useState("");
 
@@ -116,39 +116,50 @@ function LoginBox({ userID, setUserID }) {
         className="TextS"
         style={{
           gridColumn: "2/3",
+          display: "flex",
           padding: "5px 0px 1px 10px",
           textAlign: "center",
           placeSelf: "flex-start",
         }}
       >
-        or sign in with{" "}
-        <button onClick={handeGoogleAuth}>
-          <img
-            style={{
-              height: 16,
-              placeSelf: "flex-start",
-              backgroundColor: "white",
-              borderRadius: 7,
-              padding: "1px 5px",
-              cursor: "pointer",
-            }}
-            className="icon"
-            src={googleIcon}
-            alt="google icon"
-          />
-          <img
-            style={{
-              height: 16,
-              placeSelf: "flex-start",
-              backgroundColor: "white",
-              borderRadius: 7,
-              padding: "1px 5px",
-              cursor: "pointer",
-            }}
-            className="icon"
-            src={fbIcon}
-            alt="fb icon"
-          />
+        <img
+          onClick={handeGoogleAuth}
+          style={{
+            height: 16,
+            placeSelf: "flex-start",
+            backgroundColor: "white",
+            borderRadius: 7,
+            padding: "1px 5px",
+            cursor: "pointer",
+          }}
+          className="icon"
+          src={googleIcon}
+          alt="google icon"
+        />
+        <img
+          style={{
+            height: 16,
+            placeSelf: "flex-start",
+            backgroundColor: "white",
+            borderRadius: 7,
+            padding: "1px 5px",
+            cursor: "pointer",
+          }}
+          className="icon"
+          src={fbIcon}
+          alt="fb icon"
+        />
+        <button
+          onClick={handleSignIn}
+          style={{
+            width: 120,
+            border: "1px solid blueviolet",
+            borderRadius: "10px",
+            marginLeft: "7px",
+            cursor: "pointer",
+          }}
+        >
+          Log in
         </button>
       </div>
     </div>

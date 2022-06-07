@@ -30,9 +30,24 @@ function ListPage({ userID, selectedProjects, setSelectedProjects }) {
         setSelectedProjects={setSelectedProjects}
       />
       <Background />
+      <div
+        className="goTxt TextS"
+        style={{
+          display:
+            selectedProjects[0] && selectedProjects[1] ? "none" : "block",
+        }}
+      >
+        Select at least one project in each category to start.
+      </div>
       <Link className="Link" to="/project">
         <button
-          style={{ display: checked === 2 ? "block" : "none" }}
+          style={{
+            display: "block",
+            backgroundColor:
+              selectedProjects[0] && selectedProjects[1]
+                ? "blueviolet"
+                : "#dddddd",
+          }}
           className="go TextXL bold"
         >
           Go!

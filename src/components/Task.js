@@ -22,6 +22,7 @@ import StretchBtn from "./StretchBtn.js";
 import ConnectBtn from "./ConnectBtn.js";
 
 function Task({
+  cat,
   userID,
   item,
   projectID,
@@ -238,10 +239,10 @@ function Task({
         isStretch={isStretch}
         setIsStretch={setIsStretch}
       />
-      <DeleteBtn item="item" userID={userID} projectID={projectID} />
+      <DeleteBtn cat={cat} item={item} userID={userID} projectID={projectID} />
       <ConnectBtn
         cat="start"
-        item="item"
+        item={item}
         userID={userID}
         projectID={projectID}
         clientPosition={clientPosition}
@@ -249,7 +250,7 @@ function Task({
       />
       <ConnectBtn
         cat="end"
-        item="item"
+        item={item}
         userID={userID}
         projectID={projectID}
         clientPosition={clientPosition}

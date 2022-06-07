@@ -13,6 +13,7 @@ import {
   limit,
   onSnapshot,
   Timestamp,
+  collectionGroup,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 
@@ -57,22 +58,47 @@ function TaskList({
   //--------------------------------------------------CRUD-------------------------------------------------------//
   // init fetch from firestore
   async function fetchTasks(cat, projectID) {
-    const dataRef = collection(db, col);
-    const q = query(dataRef, orderBy("start"));
-    const querySnapshot = await getDocs(q);
-    let initTasks = [];
-    querySnapshot.forEach((doc) => {
-      initTasks = [...initTasks, doc.data()];
-    });
-    setTasks(initTasks);
+    if (cat === "overlay") {
+      let colGroup = "tasks";
+      let initTasks = [];
+      let x = projectID[0];
+      let y = projectID[1];
+      const dataRef = query(
+        collectionGroup(db, colGroup),
+        where("projectID", "in", [x, y]),
+        orderBy("start")
+      );
+      const querySnapshot = await getDocs(dataRef);
+      querySnapshot.forEach((doc) => {
+        // console.log(doc.id, ' => ', doc.data());
+        initTasks = [...initTasks, doc.data()];
+      });
+      setTasks(initTasks);
+    } else {
+      const dataRef = collection(db, col);
+      const q = query(dataRef, orderBy("start"));
+      const querySnapshot = await getDocs(q);
+      let initTasks = [];
+      querySnapshot.forEach((doc) => {
+        initTasks = [...initTasks, doc.data()];
+      });
+      setTasks(initTasks);
+    }
   }
 
   // listen: todos collection
   function docListener(cat, projectID) {
-    if (cat === "work") {
-      const dataRef = collection(db, col);
-      const q = query(dataRef, orderBy("start"));
-      const unsubscribe = onSnapshot(q, (changedSnapshot) => {
+    if (cat === "overlay") {
+      let colGroup = "tasks";
+      let initTasks = [];
+      let x = projectID[0];
+      let y = projectID[1];
+      const dataRef = query(
+        collectionGroup(db, colGroup),
+        where("projectID", "in", [x, y]),
+        orderBy("start")
+      );
+      const unsubscribe = onSnapshot(dataRef, (changedSnapshot) => {
         let updatedTasks = [];
         changedSnapshot.forEach((doc) => {
           updatedTasks = [...updatedTasks, doc.data()];
@@ -101,6 +127,7 @@ function TaskList({
   //--------------------------------------------------RENDER-----------------------------------------------------//
   const taskItems = Tasks.map((item) => (
     <Task
+      cat={cat}
       projectID={projectID}
       userID={userID}
       key={item.taskID}

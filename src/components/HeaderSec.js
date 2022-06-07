@@ -46,7 +46,11 @@ function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
         className="padH"
       >
         {" "}
-        {userID ? "Log out" : "Sign up"}{" "}
+        {userID
+          ? `Log out ${
+              userID.displayName ? "(" + userID.displayName + ")" : ""
+            }`
+          : "Sign up"}{" "}
       </span>{" "}
       | <span className="padH"> About </span> |{" "}
       <span className="padH"> Contact Us </span>

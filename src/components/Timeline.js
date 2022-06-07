@@ -62,6 +62,7 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
       setIsAddTask(true);
       console.log("Clicked on " + new Date(addNewTaskStartDate));
       console.log(clickX);
+      console.log(cat);
     }
 
     renderAddTaskModal();

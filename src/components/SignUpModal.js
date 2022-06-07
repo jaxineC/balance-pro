@@ -191,7 +191,7 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
           onChange={(event) => setPasswordInput(event.target.value)}
           value={passwordInput}
           type="password"
-          placeholder="password"
+          placeholder="6+ characters"
           className="passwordInput"
         ></input>
         <hr
@@ -238,6 +238,27 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
         >
           Contiune with Google
         </button>
+        {/* <button
+          onMouseEnter={(event) => {
+            event.target.style.backgroundColor = "blueviolet";
+            event.target.parentNode.children[8].style.backgroundColor =
+              "#bbbbbb";
+          }}
+          onMouseLeave={(event) => {
+            event.target.style.backgroundColor = "#bbbbbb";
+            event.target.parentNode.children[8].style.backgroundColor =
+              "blueviolet";
+          }}
+          onClick={handeGoogleAuth}
+          style={{
+            border: "1px solid #eeeeee",
+            backgroundColor: "#bbbbbb",
+            color: "white",
+          }}
+          type="button"
+        >
+          Contiune with Facebook
+        </button> */}
         <div style={{ textAlign: "center" }}>
           Already a member? close popup window to Log in
         </div>

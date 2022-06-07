@@ -16,7 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 
-function DeleteBtn({ isHover, userID, projectID }) {
+function DeleteBtn({ cat, item, isHover, userID, projectID }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
 
@@ -26,7 +26,8 @@ function DeleteBtn({ isHover, userID, projectID }) {
   //--------------------------------------------------CRUD-------------------------------------------------------//
   // DELETE(deleteBtn)
   async function handleDeleteTask(event) {
-    let col = `${userID.uid}/${projectID}/tasks`;
+    let col = `${userID.uid}/${item.projectID}/tasks`;
+
     await deleteDoc(
       doc(
         db,

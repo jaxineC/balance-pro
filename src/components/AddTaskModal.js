@@ -31,8 +31,20 @@ function AddTaskModal({
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [inputText, setInputText] = useState("");
-  // let col = userID.uid + "-t";
-  let col = `${userID.uid}/${projectID}/tasks`;
+  const [catInput, setCatInput] = useState(cat);
+  let col;
+
+  if (cat === "overlay") {
+    if (catInput === "life") {
+      let newProjectID = projectID[1];
+      col = `${userID.uid}/${newProjectID}/tasks`;
+    } else {
+      let newProjectID = projectID[0];
+      col = `${userID.uid}/${newProjectID}/tasks`;
+    }
+  } else {
+    col = `${userID.uid}/${projectID}/tasks`;
+  }
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
@@ -48,7 +60,7 @@ function AddTaskModal({
       content: inputText,
       end: Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7)),
       note: "",
-      projectID: projectID,
+      projectID: catInput === "life" ? projectID[1] : projectID[0],
       start: Timestamp.fromDate(new Date(clickDate)),
       taskID: docID,
     };
@@ -78,6 +90,45 @@ function AddTaskModal({
         objectFit: "scaleDown",
       }}
     >
+      <button
+        onClick={() => {
+          setCatInput("work");
+          console.log(col);
+        }}
+        style={{
+          display: cat === "overlay" ? "block" : "none",
+          height: 20,
+          position: "absolute",
+          left: clickPosition + XPosition - 35,
+          top: Tasks.length * 22 + 2,
+          padding: 0,
+          margin: 0,
+          borderBottom: `2px solid ${
+            catInput === "life" ? "#dddddd" : "blueviolet"
+          }`,
+        }}
+      >
+        W
+      </button>
+      <button
+        onClick={() => {
+          setCatInput("life");
+        }}
+        style={{
+          display: cat === "overlay" ? "block" : "none",
+          height: 20,
+          position: "absolute",
+          left: clickPosition + XPosition - 15,
+          top: Tasks.length * 22 + 2,
+          padding: 0,
+          margin: 0,
+          borderBottom: `2px solid ${
+            catInput === "life" ? "blueviolet" : "#dddddd"
+          }`,
+        }}
+      >
+        L
+      </button>
       <input
         className="Task TextS"
         autoFocus
