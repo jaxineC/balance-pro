@@ -60,9 +60,6 @@ function Task({
   //--------------------------------------------------handle event-----------------------------------------------//
 
   function initDrag(event) {
-    console.log("-----");
-    console.log(initMouseClientX);
-    console.log(currentMouseLocation);
     setInitMouseClientX(event.clientX);
     setCurrentMouseLocation(event.clientX);
     setIsDrag(true);
@@ -83,7 +80,9 @@ function Task({
     });
     setInitMouseClientX(null);
     setCurrentMouseLocation(null);
-    setIsActive(false);
+    setTimeout(function () {
+      setIsActive(false);
+    }, 500);
   }
 
   async function updateData(db, col, docID, data) {
@@ -146,10 +145,6 @@ function Task({
     setIsEditTask(true);
   }
 
-  function handleChildHover(e) {
-    e.stopPropagation();
-  }
-
   //--------------------------------------------------CRUD-------------------------------------------------------// 2
   //--------------------------------------------------CRUD-------------------------------------------------------//
 
@@ -172,7 +167,7 @@ function Task({
           Math.floor((item.start.toDate() - Date.now()) / 86400000) * 20 +
           (isActive ? currentMouseLocation - initMouseClientX : 0) +
           stretchX[0],
-        backgroundColor: isActive === true ? "red" : "white",
+        backgroundColor: isActive === true ? "#FAE6FF" : "white",
       }}
     >
       <StretchBtn
