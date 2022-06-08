@@ -212,7 +212,7 @@ function Task({
           height: 26,
           position: "absolute",
           // left: ((item.end - item.start) / (60 * 60 * 24)) * 20 - 20,
-          right: 5,
+          right: 18,
           top: -2,
           padding: 0,
           margin: 0,

@@ -25,17 +25,23 @@ function EditTaskModal({
   setTargetTask,
   editTaskItem,
   setEditTaskItem,
+  XPosition,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [contentInput, setContentInput] = useState("");
   const [noteInput, setNoteInput] = useState("");
-  const [startDateInput, setStartDateInput] = useState(new Date(Date.now()));
-  const [endDateInput, setEndDateInput] = useState(
-    Date.now() + 60 * 60 * 24 * 1000
-  );
+  const [startDateInput, setStartDateInput] = useState({});
+  const [endDateInput, setEndDateInput] = useState({});
   let col = `${userID.uid}/${projectID}/tasks`;
 
+  useEffect(() => {
+    if (editTaskItem) {
+      setContentInput(editTaskItem.content);
+      setStartDateInput(editTaskItem.start.toDate());
+      setEndDateInput(editTaskItem.end.toDate());
+    }
+  }, [isEditTask]);
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
   function closeModal() {
@@ -45,18 +51,23 @@ function EditTaskModal({
   //--------------------------------------------------CRUD-------------------------------------------------------//
   // UPDATE(editBtn)
   async function handleEdit() {
+    //   console.log("-----");
+    //   console.log(editTaskItem.start.toDate());
+    //   console.log(Timestamp.fromDate(new Date(editTaskItem.start.toDate())));
+    //   console.log(startDateInput);
+    //   console.log(Timestamp.fromDate(new Date(Date.now())));
     const queryRef = doc(db, col, targetTask);
     await updateDoc(queryRef, {
       content: contentInput,
-      end: new Date(endDateInput),
+      end: Timestamp.fromDate(new Date(endDateInput)),
       note: noteInput,
-      start: new Date(startDateInput),
+      start: Timestamp.fromDate(new Date(startDateInput)),
     });
     setIsEditTask(false);
-    setContentInput(null);
-    setNoteInput(null);
-    setStartDateInput(null);
-    setEndDateInput(null);
+    setContentInput("");
+    setNoteInput("");
+    setStartDateInput({});
+    setEndDateInput({});
   }
 
   //--------------------------------------------------RENDER-----------------------------------------------------// 3
@@ -68,11 +79,11 @@ function EditTaskModal({
       style={{
         boxSizing: "border-box",
         width: 320,
-        height: "200px",
+        height: "100%",
         backgroundColor: "rgb(240, 240, 240, 0.8)",
         boxShadow: "1px 3px 8px #cccccc",
-        position: "fixed",
-        left: 0,
+        position: "absolute",
+        left: XPosition,
         display: isEditTask === true ? "grid" : "none",
         borderStyle: "solid",
         borderWidth: 1,

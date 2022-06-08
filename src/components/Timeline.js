@@ -104,6 +104,9 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
   return (
     <div
       onClick={handleAddTask}
+      // onScroll={(event) => {
+      //   setXPosition(event.currentTarget.scrollLeft);
+      // }}
       // onMouseUp={endDragStretch}
       // onMouseMove={handleMouseMove}
       className="Timeline "

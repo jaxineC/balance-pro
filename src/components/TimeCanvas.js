@@ -69,6 +69,7 @@ function TimeCanvas({
         projectID={projectID}
         editTaskItem={editTaskItem}
         setEditTaskItem={setEditTaskItem}
+        XPosition={XPosition}
       />
       {frames}
     </div>
