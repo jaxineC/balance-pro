@@ -30,7 +30,7 @@ function EditTaskModal({
   //--------------------------------------------------useState & variables---------------------------------------//
   const [contentInput, setContentInput] = useState("");
   const [noteInput, setNoteInput] = useState("");
-  const [startDateInput, setStartDateInput] = useState(Date.now());
+  const [startDateInput, setStartDateInput] = useState(new Date(Date.now()));
   const [endDateInput, setEndDateInput] = useState(
     Date.now() + 60 * 60 * 24 * 1000
   );
@@ -53,10 +53,10 @@ function EditTaskModal({
       start: new Date(startDateInput),
     });
     setIsEditTask(false);
-    setContentInput();
-    setNoteInput();
-    setStartDateInput();
-    setEndDateInput();
+    setContentInput(null);
+    setNoteInput(null);
+    setStartDateInput(null);
+    setEndDateInput(null);
   }
 
   //--------------------------------------------------RENDER-----------------------------------------------------// 3

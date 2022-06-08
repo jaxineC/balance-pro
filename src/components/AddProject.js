@@ -88,7 +88,7 @@ function AddProject({ userID }) {
           <option value="work">work project</option>
           <option value="life">life project</option>
         </select>
-        <label>Project Name</label>
+        <label>Project</label>
         <input
           onChange={(event) => setNameInput(event.target.value)}
           value={nameInput}

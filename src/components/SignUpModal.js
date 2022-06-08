@@ -102,16 +102,22 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
   }
 
   async function initUserFirestore(user) {
-    await setDoc(doc(db, user.uid, "selectedProjects"), {
-      work: "",
-      life: "",
-    });
-    await setDoc(doc(db, user.uid, "welcomeTXT"), {
-      txt1: "Greeting text.",
-      txt2: "You can enter your own every-day greeting text above. And some big chunck of text content here. --- just click, type, and hit enter!",
-    });
-    console.log(`created user collection as ${user.uid}`);
-    console.log(`displayName as ${user.displayName}`);
+    try {
+      await setDoc(doc(db, user.uid, "selectedProjects"), {
+        work: "",
+        life: "",
+      });
+      await setDoc(doc(db, user.uid, "welcomeTXT"), {
+        txt1: "Greeting text.",
+        txt2: "Enter your own everyday greeting text above. And some details here. --- By click, type, and enter!",
+      });
+      await setDoc(doc(db, user.uid, "welcomeTXT"), {
+        txt1: "Greeting text.",
+        txt2: "Enter your own everyday greeting text above. And some details here. --- By click, type, and enter!",
+      });
+    } catch (event) {
+      console.error("Error init user document: ", event);
+    }
   }
 
   return (

@@ -21,9 +21,8 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
   });
   const refContainer = useRef();
   useEffect(() => {
-    // scrollLeft(1200);
-    refContainer.current.scrollLeft = 20 * (8 * 7 - 1); //前面 8周
-    // refContainer.current.scrollLeft = XPosition;
+    // refContainer.current.scrollLeft = 20 * (8 * 7 - 1); //前面 8周(露出一個周日當padding 20px) =1100
+    refContainer.current.scrollLeft = XPosition;
     // setXPosition(refContainer.current.scrollLeft);
   }, []);
 
@@ -37,13 +36,13 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
   }
 
   function getDate(event) {
-    // find current 0,0 date on screen (scroll adjust days +click plusdays)
-    let baselineMvDays = Math.floor(
-      (refContainer.current.scrollLeft - 1220) / 20
+    let scrollPlusDay = Math.floor(
+      (refContainer.current.scrollLeft - 20 * (8 * 7 - 1)) / 20
     );
-    let plusDays = Math.floor(event.clientX / 20);
-    let clickDay = (baselineMvDays + plusDays) * (1000 * 86400) + ZDay.TODAY;
-    setClickDate(clickDay);
+    let clickPlusDays = Math.floor(event.clientX / 20);
+    let clickDay =
+      (scrollPlusDay + clickPlusDays + ZDay.TODAY) * (1000 * 86400) + 1;
+    // setClickDate(clickDay);
     setXPosition(refContainer.current.scrollLeft); //temp
     setClickPosition(Math.floor(event.clientX / 20) * 20);
 
@@ -56,20 +55,60 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
         Math.floor((refContainer.current.scrollLeft - 20 * (8 * 7 - 1)) / 20) +
         1;
       let addNewTaskStartDate =
-        ZDay.TODAY +
-        (clickX + scrollPass - ZDay.DAY + 1) * (1000 * 60 * 60 * 24);
-
+        ZDay.TODAY + (clickX + scrollPass - ZDay.DAY) * (1000 * 60 * 60 * 24);
+      setClickDate(addNewTaskStartDate);
       setIsAddTask(true);
-      console.log("Clicked on " + new Date(addNewTaskStartDate));
-      console.log(clickX);
-      console.log(cat);
     }
 
     renderAddTaskModal();
   }
 
+  // function handleMouseMove(event) {
+  //   if (isStretch) {
+  //     let x = event.clientX - initMouseClientX;
+  //     date === "start" ? setStretchX([x, 0]) : setStretchX([0, x]);
+  //   }
+  //   if (isDrag) {
+  //     // setClientMouseX(event.clientX);
+  //     let x = event.clientX - initMouseClientX;
+  //     setDeltaX(x);
+  //   }
+  // }
+
+  // function endDragStretch(event) {
+  //   if (isDrag === true) {
+  //     setIsDrag(false);
+  //     setDeltaX(0);
+  //     let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
+  //     updateData(db, col, item.taskID, {
+  //       end: new Date(item.end.seconds * 1000 + x),
+  //       start: new Date(item.start.seconds * 1000 + x),
+  //     });
+  //     setInitMouseClientX(0);
+  //   }
+  //   if (isStretch === true) {
+  //     setIsStretch(false);
+  //     let data = {};
+  //     let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
+  //     if (stretchX[0]) {
+  //       data = { start: new Date(item.start.seconds * 1000 + x) };
+  //       // Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7))
+  //     } else {
+  //       data = { end: new Date(item.end.seconds * 1000 + x) };
+  //     }
+  //     setStretchX([0, 0]);
+  //     updateData(db, col, item.taskID, data);
+  //     setInitMouseClientX(0);
+  //   }
+  // }
   return (
-    <div onClick={handleAddTask} className="Timeline " ref={refContainer}>
+    <div
+      onClick={handleAddTask}
+      // onMouseUp={endDragStretch}
+      // onMouseMove={handleMouseMove}
+      className="Timeline "
+      ref={refContainer}
+    >
       <DateBar setZDay={setZDay} ZDay={ZDay} />
       <TimeCanvas
         userID={userID}

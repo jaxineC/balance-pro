@@ -15,7 +15,7 @@ import {
 import { db } from "../firebase.js";
 import { updateData } from "../module/manageDB.js";
 
-function Hashtag({ userID, projectID, item, i }) {
+function Hashtag({ userID, projectID, item, index }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [hashtagInput, setHashtagInput] = useState("");
@@ -25,8 +25,9 @@ function Hashtag({ userID, projectID, item, i }) {
   //--------------------------------------------------handle event-----------------------------------------------//
   // setHashtagInput(item);
   function handleHashtagUpdate() {
-    let data = { hashtag: [hashtagInput] };
-    updateData(col, docID, data);
+    console.log("ok");
+    // let data = { hashtag: [hashtagInput] };
+    // updateData(col, docID, data);
   }
 
   //--------------------------------------------------CRUD-------------------------------------------------------// 2

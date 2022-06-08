@@ -12,9 +12,7 @@ function QuickAccess({ XPosition, setXPosition }) {
       <div
         className="circle"
         onClick={() => {
-          console.log(XPosition);
           setXPosition(1100);
-          console.log(XPosition);
         }}
       >
         Today

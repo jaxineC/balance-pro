@@ -22,6 +22,7 @@ import StretchBtn from "./StretchBtn.js";
 import ConnectBtn from "./ConnectBtn.js";
 
 function Task({
+  ZDay,
   cat,
   userID,
   item,
@@ -31,6 +32,8 @@ function Task({
   setIsEditTask,
   editTaskItem,
   setEditTaskItem,
+  setTargetItem,
+  targetItem,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -47,7 +50,6 @@ function Task({
   //--------------------------------------------------handle event-----------------------------------------------//
 
   function initDrag(event) {
-    console.log("initDrag:" + isDrag);
     setIsDrag(true);
     setInitMouseClientX(event.clientX);
   }
@@ -61,6 +63,7 @@ function Task({
         end: new Date(item.end.seconds * 1000 + x),
         start: new Date(item.start.seconds * 1000 + x),
       });
+      setInitMouseClientX(0);
     }
   }
 
@@ -130,7 +133,6 @@ function Task({
     // let docID = event.target.getAttribute("value");
     setTargetTask(docID);
     setIsEditTask(true);
-    console.log(editTaskItem.start);
   }
 
   function handleChildHover(e) {
@@ -152,9 +154,9 @@ function Task({
           ((item.end - item.start) / (60 * 60 * 24)) * 20 -
           stretchX[0] +
           stretchX[1],
-        top: Tasks.indexOf(item) * 22,
+        top: Tasks.indexOf(item) * 26,
         left:
-          1220 +
+          20 * (8 * 7 - 1 + ZDay.DAY + 1) +
           Math.floor((item.start.toDate() - Date.now()) / 86400000) * 20 +
           deltaX +
           stretchX[0],
@@ -195,7 +197,7 @@ function Task({
         style={{
           color: "#666",
           position: "absolute",
-          top: 18,
+          top: 22,
           left: 0,
           display: "none",
         }}
@@ -207,7 +209,7 @@ function Task({
         className="editBtn"
         style={{
           display: "none",
-          height: 22,
+          height: 26,
           position: "absolute",
           // left: ((item.end - item.start) / (60 * 60 * 24)) * 20 - 20,
           right: 5,
@@ -216,7 +218,7 @@ function Task({
           margin: 0,
         }}
         fill="none"
-        height="22"
+        height="26"
         viewBox="0 0 24 24"
         width="18"
         // xmlns="http://www.w3.org/2000/svg"

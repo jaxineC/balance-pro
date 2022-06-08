@@ -127,6 +127,7 @@ function TaskList({
   //--------------------------------------------------RENDER-----------------------------------------------------//
   const taskItems = Tasks.map((item) => (
     <Task
+      ZDay={ZDay}
       cat={cat}
       projectID={projectID}
       userID={userID}

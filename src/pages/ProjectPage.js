@@ -9,7 +9,7 @@ import Timeline from "../components/Timeline";
 import HoverTxt from "../components/HoverTxt.js";
 
 function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
-  const [XPosition, setXPosition] = useState(1220);
+  const [XPosition, setXPosition] = useState(20 * (8 * 7 - 1));
   const [focus, setFocus] = useState("balance"); //"balance", "work", "life", "overlay"
   const [instruction, setInstruction] = useState("");
   const [mousePosition, setMousePosition] = useState([]);
@@ -34,11 +34,7 @@ function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
 
   return (
     <main className="ProjectPage" style={divStyle}>
-      <ProjectInfo
-        userID={userID}
-        cat="work"
-        selectedProjects={selectedProjects}
-      />
+      <ProjectInfo userID={userID} cat="work" projectID={selectedProjects[0]} />
       <Timeline
         userID={userID}
         cat="work"
@@ -54,11 +50,7 @@ function ProjectPage({ userID, selectedProjects, setSelectedProjects }) {
         instruction={instruction}
         setInstruction={setInstruction}
       />
-      <ProjectInfo
-        userID={userID}
-        cat="life"
-        selectedProjects={selectedProjects}
-      />
+      <ProjectInfo userID={userID} cat="life" projectID={selectedProjects[1]} />
       <Timeline
         userID={userID}
         cat="life"

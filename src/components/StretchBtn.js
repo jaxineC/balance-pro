@@ -35,13 +35,40 @@ function StretchBtn({
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
 
-  function renderStretchBtn() {
+  function renderStretchBtn(event) {
+    let editBtnNode = event.currentTarget.parentNode.children[3];
+    let deleteBtnNode = event.currentTarget.parentNode.children[5];
     if (isHovered) {
       setIsHovered(false);
+      if (editBtnNode && deleteBtnNode) {
+        if (editBtnNode.style.display === "none") {
+          editBtnNode.style.display = "inline";
+        } else {
+          editBtnNode.style.display = "none";
+        }
+        if (deleteBtnNode.style.display === "none") {
+          deleteBtnNode.style.display = "inline";
+        } else {
+          deleteBtnNode.style.display = "none";
+        }
+      }
     } else {
       setIsHovered(true);
+      if (editBtnNode && deleteBtnNode) {
+        if (editBtnNode.style.display === "none") {
+          editBtnNode.style.display = "inline";
+        } else {
+          editBtnNode.style.display = "none";
+        }
+        if (deleteBtnNode.style.display === "none") {
+          deleteBtnNode.style.display = "inline";
+        } else {
+          deleteBtnNode.style.display = "none";
+        }
+      }
     }
   }
+
   function initStretch(event) {
     setIsStretch(true);
     setInitMouseClientX(event.clientX);
@@ -60,6 +87,7 @@ function StretchBtn({
         data = { end: new Date(item.end.seconds * 1000 + x) };
       }
       updateData(db, col, item.taskID, data);
+      setInitMouseClientX(0);
     }
   }
 
@@ -104,7 +132,7 @@ function StretchBtn({
       onMouseMove={handleStretch}
       className="stretchBtn"
       style={{
-        height: 22,
+        height: 26,
         width: 15,
         display: "none",
         position: "absolute",
@@ -121,7 +149,7 @@ function StretchBtn({
           left: -6,
           zIndex: 999,
         }}
-        height="22"
+        height="26"
         width="18"
         version="1.1"
         id="Layer_1"

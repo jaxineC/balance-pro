@@ -27,7 +27,7 @@ function DeleteBtn({ cat, item, isHover, userID, projectID }) {
   // DELETE(deleteBtn)
   async function handleDeleteTask(event) {
     let col = `${userID.uid}/${item.projectID}/tasks`;
-
+    console.log(item);
     await deleteDoc(
       doc(
         db,
@@ -44,7 +44,7 @@ function DeleteBtn({ cat, item, isHover, userID, projectID }) {
       onClick={handleDeleteTask}
       style={{
         display: isHover ? "inline" : "none",
-        height: 22,
+        height: 26,
         position: "absolute",
         right: -27,
         top: -2,
@@ -52,7 +52,7 @@ function DeleteBtn({ cat, item, isHover, userID, projectID }) {
         margin: 0,
       }}
       fill="none"
-      height="22"
+      height="26"
       viewBox="0 0 24 24"
       width="18"
       // xmlns="http://www.w3.org/2000/svg"
