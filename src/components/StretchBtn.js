@@ -79,7 +79,12 @@ function StretchBtn({
       setIsStretch(false);
       setStretchX([0, 0]);
       let data = {};
-      let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
+      let x =
+        Math.floor((event.clientX - initMouseClientX) / 20) *
+        1000 *
+        60 *
+        60 *
+        24;
       if (date === "start") {
         data = { start: new Date(item.start.seconds * 1000 + x) };
         // Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7))

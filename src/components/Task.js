@@ -58,7 +58,12 @@ function Task({
     if (isDrag === true) {
       setIsDrag(false);
       setDeltaX(0);
-      let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
+      let x =
+        Math.floor((event.clientX - initMouseClientX) / 20) *
+        1000 *
+        60 *
+        60 *
+        24;
       updateData(db, col, item.taskID, {
         end: new Date(item.end.seconds * 1000 + x),
         start: new Date(item.start.seconds * 1000 + x),
@@ -151,7 +156,7 @@ function Task({
       value={item.taskID}
       style={{
         width:
-          ((item.end - item.start) / (60 * 60 * 24)) * 20 -
+          Math.floor((item.end - item.start) / (60 * 60 * 24)) * 20 -
           stretchX[0] +
           stretchX[1],
         top: Tasks.indexOf(item) * 26,
@@ -186,7 +191,7 @@ function Task({
         }}
         onMouseMove={handleDrag}
         style={{
-          width: ((item.end - item.start) / (60 * 60 * 24)) * 20,
+          width: Math.floor((item.end - item.start) / (60 * 60 * 24)) * 20,
           cursor: "default",
         }}
       >
