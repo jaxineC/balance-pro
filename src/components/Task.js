@@ -34,55 +34,61 @@ function Task({
   setEditTaskItem,
   setTargetItem,
   targetItem,
+  isDrag,
+  setIsDrag,
+  currentMouseLocation,
+  setCurrentMouseLocation,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
-  const [isDrag, setIsDrag] = useState(false);
-  const [deltaX, setDeltaX] = useState(0);
-  const [initMouseClientX, setInitMouseClientX] = useState(0);
-  const [clientMouseX, setClientMouseX] = useState(0);
+
+  // const [deltaX, setDeltaX] = useState(0);
+  const [initMouseClientX, setInitMouseClientX] = useState(0); //in Task
   const [clientPosition, setClientPosition] = useState([]);
   const [stretchX, setStretchX] = useState([0, 0]); //[start, end]
   const [isStretch, setIsStretch] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   let col = `${userID.uid}/${projectID}/tasks`;
+
+  useEffect(() => {
+    if (isDrag === false && isActive === true) {
+      endDrag();
+    }
+  }, [isDrag]);
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
 
   function initDrag(event) {
-    setIsDrag(true);
+    console.log("-----");
+    console.log(initMouseClientX);
+    console.log(currentMouseLocation);
     setInitMouseClientX(event.clientX);
+    setCurrentMouseLocation(event.clientX);
+    setIsDrag(true);
+    setIsActive(true);
   }
 
   function endDrag(event) {
-    if (isDrag === true) {
-      setIsDrag(false);
-      setDeltaX(0);
-      let x =
-        Math.floor((event.clientX - initMouseClientX) / 20) *
-        1000 *
-        60 *
-        60 *
-        24;
-      updateData(db, col, item.taskID, {
-        end: new Date(item.end.seconds * 1000 + x),
-        start: new Date(item.start.seconds * 1000 + x),
-      });
-      setInitMouseClientX(0);
-    }
+    console.log("endDrag is called");
+    let x =
+      Math.floor((currentMouseLocation - initMouseClientX) / 20) *
+      1000 *
+      60 *
+      60 *
+      24;
+    updateData(db, col, item.taskID, {
+      end: new Date(item.end.seconds * 1000 + x),
+      start: new Date(item.start.seconds * 1000 + x),
+    });
+    setInitMouseClientX(null);
+    setCurrentMouseLocation(null);
+    setIsActive(false);
   }
 
   async function updateData(db, col, docID, data) {
     const queryRef = doc(db, col, docID);
     await updateDoc(queryRef, data);
-  }
-
-  function handleDrag(event) {
-    if (isDrag) {
-      // setClientMouseX(event.clientX);
-      let x = event.clientX - initMouseClientX;
-      setDeltaX(x);
-    }
   }
 
   function handleHover(event) {
@@ -146,6 +152,7 @@ function Task({
 
   //--------------------------------------------------CRUD-------------------------------------------------------// 2
   //--------------------------------------------------CRUD-------------------------------------------------------//
+
   //--------------------------------------------------RENDER-----------------------------------------------------// 3
   //--------------------------------------------------RENDER-----------------------------------------------------//
   return (
@@ -163,8 +170,9 @@ function Task({
         left:
           20 * (8 * 7 - 1 + ZDay.DAY + 1) +
           Math.floor((item.start.toDate() - Date.now()) / 86400000) * 20 +
-          deltaX +
+          (isActive ? currentMouseLocation - initMouseClientX : 0) +
           stretchX[0],
+        backgroundColor: isActive === true ? "red" : "white",
       }}
     >
       <StretchBtn
@@ -184,12 +192,7 @@ function Task({
             initDrag(event);
           }
         }}
-        onMouseUp={(event) => {
-          if (isStretch === false) {
-            endDrag(event);
-          }
-        }}
-        onMouseMove={handleDrag}
+        // onMouseMove={handleDrag}
         style={{
           width: Math.floor((item.end - item.start) / (60 * 60 * 24)) * 20,
           cursor: "default",

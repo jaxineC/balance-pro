@@ -9,6 +9,8 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [isAddTask, setIsAddTask] = useState(false);
+  const [isDrag, setIsDrag] = useState(false);
+  const [currentMouseLocation, setCurrentMouseLocation] = useState(null);
   const [clickPosition, setClickPosition] = useState(null);
   const [clickDate, setClickDate] = useState(0); //delelte this after 5/23
   const [ZDay, setZDay] = useState({
@@ -63,52 +65,20 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
     renderAddTaskModal();
   }
 
-  // function handleMouseMove(event) {
-  //   if (isStretch) {
-  //     let x = event.clientX - initMouseClientX;
-  //     date === "start" ? setStretchX([x, 0]) : setStretchX([0, x]);
-  //   }
-  //   if (isDrag) {
-  //     // setClientMouseX(event.clientX);
-  //     let x = event.clientX - initMouseClientX;
-  //     setDeltaX(x);
-  //   }
-  // }
-
-  // function endDragStretch(event) {
-  //   if (isDrag === true) {
-  //     setIsDrag(false);
-  //     setDeltaX(0);
-  //     let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
-  //     updateData(db, col, item.taskID, {
-  //       end: new Date(item.end.seconds * 1000 + x),
-  //       start: new Date(item.start.seconds * 1000 + x),
-  //     });
-  //     setInitMouseClientX(0);
-  //   }
-  //   if (isStretch === true) {
-  //     setIsStretch(false);
-  //     let data = {};
-  //     let x = ((event.clientX - initMouseClientX) / 20) * 1000 * 60 * 60 * 24;
-  //     if (stretchX[0]) {
-  //       data = { start: new Date(item.start.seconds * 1000 + x) };
-  //       // Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7))
-  //     } else {
-  //       data = { end: new Date(item.end.seconds * 1000 + x) };
-  //     }
-  //     setStretchX([0, 0]);
-  //     updateData(db, col, item.taskID, data);
-  //     setInitMouseClientX(0);
-  //   }
-  // }
   return (
     <div
       onClick={handleAddTask}
       // onScroll={(event) => {
       //   setXPosition(event.currentTarget.scrollLeft);
       // }}
-      // onMouseUp={endDragStretch}
-      // onMouseMove={handleMouseMove}
+      onMouseUp={() => {
+        setIsDrag(false);
+      }}
+      onMouseMove={(event) => {
+        if (isDrag) {
+          setCurrentMouseLocation(event.clientX);
+        }
+      }}
       className="Timeline "
       ref={refContainer}
     >
@@ -124,6 +94,10 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
         setClickPosition={setClickPosition}
         projectID={projectID}
         isAddTask={isAddTask}
+        isDrag={isDrag}
+        setIsDrag={setIsDrag}
+        currentMouseLocation={currentMouseLocation}
+        setCurrentMouseLocation={setCurrentMouseLocation}
       />
     </div>
   );

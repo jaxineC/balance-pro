@@ -16,6 +16,10 @@ function TimeCanvas({
   ZDay,
   isAddTask,
   setIsAddTask,
+  isDrag,
+  setIsDrag,
+  currentMouseLocation,
+  setCurrentMouseLocation,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -59,6 +63,10 @@ function TimeCanvas({
         setTargetTask={setTargetTask}
         editTaskItem={editTaskItem}
         setEditTaskItem={setEditTaskItem}
+        isDrag={isDrag}
+        setIsDrag={setIsDrag}
+        currentMouseLocation={currentMouseLocation}
+        setCurrentMouseLocation={setCurrentMouseLocation}
       />
       <EditTaskModal
         userID={userID}

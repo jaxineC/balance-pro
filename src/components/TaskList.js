@@ -38,6 +38,10 @@ function TaskList({
   setTargetTask,
   editTaskItem,
   setEditTaskItem,
+  isDrag,
+  setIsDrag,
+  currentMouseLocation,
+  setCurrentMouseLocation,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -138,6 +142,10 @@ function TaskList({
       setIsEditTask={setIsEditTask}
       editTaskItem={editTaskItem}
       setEditTaskItem={setEditTaskItem}
+      isDrag={isDrag}
+      setIsDrag={setIsDrag}
+      currentMouseLocation={currentMouseLocation}
+      setCurrentMouseLocation={setCurrentMouseLocation}
     />
   ));
 
