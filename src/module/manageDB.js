@@ -12,6 +12,8 @@ import {
   limit,
   onSnapshot,
   Timestamp,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 
@@ -21,7 +23,7 @@ import { db } from "../firebase.js";
 async function addData(col, docID, data) {
   try {
     // const docRef = await addDoc(collection(db, col), data);
-    await setDoc(doc(db, col, docID), data);
+    await setDoc(doc(db, col, docID), data, { merge: true });
     console.log("Document written with ID: ", docID); //docRef.id if use addDoc with unknown doc id
   } catch (event) {
     console.error("Error adding document: ", event);
@@ -65,6 +67,20 @@ async function updateData(col, docID, data) {
   await updateDoc(queryRef, data);
 }
 
+async function updateFieldArray(col, docID, field, data) {
+  const queryRef = doc(db, col, docID);
+
+  // Atomically add a new region to the "regions" array field.
+  await updateDoc(queryRef, {
+    field: arrayUnion(data),
+  });
+
+  // Atomically remove a region from the "regions" array field.
+  await updateDoc(queryRef, {
+    field: arrayRemove(data),
+  });
+}
+
 // Delete -----------------------------------------------------------------------------------------
 async function deleteData(db, col, docID) {
   await deleteDoc(doc(db, col, docID));
@@ -84,4 +100,5 @@ export {
   updateData,
   deleteData,
   docListener,
+  updateFieldArray,
 };

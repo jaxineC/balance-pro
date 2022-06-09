@@ -136,6 +136,7 @@ ul {
   align-self: flex-end;
 }
 .Hashtag {
+  text-transform: capitalize;
   margin-right: 10px;
   align-self: flex-end;
   white-space: nowrap;

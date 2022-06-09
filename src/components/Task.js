@@ -49,7 +49,6 @@ function Task({
   const [clientPosition, setClientPosition] = useState([]);
   const [stretchX, setStretchX] = useState([0, 0]); //[start, end]
   const [stretchType, setStretchType] = useState("");
-
   const [isActive, setIsActive] = useState(false);
   let col = `${userID.uid}/${projectID}/tasks`;
 

@@ -24,7 +24,7 @@ function EditableTxt({ col, docID, projectInfo, editableTxtStyle }) {
   }, [projectInfo]);
 
   function handleTxtUpdate() {
-    let data = txtInput;
+    let data = { name: txtInput };
     updateData(col, docID, data);
   }
 

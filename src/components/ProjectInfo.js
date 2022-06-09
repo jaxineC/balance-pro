@@ -75,7 +75,7 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
     // }
   }
 
-  async function addHashTag() {
+  async function handleAddHashTag() {
     console.log({ cat }, "run addHashTag");
     let docID = projectID;
     let data = { hashtag: arrayUnion("hashtag") };
@@ -102,9 +102,37 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
   console.log({ cat }, "render-----");
   console.log(projectInfo);
 
+  function renderDateModal() {}
+
+  async function addHashtag() {
+    let docID = projectID;
+    let data = { hashtag: arrayUnion(hashtagInput) };
+    const queryRef = doc(db, col, docID);
+    await updateDoc(queryRef, data);
+  }
+
   //------------------------------------------------------------------------------
-  const tags = hashtags.map((item, index) => (
-    <li key={index} className="Hashtag TextS">
+  let HashtagStyle = {
+    textTransform: "capitalize",
+    marginRight: "10px",
+    alignSelf: "flex-end",
+    whiteSpace: "nowrap",
+    padding: "0px 8px",
+    backgroundColor: "#e6f252",
+    color: "#666666",
+    borderStyle: "none",
+    borderRadius: "5px",
+  };
+  const hashtagItems = hashtags.map((item, index) => (
+    <li key={index} className="Hashtag TextXS">
+      {/* <Hashtag
+        item={item}
+        index={index}
+        col={userID.uid}
+        docID={projectID}
+        projectInfo={projectInfo}
+        HashtagStyle={HashtagStyle}
+      /> */}
       <span>{`# ${hashtags[index]}`}</span>
     </li>
   ));
@@ -144,6 +172,7 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
       />
       <div
         className="ProjectDate TextS"
+        onClick={renderDateModal}
         // onClick={() => {
         //   console.log(projectInfo.start.toDate().getFullYear());
         //   console.log(projectInfo.start.toDate().getMonth() + 1);
@@ -162,10 +191,10 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
         {projectInfo.end ? projectInfo.end.toDate().getMonth() + 1 : ""}/
         {projectInfo.end ? projectInfo.end.toDate().getDate() : ""}
       </div>
-      <ul className="Hashtags TextS">
-        {tags}
+      <ul className="Hashtags">
+        {hashtagItems}
         <button
-          onClick={addHashTag}
+          onClick={addHashtag}
           className="TextS theme bold"
           style={{ cursor: "pointer" }}
         >

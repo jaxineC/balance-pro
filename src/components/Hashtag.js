@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   collection,
   doc,
@@ -11,47 +11,66 @@ import {
   where,
   limit,
   onSnapshot,
+  arrayUnion,
+  updateDoc,
+  arrayRemove,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { updateData } from "../module/manageDB.js";
+import DeleteBtn from "./DeleteBtn.js";
 
-function Hashtag({ userID, projectID, item, index }) {
+function Hashtag({ item, index, col, docID, projectInfo, HashtagStyle }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
-  const [hashtagInput, setHashtagInput] = useState("");
-  let col = userID.uid;
-  let docID = projectID;
+  const [hashtagInput, setHashtagInput] = useState(item);
+  const refInput = useRef(item);
+
+  useEffect(() => {
+    setHashtagInput(projectInfo.hashtag.index);
+  }, [projectInfo]);
+
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
   // setHashtagInput(item);
-  function handleHashtagUpdate() {
-    console.log("ok");
-    // let data = { hashtag: [hashtagInput] };
-    // updateData(col, docID, data);
+  async function removeHashtag() {
+    const queryRef = doc(db, col, docID);
+
+    await updateDoc(queryRef, {
+      field: arrayUnion(hashtagInput),
+    });
+    await updateDoc(queryRef, {
+      field: arrayRemove(hashtagInput),
+    });
   }
 
-  //--------------------------------------------------CRUD-------------------------------------------------------// 2
-  //--------------------------------------------------CRUD-------------------------------------------------------//
-  //--------------------------------------------------RENDER-----------------------------------------------------// 3
-  //--------------------------------------------------RENDER-----------------------------------------------------//
+  function handleHover(event) {
+    // let deleteBtntNode = event.currentTarget.children[0];
+    // if (deleteBtntNode) {
+    //   if (deleteBtntNode.style.display === "none") {
+    //     deleteBtntNode.style.display = "inline";
+    //   } else {
+    //     deleteBtntNode.style.display = "none";
+    //   }
+    // }
+  }
+
   return (
-    <li>
+    <div>
       <input
+        style={HashtagStyle}
         onKeyDown={(event) => {
           if (event.key === "Enter") {
-            handleHashtagUpdate();
+            // handleHashtagUpdate();
           }
         }}
-        className="TextXL bold txt1Input"
         onChange={(event) => {
           setHashtagInput(event.target.value);
         }}
         value={hashtagInput}
-        style={{
-          borderStyle: "none",
-        }}
+        ref={refInput}
       ></input>
-    </li>
+      <DeleteBtn />
+    </div>
   );
 }
 
