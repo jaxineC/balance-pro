@@ -10,7 +10,8 @@ function HoverTxt({ instruction, mousePosition }) {
         position: "fixed",
         top: instruction ? mousePosition[1] - 10 : 0,
         left: instruction ? mousePosition[0] + 10 : 0,
-        backgroundColor: "#dddddd",
+        backgroundColor: "#FAE6FF",
+
         height: 4,
         // borderBottom: "1px solid blueviolet",
         textAlign: "center",

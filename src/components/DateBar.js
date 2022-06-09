@@ -110,7 +110,7 @@ function DateBar({ ZDay, setZDay }) {
     fontWeight: 500,
     width: (8 - ZDay.DAY) * 20 - 3,
     overflow: "visible",
-    backgroundColor: "#ffffff",
+    // backgroundColor: "#ffffff",
   };
 
   return (

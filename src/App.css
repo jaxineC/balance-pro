@@ -4,6 +4,17 @@
   font-family: "Work Sans", sans-serif;
 }
 
+:root {
+  --lime: ##e6f252;
+  --white: #ffffff;
+  --lightGrey: #dddddd;
+  --midGrey: #666666;
+  --grey: #888888;
+  --black: #222500;
+  --purple: blueviolet;
+  --lightPurple: #fae6ff;
+}
+
 /* --------------------------------------------------------------------------------- */
 .HeaderSec {
   box-sizing: border-box;
@@ -17,6 +28,7 @@
   justify-content: space-between;
   border-width: 0px 0px 1px 0px;
   border-color: #dddddd;
+
   border-style: solid;
   padding: 0px 10px;
   z-index: 99;

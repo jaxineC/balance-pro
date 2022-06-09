@@ -10,6 +10,7 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
   //--------------------------------------------------useState & variables---------------------------------------//
   const [isAddTask, setIsAddTask] = useState(false);
   const [isDrag, setIsDrag] = useState(false);
+  const [isStretch, setIsStretch] = useState("");
   const [currentMouseLocation, setCurrentMouseLocation] = useState(null);
   const [clickPosition, setClickPosition] = useState(null);
   const [clickDate, setClickDate] = useState(0); //delelte this after 5/23
@@ -73,9 +74,13 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
       // }}
       onMouseUp={() => {
         setIsDrag(false);
+        setIsStretch(false);
       }}
       onMouseMove={(event) => {
         if (isDrag) {
+          setCurrentMouseLocation(event.clientX);
+        }
+        if (isStretch) {
           setCurrentMouseLocation(event.clientX);
         }
       }}
@@ -98,6 +103,8 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
         setIsDrag={setIsDrag}
         currentMouseLocation={currentMouseLocation}
         setCurrentMouseLocation={setCurrentMouseLocation}
+        isStretch={isStretch}
+        setIsStretch={setIsStretch}
       />
     </div>
   );

@@ -38,6 +38,8 @@ function Task({
   setIsDrag,
   currentMouseLocation,
   setCurrentMouseLocation,
+  isStretch,
+  setIsStretch,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -46,7 +48,8 @@ function Task({
   const [initMouseClientX, setInitMouseClientX] = useState(0); //in Task
   const [clientPosition, setClientPosition] = useState([]);
   const [stretchX, setStretchX] = useState([0, 0]); //[start, end]
-  const [isStretch, setIsStretch] = useState(false);
+  const [stretchType, setStretchType] = useState("");
+
   const [isActive, setIsActive] = useState(false);
   let col = `${userID.uid}/${projectID}/tasks`;
 
@@ -55,6 +58,12 @@ function Task({
       endDrag();
     }
   }, [isDrag]);
+
+  useEffect(() => {
+    if (isStretch === false && isActive === true) {
+      endStretch();
+    }
+  }, [isStretch]);
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
@@ -67,7 +76,6 @@ function Task({
   }
 
   function endDrag(event) {
-    console.log("endDrag is called");
     let x =
       Math.floor((currentMouseLocation - initMouseClientX) / 20) *
       1000 *
@@ -80,6 +88,29 @@ function Task({
     });
     setInitMouseClientX(null);
     setCurrentMouseLocation(null);
+    setTimeout(function () {
+      setIsActive(false);
+    }, 500);
+  }
+
+  function endStretch() {
+    let data = {};
+    let x =
+      Math.floor((currentMouseLocation - initMouseClientX) / 20) *
+      1000 *
+      60 *
+      60 *
+      24;
+    if (stretchType === "start") {
+      data = { start: new Date(item.start.seconds * 1000 + x) };
+      // Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7))
+    } else if (stretchType === "end") {
+      data = { end: new Date(item.end.seconds * 1000 + x) };
+    }
+    updateData(db, col, item.taskID, data);
+    setInitMouseClientX(null);
+    setCurrentMouseLocation(null);
+    setStretchType("");
     setTimeout(function () {
       setIsActive(false);
     }, 500);
@@ -159,15 +190,22 @@ function Task({
       style={{
         width:
           Math.floor((item.end - item.start) / (60 * 60 * 24)) * 20 -
-          stretchX[0] +
-          stretchX[1],
+          (isActive && stretchType === "start"
+            ? currentMouseLocation - initMouseClientX
+            : 0) +
+          (isActive && stretchType === "end"
+            ? currentMouseLocation - initMouseClientX
+            : 0),
         top: Tasks.indexOf(item) * 26,
         left:
           20 * (8 * 7 - 1 + ZDay.DAY + 1) +
           Math.floor((item.start.toDate() - Date.now()) / 86400000) * 20 +
-          (isActive ? currentMouseLocation - initMouseClientX : 0) +
-          stretchX[0],
+          (isActive && isDrag ? currentMouseLocation - initMouseClientX : 0) +
+          (isActive && stretchType === "start"
+            ? currentMouseLocation - initMouseClientX
+            : 0),
         backgroundColor: isActive === true ? "#FAE6FF" : "white",
+        // cursor: isDrag ? "grabbing" : "grab",
       }}
     >
       <StretchBtn
@@ -175,10 +213,18 @@ function Task({
         item={item}
         userID={userID}
         projectID={projectID}
-        stretchX={stretchX}
-        setStretchX={setStretchX}
+        // stretchX={stretchX}
+        // setStretchX={setStretchX}
         isStretch={isStretch}
         setIsStretch={setIsStretch}
+        currentMouseLocation={currentMouseLocation}
+        setCurrentMouseLocation={setCurrentMouseLocation}
+        isActive={isActive}
+        setIsActive={setIsActive}
+        initMouseClientX={initMouseClientX}
+        setInitMouseClientX={setInitMouseClientX}
+        stretchType={stretchType}
+        setStretchType={setStretchType}
       />
       <div
         className="TaskContent"
@@ -190,7 +236,6 @@ function Task({
         // onMouseMove={handleDrag}
         style={{
           width: Math.floor((item.end - item.start) / (60 * 60 * 24)) * 20,
-          cursor: "default",
         }}
       >
         {item.content}
@@ -215,7 +260,7 @@ function Task({
           height: 26,
           position: "absolute",
           // left: ((item.end - item.start) / (60 * 60 * 24)) * 20 - 20,
-          right: 18,
+          right: 22,
           top: -2,
           padding: 0,
           margin: 0,
@@ -223,7 +268,7 @@ function Task({
         fill="none"
         height="26"
         viewBox="0 0 24 24"
-        width="18"
+        width="22"
         // xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -243,6 +288,14 @@ function Task({
         setStretchX={setStretchX}
         isStretch={isStretch}
         setIsStretch={setIsStretch}
+        currentMouseLocation={currentMouseLocation}
+        setCurrentMouseLocation={setCurrentMouseLocation}
+        initMouseClientX={initMouseClientX}
+        setInitMouseClientX={setInitMouseClientX}
+        isActive={isActive}
+        setIsActive={setIsActive}
+        stretchType={stretchType}
+        setStretchType={setStretchType}
       />
       <DeleteBtn cat={cat} item={item} userID={userID} projectID={projectID} />
       <ConnectBtn

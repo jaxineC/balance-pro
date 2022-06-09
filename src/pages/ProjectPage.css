@@ -23,11 +23,12 @@ ul {
 
 /* ---------------------------------Component----------------------------------- */
 .ProjectInfo {
-  width: 300px;
+  width: 360px;
   margin-top: 15px;
   padding-left: 20px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 60% 40%;
 }
 
 .Timeline {
@@ -38,6 +39,9 @@ ul {
   overflow-x: scroll;
 }
 .Timeline::-webkit-scrollbar {
+  display: none;
+}
+::-webkit-scrollbar {
   display: none;
 }
 
@@ -98,6 +102,7 @@ ul {
   margin: 2px 0px;
   color: #000000;
   position: absolute;
+  -webkit-user-select: none;
   /* top: 0px; */
   /* left: 1200px; */
   /* top+left to be deleted after connecting to firebase */
@@ -110,6 +115,10 @@ ul {
 
 .Task:hover {
   border-color: blueviolet;
+  cursor: grab;
+}
+.Task:active {
+  cursor: grabbing;
 }
 
 .TimeCanvas > .taskList > :hover {
@@ -122,20 +131,21 @@ ul {
   border-width: 1px 4px 1px 4px;
 }
 .Hashtags {
+  margin: 0;
   display: flex;
   align-self: flex-end;
-  margin-bottom: 9px;
 }
 .Hashtag {
   margin-right: 10px;
   align-self: flex-end;
-  height: 16px;
+  white-space: nowrap;
   padding: 0px 8px;
   background-color: #e6f252;
   color: #666666;
   border-style: none;
   border-radius: 5px;
 }
+
 /* ----------------------------------element---------------------------------- */
 .stretchBtn {
   cursor: col-resize;
@@ -145,6 +155,10 @@ ul {
   width: 150px;
   white-space: nowrap;
   overflow: visible;
+}
+
+.ProjectDate {
+  align-self: flex-end;
 }
 
 .description {

@@ -20,6 +20,8 @@ function TimeCanvas({
   setIsDrag,
   currentMouseLocation,
   setCurrentMouseLocation,
+  isStretch,
+  setIsStretch,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -67,6 +69,8 @@ function TimeCanvas({
         setIsDrag={setIsDrag}
         currentMouseLocation={currentMouseLocation}
         setCurrentMouseLocation={setCurrentMouseLocation}
+        isStretch={isStretch}
+        setIsStretch={setIsStretch}
       />
       <EditTaskModal
         userID={userID}

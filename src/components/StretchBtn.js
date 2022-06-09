@@ -25,15 +25,33 @@ function StretchBtn({
   setStretchX,
   isStretch,
   setIsStretch,
+  currentMouseLocation,
+  setCurrentMouseLocation,
+  isActive,
+  setIsActive,
+  initMouseClientX,
+  setInitMouseClientX,
+  stretchType,
+  setStretchType,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [isHovered, setIsHovered] = useState(false);
-  const [initMouseClientX, setInitMouseClientX] = useState(0);
 
   let col = `${userID.uid}/${projectID}/tasks`;
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
+  function initStretch(event) {
+    setInitMouseClientX(event.clientX);
+    setCurrentMouseLocation(event.clientX);
+    setIsStretch(true);
+    if (date === "start") {
+      setStretchType("start");
+    } else if (date === "end") {
+      setStretchType("end");
+    }
+    setIsActive(true);
+  }
 
   function renderStretchBtn(event) {
     let editBtnNode = event.currentTarget.parentNode.children[3];
@@ -69,40 +87,26 @@ function StretchBtn({
     }
   }
 
-  function initStretch(event) {
-    setIsStretch(true);
-    setInitMouseClientX(event.clientX);
-  }
-
-  function endStretch(event) {
-    if (isStretch === true) {
-      setIsStretch(false);
-      setStretchX([0, 0]);
-      let data = {};
-      let x =
-        Math.floor((event.clientX - initMouseClientX) / 20) *
-        1000 *
-        60 *
-        60 *
-        24;
-      if (date === "start") {
-        data = { start: new Date(item.start.seconds * 1000 + x) };
-        // Timestamp.fromDate(new Date(clickDate + 1000 * 60 * 60 * 24 * 7))
-      } else {
-        data = { end: new Date(item.end.seconds * 1000 + x) };
-      }
-      updateData(db, col, item.taskID, data);
-      setInitMouseClientX(0);
-    }
-  }
-
-  function handleStretch(event) {
-    if (isStretch) {
-      // setClientMouseX(event.clientX);
-      let x = event.clientX - initMouseClientX;
-      date === "start" ? setStretchX([x, 0]) : setStretchX([0, x]);
-    }
-  }
+  // function endStretch(event) {
+  //   if (isStretch === true) {
+  //     setIsStretch(false);
+  //     setStretchX([0, 0]);
+  //     let data = {};
+  //     let x =
+  //       Math.floor((event.clientX - initMouseClientX) / 20) *
+  //       1000 *
+  //       60 *
+  //       60 *
+  //       24;
+  //     if (date === "start") {
+  //       data = { start: new Date(item.start.seconds * 1000 + x) };
+  //     } else {
+  //       data = { end: new Date(item.end.seconds * 1000 + x) };
+  //     }
+  //     updateData(db, col, item.taskID, data);
+  //     setInitMouseClientX(0);
+  //   }
+  // }
 
   //--------------------------------------------------CRUD-------------------------------------------------------// 2
   //--------------------------------------------------CRUD-------------------------------------------------------//
@@ -131,10 +135,10 @@ function StretchBtn({
     // </div>
     <button
       onMouseDown={initStretch}
-      onMouseUp={endStretch}
+      // onMouseUp={endStretch}
       onMouseEnter={renderStretchBtn}
       onMouseLeave={renderStretchBtn}
-      onMouseMove={handleStretch}
+      // onMouseMove={handleStretch}
       className="stretchBtn"
       style={{
         height: 26,
@@ -142,7 +146,7 @@ function StretchBtn({
         display: "none",
         position: "absolute",
         top: -3,
-        left: date === "start" ? -14 : "auto",
+        left: date === "start" ? -12 : "auto",
         right: date === "end" ? -12 : "auto",
         // zIndex: 999,
       }}
@@ -151,11 +155,11 @@ function StretchBtn({
         style={{
           display: isHovered ? "block" : "none",
           position: "relative",
-          left: -6,
+          left: date === "start" ? -12 : -10,
           zIndex: 999,
         }}
         height="26"
-        width="18"
+        width="24"
         version="1.1"
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"

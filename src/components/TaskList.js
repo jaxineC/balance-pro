@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   collection,
   doc,
@@ -42,6 +42,8 @@ function TaskList({
   setIsDrag,
   currentMouseLocation,
   setCurrentMouseLocation,
+  isStretch,
+  setIsStretch,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -50,6 +52,13 @@ function TaskList({
 
   // let col = userID.uid + "-t";
   let col = `${userID.uid}/${projectID}/tasks`;
+
+  // const newTaskInputRef = useRef(null);
+  // useEffect(() => {
+  //   if (isAddTask) {
+  //     newTaskInputRef.current.focus();
+  //   }
+  // }, [isAddTask]);
 
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
@@ -146,6 +155,8 @@ function TaskList({
       setIsDrag={setIsDrag}
       currentMouseLocation={currentMouseLocation}
       setCurrentMouseLocation={setCurrentMouseLocation}
+      isStretch={isStretch}
+      setIsStretch={setIsStretch}
     />
   ));
 
@@ -153,6 +164,7 @@ function TaskList({
     <ul onClick={handleChildClick} className="TaskList TextS">
       {taskItems}
       <AddTaskModal
+        // ref={newTaskInputRef}
         userID={userID}
         cat={cat}
         clickPosition={clickPosition}

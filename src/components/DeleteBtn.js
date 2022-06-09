@@ -53,7 +53,7 @@ function DeleteBtn({ cat, item, isHover, userID, projectID }) {
       fill="none"
       height="26"
       viewBox="0 0 24 24"
-      width="18"
+      width="22"
       // xmlns="http://www.w3.org/2000/svg"
     >
       <path
