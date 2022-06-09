@@ -18,6 +18,7 @@ import { updateData } from "../module/manageDB.js";
 function WelcomeTxt({ userID, setUserID }) {
   const [txt1Input, setTxt1Input] = useState("");
   const [txt2Input, setTxt2Input] = useState("");
+  const [updateAlert, setUpdateAlert] = useState("");
 
   let col = userID.uid;
   let docID = "welcomeTXT";
@@ -42,7 +43,18 @@ function WelcomeTxt({ userID, setUserID }) {
 
   function handleGreetingUpdate() {
     let data = { txt1: txt1Input, txt2: txt2Input };
-    updateData(col, docID, data);
+    try {
+      updateData(col, docID, data);
+      setUpdateAlert("ok");
+      setTimeout(() => {
+        setUpdateAlert("");
+      }, 1000);
+    } catch (event) {
+      setUpdateAlert("fail");
+      setTimeout(() => {
+        setUpdateAlert("");
+      }, 1000);
+    }
   }
 
   useEffect(() => {
@@ -51,7 +63,7 @@ function WelcomeTxt({ userID, setUserID }) {
   }, []);
 
   return (
-    <div className="WelcomeTxt">
+    <div className="WelcomeTxt" style={{ position: "relative" }}>
       <input
         onKeyDown={(event) => {
           if (event.key === "Enter") {
@@ -101,6 +113,40 @@ function WelcomeTxt({ userID, setUserID }) {
           hyphens: "auto",
         }}
       ></textarea>
+      <span
+        style={{
+          height: 6,
+          display: updateAlert === "ok" ? "block" : "none",
+          position: "absolute",
+          left: 0,
+          top: -12,
+          padding: "0px 4px",
+          backgroundColor: "#fae6ff",
+        }}
+      >
+        <span
+          style={{
+            fontSize: 14,
+            color: "blueviolet",
+            position: "relative",
+            top: -10,
+          }}
+        >
+          updated!
+        </span>
+      </span>
+      <span
+        style={{
+          display: updateAlert === "fail" ? "block" : "none",
+          position: "absolute",
+          left: 0,
+          top: -12,
+          padding: "0px 4px",
+          backgroundColor: "#fae6ff",
+        }}
+      >
+        Oops, try again!
+      </span>
     </div>
   );
 }

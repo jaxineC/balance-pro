@@ -136,16 +136,21 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
       <span>{`# ${hashtags[index]}`}</span>
     </li>
   ));
-  const editableTxtStyle = {
+  const editableBoxStyle = {
+    // overflow: "scroll",
     height: 40,
     width: "100%",
-    overflow: "scroll",
-    padding: 0,
-    margin: 0,
     gridColumnStart: 1,
     gridColumnEnd: 3,
     gridRowStart: 1,
     gridRowEnd: 2,
+    position: "relative",
+  };
+
+  const editableTxtStyle = {
+    width: "100%",
+    padding: 0,
+    margin: 0,
     borderStyle: "none",
     fontSize: "24px",
   };
@@ -169,6 +174,7 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
         docID={projectID}
         projectInfo={projectInfo}
         editableTxtStyle={editableTxtStyle}
+        editableBoxStyle={editableBoxStyle}
       />
       <div
         className="ProjectDate TextS"
