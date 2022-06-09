@@ -7,6 +7,20 @@
   text-align: start;
 }
 
+input {
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+  padding: 5px 10px 1px 10px;
+  margin: 10px;
+}
+
+.Modal > input {
+  width: 160px;
+  padding: 5px 10px 1px 10px;
+  border-radius: 0px;
+  margin: 0px 0px 5px 0px;
+}
+
 input:focus {
   outline: 1.5px solid blueviolet;
   box-shadow: blueviolet;
@@ -131,13 +145,17 @@ ul {
   border-width: 1px 4px 1px 4px;
 }
 .Hashtags {
-  margin: 0;
-  display: flex;
+  width: auto;
   align-self: flex-end;
+  overflow: visible;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 .Hashtag {
+  width: auto;
   text-transform: capitalize;
-  margin-right: 10px;
+  margin-right: 20px;
   align-self: flex-end;
   white-space: nowrap;
   padding: 0px 8px;

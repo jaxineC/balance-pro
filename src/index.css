@@ -12,3 +12,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+input {
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+  padding: 5px 10px 1px 10px;
+  margin: 10px;
+}
+
+.Modal > input {
+  width: 160px;
+  padding: 5px 10px 1px 10px;
+  border-radius: 0px;
+  margin: 0px 0px 5px 0px;
+}

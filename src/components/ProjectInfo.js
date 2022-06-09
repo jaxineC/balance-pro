@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import Hashtag from "./Hashtag";
+import Hashtag from "./Hashtag";
 import {
   collection,
   doc,
@@ -112,7 +112,8 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
   }
 
   //------------------------------------------------------------------------------
-  let HashtagStyle = {
+  let HashtagInputStyle = {
+    width: "auto",
     textTransform: "capitalize",
     marginRight: "10px",
     alignSelf: "flex-end",
@@ -122,19 +123,19 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
     color: "#666666",
     borderStyle: "none",
     borderRadius: "5px",
+    margin: 0,
   };
   const hashtagItems = hashtags.map((item, index) => (
-    <li key={index} className="Hashtag TextXS">
-      {/* <Hashtag
-        item={item}
-        index={index}
-        col={userID.uid}
-        docID={projectID}
-        projectInfo={projectInfo}
-        HashtagStyle={HashtagStyle}
-      /> */}
-      <span>{`# ${hashtags[index]}`}</span>
-    </li>
+    <Hashtag
+      key={index}
+      className="Hashtag TextXS"
+      item={item}
+      index={index}
+      col={userID.uid}
+      docID={projectID}
+      projectInfo={projectInfo}
+      HashtagInputStyle={HashtagInputStyle}
+    />
   ));
   const editableBoxStyle = {
     // overflow: "scroll",
@@ -197,7 +198,7 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
         {projectInfo.end ? projectInfo.end.toDate().getMonth() + 1 : ""}/
         {projectInfo.end ? projectInfo.end.toDate().getDate() : ""}
       </div>
-      <ul className="Hashtags">
+      <div className="Hashtags">
         {hashtagItems}
         <button
           onClick={addHashtag}
@@ -207,7 +208,7 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
           {" "}
           >>>+{" "}
         </button>
-      </ul>
+      </div>
     </div>
   ) : (
     <LoadingModal />

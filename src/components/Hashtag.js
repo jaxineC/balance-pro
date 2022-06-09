@@ -19,7 +19,7 @@ import { db } from "../firebase.js";
 import { updateData } from "../module/manageDB.js";
 import DeleteBtn from "./DeleteBtn.js";
 
-function Hashtag({ item, index, col, docID, projectInfo, HashtagStyle }) {
+function Hashtag({ item, index, col, docID, projectInfo, HashtagInputStyle }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [hashtagInput, setHashtagInput] = useState(item);
@@ -55,9 +55,10 @@ function Hashtag({ item, index, col, docID, projectInfo, HashtagStyle }) {
   }
 
   return (
-    <div>
+    <div className="Hashtag TextXS">
+      <span>#</span>
       <input
-        style={HashtagStyle}
+        style={HashtagInputStyle}
         onKeyDown={(event) => {
           if (event.key === "Enter") {
             // handleHashtagUpdate();
