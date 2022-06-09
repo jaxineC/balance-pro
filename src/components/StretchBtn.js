@@ -87,27 +87,6 @@ function StretchBtn({
     }
   }
 
-  // function endStretch(event) {
-  //   if (isStretch === true) {
-  //     setIsStretch(false);
-  //     setStretchX([0, 0]);
-  //     let data = {};
-  //     let x =
-  //       Math.floor((event.clientX - initMouseClientX) / 20) *
-  //       1000 *
-  //       60 *
-  //       60 *
-  //       24;
-  //     if (date === "start") {
-  //       data = { start: new Date(item.start.seconds * 1000 + x) };
-  //     } else {
-  //       data = { end: new Date(item.end.seconds * 1000 + x) };
-  //     }
-  //     updateData(db, col, item.taskID, data);
-  //     setInitMouseClientX(0);
-  //   }
-  // }
-
   //--------------------------------------------------CRUD-------------------------------------------------------// 2
   //--------------------------------------------------CRUD-------------------------------------------------------//
   async function updateData(db, col, docID, data) {

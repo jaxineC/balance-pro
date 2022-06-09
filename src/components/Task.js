@@ -76,7 +76,7 @@ function Task({
 
   function endDrag(event) {
     let x =
-      Math.floor((currentMouseLocation - initMouseClientX) / 20) *
+      Math.round((currentMouseLocation - initMouseClientX) / 20) *
       1000 *
       60 *
       60 *
@@ -95,7 +95,7 @@ function Task({
   function endStretch() {
     let data = {};
     let x =
-      Math.floor((currentMouseLocation - initMouseClientX) / 20) *
+      Math.round((currentMouseLocation - initMouseClientX) / 20) *
       1000 *
       60 *
       60 *
@@ -180,6 +180,11 @@ function Task({
 
   //--------------------------------------------------RENDER-----------------------------------------------------// 3
   //--------------------------------------------------RENDER-----------------------------------------------------//
+  let overlayColorStyle;
+  item.cat === "work"
+    ? (overlayColorStyle = "5px solid #ffc402")
+    : (overlayColorStyle = "5px solid #233a2e");
+
   return (
     <li
       onMouseEnter={handleHover}
@@ -195,7 +200,7 @@ function Task({
           (isActive && stretchType === "end"
             ? currentMouseLocation - initMouseClientX
             : 0),
-        top: Tasks.indexOf(item) * 26,
+        top: Tasks.indexOf(item) * (cat === "overlay" ? 31 : 26),
         left:
           20 * (8 * 7 - 1 + ZDay.DAY + 1) +
           Math.floor((item.start.toDate() - Date.now()) / 86400000) * 20 +
@@ -204,6 +209,8 @@ function Task({
             ? currentMouseLocation - initMouseClientX
             : 0),
         backgroundColor: isActive === true ? "#FAE6FF" : "white",
+        borderBottom: cat === "overlay" ? overlayColorStyle : "auto",
+
         // cursor: isDrag ? "grabbing" : "grab",
       }}
     >

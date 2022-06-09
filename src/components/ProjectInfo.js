@@ -27,9 +27,11 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
   const [inputText, setInputText] = useState(""); //inside ProjectTinfo or Hashtag component for addHashTag
   const [projectInfo, setprojectInfo] = useState({});
   const [hashtags, setHashtags] = useState([]);
-  const [hashtagInput, setHashtagInput] = useState("");
+  const [addHashtagInput, setAddHashtagInput] = useState("");
+  const [isAddHashtag, setIsAddHashtag] = useState(false);
   let col = userID.uid;
   let [YYYY, MM, DD] = ["", "", ""];
+  let inputArea = "";
 
   useEffect(() => {
     fetchInfo(cat);
@@ -75,19 +77,6 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
     // }
   }
 
-  async function handleAddHashTag() {
-    console.log({ cat }, "run addHashTag");
-    let docID = projectID;
-    let data = { hashtag: arrayUnion("hashtag") };
-    try {
-      const docRef = await updateDoc(doc(db, col, docID), data);
-      setInputText("");
-      console.log("update field in: ", docID);
-    } catch (event) {
-      console.error("Error adding document: ", event);
-    }
-  }
-
   function renderDate() {
     console.log({ cat }, "run renderTime");
     // let startDate = new Date(projectInfo.start.seconds * 1000);
@@ -104,18 +93,26 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
 
   function renderDateModal() {}
 
-  async function addHashtag() {
+  async function handleHashtagUpdate() {
     let docID = projectID;
-    let data = { hashtag: arrayUnion(hashtagInput) };
+    let data = { hashtag: arrayUnion(addHashtagInput) };
     const queryRef = doc(db, col, docID);
-    await updateDoc(queryRef, data);
+    try {
+      await updateDoc(queryRef, data);
+      setIsAddHashtag(false);
+      setAddHashtagInput("");
+    } catch (error) {}
+  }
+
+  async function renderAddHashtag() {
+    isAddHashtag ? setIsAddHashtag(false) : setIsAddHashtag(true);
   }
 
   //------------------------------------------------------------------------------
   let HashtagInputStyle = {
-    width: "auto",
+    width: "60px",
     textTransform: "capitalize",
-    marginRight: "10px",
+    marginRight: "0px",
     alignSelf: "flex-end",
     whiteSpace: "nowrap",
     padding: "0px 8px",
@@ -125,6 +122,25 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
     borderRadius: "5px",
     margin: 0,
   };
+
+  let addHashtagForm = (
+    <div className="Hashtag TextXS">
+      <span>#</span>
+      <input
+        style={HashtagInputStyle}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            handleHashtagUpdate();
+          }
+        }}
+        onChange={(event) => {
+          setAddHashtagInput(event.target.value);
+        }}
+        value={addHashtagInput}
+      ></input>
+    </div>
+  );
+
   const hashtagItems = hashtags.map((item, index) => (
     <Hashtag
       key={index}
@@ -156,20 +172,10 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
     fontSize: "24px",
   };
 
+  const options = { year: "numeric", month: "numeric", day: "numeric" };
+
   return projectInfo ? (
     <div className="ProjectInfo ">
-      {/* <div
-        className="TextL projectName"
-        style={{
-          gridColumnStart: 1,
-          gridColumnEnd: 3,
-          gridRowStart: 1,
-          gridRowEnd: 2,
-        }}
-      >
-        {projectInfo.name}
-
-      </div> */}
       <EditableTxt
         col={userID.uid}
         docID={projectID}
@@ -181,31 +187,29 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
         className="ProjectDate TextS"
         onClick={renderDateModal}
         // onClick={() => {
-        //   console.log(projectInfo.start.toDate().getFullYear());
-        //   console.log(projectInfo.start.toDate().getMonth() + 1);
-        //   // console.log(
-        //   //   new Intl.DateTimeFormat("en-US", { month: "short" }).format(
-        //   //     projectInfo.start
-        //   //   )
-        //   // );
-        //   console.log(projectInfo.start.toDate().getDate());
         // }}
       >
-        {projectInfo.start ? projectInfo.start.toDate().getFullYear() : ""}/
-        {projectInfo.start ? projectInfo.start.toDate().getMonth() + 1 : ""}/
-        {projectInfo.start ? projectInfo.start.toDate().getDate() : ""}~
-        {projectInfo.end ? projectInfo.end.toDate().getFullYear() : ""}/
-        {projectInfo.end ? projectInfo.end.toDate().getMonth() + 1 : ""}/
-        {projectInfo.end ? projectInfo.end.toDate().getDate() : ""}
+        <span>
+          {projectInfo.start
+            ? projectInfo.start.toDate().toLocaleDateString(undefined, options)
+            : ""}
+        </span>
+        <span>~</span>
+        <span>
+          {projectInfo.end
+            ? projectInfo.end.toDate().toLocaleDateString(undefined, options)
+            : ""}
+        </span>
       </div>
       <div className="Hashtags">
         {hashtagItems}
+        {isAddHashtag ? addHashtagForm : ""}
         <button
-          onClick={addHashtag}
+          onClick={renderAddHashtag}
           className="TextS theme bold"
           style={{ cursor: "pointer" }}
         >
-          {" "}
+          {""}
           >>>+{" "}
         </button>
       </div>

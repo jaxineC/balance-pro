@@ -5,14 +5,16 @@
 }
 
 :root {
-  --lime: ##e6f252;
+  --lime: #e6f252;
   --white: #ffffff;
   --lightGrey: #dddddd;
   --midGrey: #666666;
   --grey: #888888;
   --black: #222500;
-  --purple: blueviolet;
+  --purple: #8a2be2;
   --lightPurple: #fae6ff;
+  --pink: #ffc402;
+  --blue: #233a2e;
 }
 
 /* --------------------------------------------------------------------------------- */

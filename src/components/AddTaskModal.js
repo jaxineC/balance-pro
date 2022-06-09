@@ -101,7 +101,7 @@ function AddTaskModal({
           height: 20,
           position: "absolute",
           left: clickPosition + XPosition - 35,
-          top: Tasks.length * 26 + 2,
+          top: Tasks.length * (cat === "overlay" ? 31 : 26) + 2,
           padding: 0,
           margin: 0,
           borderBottom: `2px solid ${
@@ -120,7 +120,7 @@ function AddTaskModal({
           height: 20,
           position: "absolute",
           left: clickPosition + XPosition - 15,
-          top: Tasks.length * 26 + 2,
+          top: Tasks.length * (cat === "overlay" ? 31 : 26) + 2,
           padding: 0,
           margin: 0,
           borderBottom: `2px solid ${
@@ -139,7 +139,7 @@ function AddTaskModal({
         onChange={(event) => setInputText(event.target.value)}
         style={{
           width: 140,
-          top: Tasks.length * 26,
+          top: Tasks.length * (cat === "overlay" ? 31 : 26),
           left: clickPosition + XPosition,
           padding: 0,
           border: 1,
@@ -154,7 +154,7 @@ function AddTaskModal({
           height: 22,
           position: "absolute",
           left: clickPosition + XPosition + 145,
-          top: Tasks.length * 26 + 2,
+          top: Tasks.length * (cat === "overlay" ? 31 : 26) + 2,
           padding: 0,
           margin: 0,
         }}
