@@ -64,7 +64,6 @@ function ProjectList({
 
   function handleHover(event) {
     // console.log(selectedProjects[0]);
-    console.log(cat);
     if (
       cat === "work" &&
       selectedProjects[0] !== event.target.parentNode.getAttribute("value")
