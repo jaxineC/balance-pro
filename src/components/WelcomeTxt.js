@@ -24,12 +24,16 @@ function WelcomeTxt({ userID, setUserID }) {
   let docID = "welcomeTXT";
 
   async function fetchData() {
-    const docSnap = await getDoc(doc(db, col, docID));
-    if (docSnap.exists()) {
-      setTxt1Input(docSnap.data().txt1);
-      setTxt2Input(docSnap.data().txt2);
-    } else {
-      console.log("No such document!");
+    try {
+      const docSnap = await getDoc(doc(db, col, docID));
+      if (docSnap.exists()) {
+        setTxt1Input(docSnap.data().txt1);
+        setTxt2Input(docSnap.data().txt2);
+      } else {
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.log("Error getting cached document:", error);
     }
   }
 

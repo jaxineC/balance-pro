@@ -7,7 +7,8 @@ import ProjectList from "../components/ProjectList";
 import Background from "../components/Background";
 
 function ListPage({ userID, selectedProjects, setSelectedProjects }) {
-  const [checked, setChecked] = useState(0);
+  const [checked, setChecked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   return (
     <main className="ListPage">
@@ -33,14 +34,24 @@ function ListPage({ userID, selectedProjects, setSelectedProjects }) {
       <div
         className="goTxt TextS"
         style={{
-          display:
-            selectedProjects[0] && selectedProjects[1] ? "none" : "block",
+          display: errorMessage ? "block" : "none",
         }}
       >
-        Select at least one project in each category to start.
+        Select one project in each category to start.
       </div>
       <Link className="Link" to="/project">
         <button
+          onClick={(event) => {
+            if (selectedProjects[0] && selectedProjects[1]) {
+              console.log("ok");
+            } else {
+              event.preventDefault();
+              setErrorMessage(true);
+              setTimeout(() => {
+                setErrorMessage(false);
+              }, 2000);
+            }
+          }}
           style={{
             display: "block",
             backgroundColor:

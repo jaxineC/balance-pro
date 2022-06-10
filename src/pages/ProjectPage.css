@@ -37,7 +37,7 @@ ul {
 
 /* ---------------------------------Component----------------------------------- */
 .ProjectInfo {
-  width: 360px;
+  width: 600px;
   margin-top: 15px;
   padding-left: 20px;
   display: grid;
@@ -154,7 +154,6 @@ ul {
 }
 .Hashtag {
   width: auto;
-  text-transform: capitalize;
   margin-right: 20px;
   align-self: flex-end;
   white-space: nowrap;

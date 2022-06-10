@@ -43,7 +43,6 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
   // }, [projectInfo]);
 
   async function fetchInfo(cat) {
-    console.log({ cat }, "run fetchInfo");
     const docRef = doc(db, col, projectID);
     const docSnap = await getDoc(docRef);
     setprojectInfo(docSnap.data());
@@ -52,33 +51,15 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
   }
   // listen: todos collection
   function docListener(cat, projectID) {
-    console.log({ cat }, "run docListener");
     const docRef = doc(db, col, projectID);
     const unsubscribe = onSnapshot(docRef, (changedSnapshot) => {
       let updatedInfo = changedSnapshot.data();
       setprojectInfo(updatedInfo);
       setHashtags(updatedInfo.hashtag);
     });
-
-    // if (cat === "work") {
-    //   const docRef = doc(db, col, projectID);
-    //   const unsubscribe = onSnapshot(docRef, (changedSnapshot) => {
-    //     let updatedTasks = changedSnapshot.data();
-    //     setprojectInfo(updatedTasks);
-    //     setHashtags(updatedTasks.hashtag);
-    //   });
-    // } else {
-    //   const docRef = doc(db, col, projectID);
-    //   const unsubscribe = onSnapshot(docRef, (changedSnapshot) => {
-    //     let updatedInfo = changedSnapshot.data();
-    //     setprojectInfo(updatedInfo);
-    //     setHashtags(updatedInfo.hashtag);
-    //   });
-    // }
   }
 
   function renderDate() {
-    console.log({ cat }, "run renderTime");
     // let startDate = new Date(projectInfo.start.seconds * 1000);
     let startDate = projectInfo.start.toDate();
     let options = { month: "short" };
@@ -88,8 +69,6 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
       startDate.getDate().toString().padStart(2, "0"),
     ];
   }
-  console.log({ cat }, "render-----");
-  console.log(projectInfo);
 
   function renderDateModal() {}
 
@@ -110,8 +89,8 @@ function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
 
   //------------------------------------------------------------------------------
   let HashtagInputStyle = {
-    width: "60px",
-    textTransform: "capitalize",
+    pointerEvents: isAddHashtag ? "auto" : "none",
+    // width: "60px",
     marginRight: "0px",
     alignSelf: "flex-end",
     whiteSpace: "nowrap",

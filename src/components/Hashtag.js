@@ -55,6 +55,7 @@ function Hashtag({ item, index, col, docID, projectInfo, HashtagInputStyle }) {
     >
       <span>#</span>
       <input
+        size="10"
         style={HashtagInputStyle}
         onKeyDown={(event) => {
           if (event.key === "Enter") {
