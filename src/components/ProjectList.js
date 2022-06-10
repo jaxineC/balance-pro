@@ -63,13 +63,32 @@ function ProjectList({
   }, []);
 
   function handleHover(event) {
-    let theBtn = event.target.parentNode.children[1].children[0];
-    event.stopPropagation();
-    //deleteBtn
-    if (theBtn.style.display === "none") {
-      theBtn.style.display = "inline";
-    } else {
-      theBtn.style.display = "none";
+    // console.log(selectedProjects[0]);
+    console.log(cat);
+    if (
+      cat === "work" &&
+      selectedProjects[0] !== event.target.parentNode.getAttribute("value")
+    ) {
+      let theBtn = event.target.parentNode.children[1].children[0];
+      event.stopPropagation();
+      //deleteBtn
+      if (theBtn.style.display === "none") {
+        theBtn.style.display = "inline";
+      } else {
+        theBtn.style.display = "none";
+      }
+    } else if (
+      cat === "life" &&
+      selectedProjects[1] !== event.target.parentNode.getAttribute("value")
+    ) {
+      let theBtn = event.target.parentNode.children[1].children[0];
+      event.stopPropagation();
+      //deleteBtn
+      if (theBtn.style.display === "none") {
+        theBtn.style.display = "inline";
+      } else {
+        theBtn.style.display = "none";
+      }
     }
   }
 

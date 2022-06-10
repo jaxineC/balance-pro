@@ -27,6 +27,7 @@ function Switch({
   const [isChecked, setIsChecked] = useState(false);
   let col = userID.uid;
   let docID = "selectedProjects";
+  let list = selectedProjects;
 
   const refTarget = useRef(false);
 
@@ -37,22 +38,21 @@ function Switch({
 
   async function fetchData() {
     try {
-      let list = selectedProjects;
       const docSnap = await getDoc(doc(db, col, docID));
       if (docSnap.exists()) {
         if (cat === "work") {
           if (docSnap.data().work === item.projectID) {
             refTarget.checked = true;
             setIsChecked(true);
-            cat === "work"
-              ? (list[0] = item.projectID)
-              : (list[1] = item.projectID);
+            list[0] = item.projectID;
             setSelectedProjects(list);
           }
         } else if (cat === "life") {
           if (docSnap.data().life === item.projectID) {
             refTarget.checked = true;
             setIsChecked(true);
+            list[1] = item.projectID;
+            setSelectedProjects(list);
           }
         }
       } else {

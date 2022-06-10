@@ -9,6 +9,13 @@ import Background from "../components/Background";
 function ListPage({ userID, selectedProjects, setSelectedProjects }) {
   const [checked, setChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [isAllowed, setIsAllowed] = useState(false);
+
+  useEffect(() => {
+    if (selectedProjects[0] && selectedProjects[1]) {
+      setIsAllowed(true);
+    }
+  }, [selectedProjects]);
 
   return (
     <main className="ListPage">
@@ -42,6 +49,7 @@ function ListPage({ userID, selectedProjects, setSelectedProjects }) {
       <Link className="Link" to="/project">
         <button
           onClick={(event) => {
+            console.log(selectedProjects);
             if (selectedProjects[0] && selectedProjects[1]) {
               console.log("ok");
             } else {
@@ -54,10 +62,7 @@ function ListPage({ userID, selectedProjects, setSelectedProjects }) {
           }}
           style={{
             display: "block",
-            backgroundColor:
-              selectedProjects[0] && selectedProjects[1]
-                ? "blueviolet"
-                : "#dddddd",
+            backgroundColor: isAllowed ? "blueviolet" : "#dddddd",
           }}
           className="go TextXL bold"
         >
