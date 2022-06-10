@@ -6,7 +6,7 @@ import WelcomeImg from "../components/WelcomeImg";
 import WelcomBack from "../components/WelcomeBack";
 import LoginBox from "../components/LoginBox";
 import Logo from "../components/Logo";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 
 function IndexPage({ userID, setUserID }) {
   // const user = useContext(UserContext);
