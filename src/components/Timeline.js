@@ -9,6 +9,7 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [isAddTask, setIsAddTask] = useState(false);
+  const [isEditTask, setIsEditTask] = useState(false);
   const [isDrag, setIsDrag] = useState(false);
   const [isStretch, setIsStretch] = useState("");
   const [currentMouseLocation, setCurrentMouseLocation] = useState(null);
@@ -32,7 +33,9 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
   function handleAddTask(event) {
-    getDate(event);
+    if (!isEditTask) {
+      getDate(event);
+    }
     if (isAddTask) {
       setIsAddTask(false);
     }
@@ -105,6 +108,9 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
         setCurrentMouseLocation={setCurrentMouseLocation}
         isStretch={isStretch}
         setIsStretch={setIsStretch}
+        setIsAddTask={setIsAddTask}
+        isEditTask={isEditTask}
+        setIsEditTask={setIsEditTask}
       />
     </div>
   );

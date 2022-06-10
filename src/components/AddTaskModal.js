@@ -70,6 +70,7 @@ function AddTaskModal({
       setClickPosition(null);
       setInputText("");
       console.log("Document written with ID: ", docID);
+      setIsAddTask(false);
     } catch (event) {
       console.error("Error adding document: ", event);
     }
@@ -131,6 +132,11 @@ function AddTaskModal({
         L
       </button>
       <input
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            handleAddTasktoDb();
+          }
+        }}
         className="Task TextS"
         autoFocus
         type="text"

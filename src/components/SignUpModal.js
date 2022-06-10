@@ -6,7 +6,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { doc, collection, setDoc, setCol } from "firebase/firestore";
+import { doc, collection, setDoc, setCol, Timestamp } from "firebase/firestore";
 import { db } from "../firebase.js";
 
 function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
@@ -61,6 +61,12 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
         const user = userCredential.user;
         updateProfile(userCredential.user, { displayName: nameInput });
         initUserFirestore(user);
+        initDemoTasks(user, "work", "Step 1: Click to ADD NEW TASK");
+        initDemoTasks(
+          user,
+          "life",
+          "STEP 2: Hover to init DRAG/ STRETCH/ EDIT/ DELETE"
+        );
         setUserID(user);
       })
       .catch((error) => {
@@ -85,6 +91,12 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
         const user = result.user;
         updateProfile(user, { displayName: user.displayName });
         initUserFirestore(user);
+        initDemoTasks(user, "work", "Step 1: Click to ADD NEW TASK");
+        initDemoTasks(
+          user,
+          "life",
+          "STEP 2: Hover to init DRAG/ STRETCH/ EDIT/ DELETE"
+        );
         setUserID(user);
         closeModal();
       })
@@ -104,19 +116,56 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
   async function initUserFirestore(user) {
     try {
       await setDoc(doc(db, user.uid, "selectedProjects"), {
-        work: "",
-        life: "",
+        work: "demoWorkProject",
+        life: "demoLifeProject",
       });
       await setDoc(doc(db, user.uid, "welcomeTXT"), {
         txt1: "Greeting text.",
         txt2: "Enter your own everyday greeting text above. And some details here. --- By click, type, and enter!",
       });
-      await setDoc(doc(db, user.uid, "welcomeTXT"), {
-        txt1: "Greeting text.",
-        txt2: "Enter your own everyday greeting text above. And some details here. --- By click, type, and enter!",
+      await setDoc(doc(db, user.uid, "demoWorkProject"), {
+        balanced: false,
+        cat: "work",
+        end: Timestamp.fromDate(new Date(Date.now() + 86400000 * 10)),
+        hashtag: ["hashtag", "work"],
+        name: "demoWorkProject",
+        projectID: "demoWorkProject",
+        start: Timestamp.fromDate(new Date(Date.now())),
+      });
+      await setDoc(doc(db, user.uid, "demoLifeProject"), {
+        balanced: false,
+        cat: "life",
+        end: Timestamp.fromDate(new Date(Date.now() + 86400000 * 10)),
+        hashtag: ["hashtag", "life"],
+        name: "demoWorkProject",
+        projectID: "demoLifeProject",
+        start: Timestamp.fromDate(new Date(Date.now())),
       });
     } catch (event) {
       console.error("Error init user document: ", event);
+    }
+  }
+
+  async function initDemoTasks(user, cat, txt) {
+    let col = `${user.uid}/${
+      cat === "work" ? "demoWorkProject" : "demoLifeProject"
+    }/tasks`;
+    let docID = `demo${cat}Task`;
+    let data = {
+      balanced: true,
+      cat: cat,
+      content: txt,
+      end: Timestamp.fromDate(new Date(Date.now() + 1000 * 60 * 60 * 24 * 10)),
+      note: "",
+      projectID: cat === "work" ? "demoWorkProject" : "demoLifeProject",
+      start: Timestamp.fromDate(new Date(Date.now())),
+      taskID: docID,
+    };
+    try {
+      const docRef = await setDoc(doc(db, col, docID), data);
+      console.log("Document written with ID: ", docID);
+    } catch (event) {
+      console.error("Error adding document: ", event);
     }
   }
 

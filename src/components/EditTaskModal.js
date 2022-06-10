@@ -31,15 +31,22 @@ function EditTaskModal({
   //--------------------------------------------------useState & variables---------------------------------------//
   const [contentInput, setContentInput] = useState("");
   const [noteInput, setNoteInput] = useState("");
-  const [startDateInput, setStartDateInput] = useState({});
+  const [startDateInput, setStartDateInput] = useState();
   const [endDateInput, setEndDateInput] = useState({});
   let col = `${userID.uid}/${projectID}/tasks`;
 
   useEffect(() => {
     if (editTaskItem) {
       setContentInput(editTaskItem.content);
-      setStartDateInput(editTaskItem.start.toDate());
-      setEndDateInput(editTaskItem.end.toDate());
+      setStartDateInput(
+        editTaskItem.start
+          .toDate()
+          .toISOString(undefined, options)
+          .split("T")[0]
+      );
+      setEndDateInput(
+        editTaskItem.end.toDate().toISOString(undefined, options).split("T")[0]
+      );
     }
   }, [isEditTask]);
   //--------------------------------------------------handle event-----------------------------------------------// 1
@@ -69,6 +76,16 @@ function EditTaskModal({
     setStartDateInput({});
     setEndDateInput({});
   }
+  //set default date
+  const options = { year: "numeric", month: "numeric", day: "numeric" };
+  let defaultStartDate;
+  // if (editTaskItem.start) {
+  //   defaultStartDate = editTaskItem.start
+  //     .toDate()
+  //     .toLocaleDateString(undefined, options)
+  //     .format("DD-MM-YYYY");
+  //   console.log(defaultStartDate);
+  // }
 
   //--------------------------------------------------RENDER-----------------------------------------------------// 3
   //--------------------------------------------------RENDER-----------------------------------------------------//
@@ -128,6 +145,14 @@ function EditTaskModal({
         // value={Date.now().strftime("%Y-%m-%d")}
         type="date"
         className="startInput"
+        selected={
+          startDateInput
+            ? editTaskItem.start
+                .toDate()
+                .toISOString(undefined, options)
+                .split("T")[0]
+            : ""
+        }
       ></input>
 
       <label>End on</label>
@@ -142,6 +167,14 @@ function EditTaskModal({
       <svg
         className="DeleteBtn"
         onClick={closeModal}
+        // onClick={() => {
+        //   console.log(
+        //     editTaskItem.start
+        //       .toDate()
+        //       .toISOString(undefined, options)
+        //       .split("T")[0]
+        //   );
+        // }}
         style={{
           height: 30,
           position: "absolute",

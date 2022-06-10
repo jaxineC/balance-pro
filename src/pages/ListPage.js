@@ -42,7 +42,6 @@ function ListPage({ userID, selectedProjects, setSelectedProjects }) {
       <Link className="Link" to="/project">
         <button
           onClick={(event) => {
-            console.log(selectedProjects);
             if (selectedProjects[0] && selectedProjects[1]) {
               console.log("ok");
             } else {

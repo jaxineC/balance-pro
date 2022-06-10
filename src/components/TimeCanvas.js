@@ -22,10 +22,12 @@ function TimeCanvas({
   setCurrentMouseLocation,
   isStretch,
   setIsStretch,
+  isEditTask,
+  setIsEditTask,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
-  const [isEditTask, setIsEditTask] = useState(false);
+
   const [targetTask, setTargetTask] = useState("");
   const [editTaskItem, setEditTaskItem] = useState("");
   // let clientW = window.innerWidth;
