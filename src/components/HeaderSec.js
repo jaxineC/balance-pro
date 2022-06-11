@@ -1,12 +1,15 @@
 import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Logo45b from "../media/Logo45b.png";
 import { getAuth, signOut } from "firebase/auth";
+import ContactModal from "./ContactModal";
 
 function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
   const [isDesktop, setIsDeskTop] = useState(true);
   const [isToggle, setIsToggle] = useState(false);
+  const [isContact, setIsContact] = useState(false);
+
   useEffect(() => {
     if (window.innerWidth <= 600) {
       setIsDeskTop(false);
@@ -52,8 +55,19 @@ function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
             }`
           : "Sign up"}{" "}
       </span>{" "}
-      | <span className="padH"> About </span> |{" "}
-      <span className="padH"> Contact Us </span>
+      |{" "}
+      <Link to="/about">
+        <span className="padH"> About </span>{" "}
+      </Link>
+      <span
+        onClick={() => {
+          setIsContact(true);
+        }}
+        className="padH"
+      >
+        {" "}
+        | Contact{" "}
+      </span>{" "}
     </nav>
   );
 
@@ -86,7 +100,14 @@ function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
       >
         <div
           onClick={userID ? handleSignOut : renderSignUpModal}
-          className="padH"
+          className="padH navModal"
+          style={{
+            color: "red",
+            cursor: "pointer",
+            "&:hover": {
+              cursor: "pointer",
+            },
+          }}
         >
           {userID ? "Log out" : "Sign up"}
         </div>
@@ -105,7 +126,18 @@ function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
             borderColor: "#bbbbbb",
           }}
         />
-        <div className="padH"> Contact Us </div>
+        <div
+          className="padH"
+          style={{
+            cursor: "pointer",
+            "&:hover": {
+              cursor: "pointer",
+            },
+          }}
+        >
+          {" "}
+          Contact Us{" "}
+        </div>
         <hr
           style={{
             width: 100,
@@ -118,15 +150,18 @@ function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
   );
 
   return (
-    <header className="HeaderSec">
-      <Link to="/">
-        <div className="headerLogo">
-          <img src={Logo45b} alt="logo for images" className="" />
-          balancePro
-        </div>
-      </Link>
-      {isDesktop ? navBar : menu}
-    </header>
+    <>
+      <header className="HeaderSec">
+        <Link to="/">
+          <div className="headerLogo">
+            <img src={Logo45b} alt="logo for images" className="" />
+            balancePro
+          </div>
+        </Link>
+        {isDesktop ? navBar : menu}
+      </header>
+      <ContactModal isContact={isContact} setIsContact={setIsContact} />
+    </>
   );
 }
 

@@ -6,6 +6,7 @@ import FooterSec from "./components/FooterSec";
 import IndexPage from "./pages/IndexPage";
 import ListPage from "./pages/ListPage.js";
 import ProjectPage from "./pages/ProjectPage.js";
+import AboutPage from "./pages/AboutPage.js";
 import SignUpModal from "./components/SignUpModal";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 
@@ -64,6 +65,19 @@ function App() {
               setUserID={setUserID}
               selectedProjects={selectedProjects}
               setSelectedProjects={setSelectedProjects}
+            />
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <AboutPage
+              userID={userID}
+              setUserID={setUserID}
+              selectedProjects={selectedProjects}
+              setSelectedProjects={setSelectedProjects}
+              isSignUp={isSignUp}
+              setIsSignUp={setIsSignUp}
             />
           }
         />
