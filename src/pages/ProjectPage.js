@@ -40,40 +40,39 @@ function ProjectPage({
   const [mousePosition, setMousePosition] = useState([]);
   const [test, setTest] = useState("");
 
+  // let list = ["P-1654577692024", "P-1654577706945"];
+
+  useEffect(() => {
+    getCurrentUserInfo();
+  }, []);
+
   function getCurrentUserInfo() {
     const auth = getAuth();
-    let list = [];
-
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserID(user);
-        fetchData(user).then(console.log(list[0]));
-        setSelectedProjects(["0", "1"]);
+        fetchData(user);
       } else {
         // User is signed out
         // ...
       }
     });
-
-    async function fetchData(user) {
-      try {
-        const docSnap = await getDoc(doc(db, user.uid, "selectedProjects"));
-        if (docSnap.exists()) {
-          list[0] = docSnap.data().work;
-          list[1] = docSnap.data().life;
-          console.log(list);
-        } else {
-          console.log("No such document!");
-        }
-      } catch (error) {
-        console.log("Error getting cached document:", error);
-      }
-    }
   }
 
-  useEffect(() => {
-    getCurrentUserInfo();
-  }, []);
+  async function fetchData(user) {
+    try {
+      const docSnap = await getDoc(doc(db, user.uid, "selectedProjects"));
+      if (docSnap.exists()) {
+        let list = [];
+        list = [docSnap.data().work, docSnap.data().life];
+        setSelectedProjects(list);
+        setUserID(user);
+      } else {
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.log("Error getting cached document:", error);
+    }
+  }
 
   let divStyle;
   if (focus === "balance") {
