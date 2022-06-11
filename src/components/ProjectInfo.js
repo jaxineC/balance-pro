@@ -23,13 +23,20 @@ import { renderIntoDocument } from "react-dom/test-utils";
 import EditableTxt from "./EditableTxt.js";
 import LoadingModal from "./LoadingModal.js";
 
-function ProjectInfo({ userID, cat, projectID, Tasks, setTasks }) {
+function ProjectInfo({ userID, cat, selectedProjects, test, Tasks, setTasks }) {
   const [inputText, setInputText] = useState(""); //inside ProjectTinfo or Hashtag component for addHashTag
   const [projectInfo, setprojectInfo] = useState({});
   const [hashtags, setHashtags] = useState([]);
   const [addHashtagInput, setAddHashtagInput] = useState("");
   const [isAddHashtag, setIsAddHashtag] = useState(false);
   let col = userID.uid;
+  let projectID;
+  if (cat === "work") {
+    projectID = selectedProjects[0];
+  } else {
+    projectID = selectedProjects[1];
+  }
+
   let [YYYY, MM, DD] = ["", "", ""];
   let inputArea = "";
 

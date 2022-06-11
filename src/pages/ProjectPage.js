@@ -38,13 +38,17 @@ function ProjectPage({
   const [focus, setFocus] = useState("balance"); //"balance", "work", "life", "overlay"
   const [instruction, setInstruction] = useState("");
   const [mousePosition, setMousePosition] = useState([]);
+  const [test, setTest] = useState("");
 
   function getCurrentUserInfo() {
     const auth = getAuth();
+    let list = [];
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserID(user);
-        fetchData(user);
+        fetchData(user).then(console.log(list[0]));
+        setSelectedProjects(["0", "1"]);
       } else {
         // User is signed out
         // ...
@@ -55,11 +59,9 @@ function ProjectPage({
       try {
         const docSnap = await getDoc(doc(db, user.uid, "selectedProjects"));
         if (docSnap.exists()) {
-          let list = selectedProjects;
           list[0] = docSnap.data().work;
           list[1] = docSnap.data().life;
-          setSelectedProjects(list);
-          // console.log(selectedProjects);
+          console.log(list);
         } else {
           console.log("No such document!");
         }
@@ -98,7 +100,9 @@ function ProjectPage({
         <ProjectInfo
           userID={userID}
           cat="work"
-          projectID={selectedProjects[0]}
+          selectedProjects={selectedProjects}
+          test={test}
+          // projectID={selectedProjects[0]}
         />
         <Timeline
           userID={userID}
@@ -118,7 +122,9 @@ function ProjectPage({
         <ProjectInfo
           userID={userID}
           cat="life"
-          projectID={selectedProjects[1]}
+          selectedProjects={selectedProjects}
+          test={test}
+          // projectID={selectedProjects[1]}
         />
         <Timeline
           userID={userID}
