@@ -44,19 +44,22 @@ function ProjectPage({
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserID(user);
-        console.log(selectedProjects);
+        fetchData(user);
       } else {
         // User is signed out
         // ...
       }
     });
 
-    async function fetchData() {
+    async function fetchData(user) {
       try {
-        const docSnap = await getDoc(doc(db, userID.uid, selectedProjects));
+        const docSnap = await getDoc(doc(db, user.uid, "selectedProjects"));
         if (docSnap.exists()) {
-          console.log(docSnap.data());
-          setSelectedProjects([docSnap.data().work, docSnap.data().life]);
+          let list = selectedProjects;
+          list[0] = docSnap.data().work;
+          list[1] = docSnap.data().life;
+          setSelectedProjects(list);
+          // console.log(selectedProjects);
         } else {
           console.log("No such document!");
         }
@@ -64,7 +67,6 @@ function ProjectPage({
         console.log("Error getting cached document:", error);
       }
     }
-    fetchData();
   }
 
   useEffect(() => {
