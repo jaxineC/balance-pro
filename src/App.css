@@ -117,7 +117,8 @@ li {
 }
 
 textarea {
-  resize: none;
+  resize: vertical;
+  padding-left: 2px;
 }
 .SignupForm > input {
   width: 225px;

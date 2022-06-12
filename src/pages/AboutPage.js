@@ -271,7 +271,7 @@ function IndexPage({ userID, setUserID, setIsSignUp }) {
       <div style={{ height: "200px", backgroundColor: "blueviolet" }}>
         <div
           onClick={() => {
-            window.scrollBy(0, 0);
+            window.scrollTo(0, 0);
           }}
           className="TextS"
           style={{
@@ -282,6 +282,7 @@ function IndexPage({ userID, setUserID, setIsSignUp }) {
             position: "relative",
             bottom: "10px",
             padding: "10px",
+            cursor: "pointer",
           }}
         >
           Back to top

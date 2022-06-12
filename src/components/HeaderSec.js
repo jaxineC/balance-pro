@@ -5,18 +5,17 @@ import Logo45b from "../media/Logo45b.png";
 import { getAuth, signOut } from "firebase/auth";
 import ContactModal from "./ContactModal";
 
-function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
-  const [isDesktop, setIsDeskTop] = useState(true);
+function HeaderSec({
+  userID,
+  setUserID,
+  isSignUp,
+  setIsSignUp,
+  isDesktop,
+  setIsDeskTop,
+}) {
   const [isToggle, setIsToggle] = useState(false);
   const [isContact, setIsContact] = useState(false);
 
-  useEffect(() => {
-    if (window.innerWidth <= 600) {
-      setIsDeskTop(false);
-    } else {
-      setIsDeskTop(true);
-    }
-  }, []);
   function renderSignUpModal() {
     setIsSignUp(true);
   }
@@ -92,10 +91,12 @@ function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
         className="toggleMenu"
         style={{
           display: isToggle ? "block" : "none",
-          width: 120,
+          width: 100,
           position: "fixed",
           top: 45,
-          right: 0,
+          right: 10,
+          backgroundColor: "#ffffff",
+          boxShadow: "#666666 0px 5px 10px",
         }}
       >
         <div
@@ -107,6 +108,7 @@ function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
             "&:hover": {
               cursor: "pointer",
             },
+            paddingTop: 5,
           }}
         >
           {userID ? "Log out" : "Sign up"}
@@ -114,7 +116,7 @@ function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
         <hr
           style={{
             width: 100,
-            margin: "4px 10px 3px 10px",
+            margin: "5px 10px 3px 10px",
             borderColor: "#bbbbbb",
           }}
         />
@@ -133,18 +135,12 @@ function HeaderSec({ userID, setUserID, isSignUp, setIsSignUp }) {
             "&:hover": {
               cursor: "pointer",
             },
+            paddingBottom: 5,
           }}
         >
           {" "}
-          Contact Us{" "}
+          Contact{" "}
         </div>
-        <hr
-          style={{
-            width: 100,
-            margin: "4px 10px 3px 10px",
-            borderColor: "#bbbbbb",
-          }}
-        />
       </div>
     </nav>
   );

@@ -15,7 +15,7 @@ import {
 import { db } from "../firebase.js";
 import { updateData } from "../module/manageDB.js";
 
-function WelcomeTxt({ userID, setUserID }) {
+function WelcomeTxt2({ userID, setUserID }) {
   const [txt1Input, setTxt1Input] = useState("");
   const [txt2Input, setTxt2Input] = useState("");
   const [updateAlert, setUpdateAlert] = useState("");
@@ -67,30 +67,7 @@ function WelcomeTxt({ userID, setUserID }) {
   }, []);
 
   return (
-    <div className="WelcomeTxt" style={{ position: "relative" }}>
-      <input
-        onKeyDown={(event) => {
-          if (event.key === "Enter") {
-            handleGreetingUpdate();
-          }
-        }}
-        className="TextXL bold txt1Input"
-        onChange={(event) => {
-          setTxt1Input(event.target.value);
-        }}
-        value={txt1Input}
-        style={{
-          width: "100%",
-          height: 80,
-          color: "#222500",
-          borderStyle: "none",
-          marginLeft: 0,
-          marginBlockStart: "0.67em",
-          marginBlockEnd: "0.67em",
-          padding: 0,
-          fontFamily: "Segoe UI, sans-serif",
-        }}
-      ></input>
+    <div className="WelcomeTxt2" style={{ position: "relative" }}>
       <textarea
         onKeyDown={(event) => {
           if (event.key === "Enter") {
@@ -104,13 +81,13 @@ function WelcomeTxt({ userID, setUserID }) {
         value={txt2Input}
         style={{
           width: "100%",
-          height: 80,
+          height: 160,
           color: "#222500",
           borderStyle: "none",
           marginLeft: 0,
           marginBlockStart: "0.67em",
           marginBlockEnd: "0.67em",
-          padding: 0,
+          paddingLeft: 10,
           fontFamily: "Segoe UI, sans-serif",
           verticalAlign: "top",
           overflowWrap: "break-word",
@@ -123,7 +100,7 @@ function WelcomeTxt({ userID, setUserID }) {
           display: updateAlert === "ok" ? "block" : "none",
           position: "absolute",
           left: 0,
-          top: -12,
+          top: -6,
           padding: "0px 4px",
           backgroundColor: "#fae6ff",
         }}
@@ -133,7 +110,7 @@ function WelcomeTxt({ userID, setUserID }) {
             fontSize: 14,
             color: "blueviolet",
             position: "relative",
-            top: -10,
+            top: -6,
           }}
         >
           updated!
@@ -144,7 +121,7 @@ function WelcomeTxt({ userID, setUserID }) {
           display: updateAlert === "fail" ? "block" : "none",
           position: "absolute",
           left: 0,
-          top: -12,
+          top: -6,
           padding: "0px 4px",
           backgroundColor: "#fae6ff",
         }}
@@ -155,4 +132,4 @@ function WelcomeTxt({ userID, setUserID }) {
   );
 }
 
-export default WelcomeTxt;
+export default WelcomeTxt2;

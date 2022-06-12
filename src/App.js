@@ -12,6 +12,7 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 
 function App() {
   // const UserContext = React.createContext(userID);
+  const [isDesktop, setIsDeskTop] = useState(true);
   const [userID, setUserID] = useState(null);
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [isSignUp, setIsSignUp] = useState(false);
@@ -27,9 +28,19 @@ function App() {
     getCurrentUserInfo();
   }, []);
 
+  useEffect(() => {
+    if (window.innerWidth <= 600) {
+      setIsDeskTop(false);
+    } else {
+      setIsDeskTop(true);
+    }
+  }, []);
+
   return (
     <BrowserRouter onload={getCurrentUserInfo}>
       <HeaderSec
+        isDesktop={isDesktop}
+        setIsDeskTop={setIsDeskTop}
         userID={userID}
         setUserID={setUserID}
         isSignUp={isSignUp}
@@ -44,12 +55,21 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<IndexPage userID={userID} setUserID={setUserID} />}
+          element={
+            <IndexPage
+              isDesktop={isDesktop}
+              setIsDeskTop={setIsDeskTop}
+              userID={userID}
+              setUserID={setUserID}
+            />
+          }
         />
         <Route
           path="/list"
           element={
             <ListPage
+              isDesktop={isDesktop}
+              setIsDeskTop={setIsDeskTop}
               userID={userID}
               setUserID={setUserID}
               selectedProjects={selectedProjects}
@@ -61,6 +81,8 @@ function App() {
           path="/project"
           element={
             <ProjectPage
+              isDesktop={isDesktop}
+              setIsDeskTop={setIsDeskTop}
               userID={userID}
               setUserID={setUserID}
               selectedProjects={selectedProjects}
@@ -72,6 +94,8 @@ function App() {
           path="/about"
           element={
             <AboutPage
+              isDesktop={isDesktop}
+              setIsDeskTop={setIsDeskTop}
               userID={userID}
               setUserID={setUserID}
               selectedProjects={selectedProjects}

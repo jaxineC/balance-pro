@@ -4,11 +4,17 @@
 }
 
 /* ---------------------------------Component----------------------------------- */
-.WelcomeTxt {
+.WelcomeTxt1 {
   width: 80%;
   margin: 10px auto;
-  grid-row: 1 / -1;
-  align-self: center;
+  grid-row: 1 / 2;
+  align-self: flex-end;
+}
+.WelcomeTxt2 {
+  width: 80%;
+  margin: 10px auto;
+  grid-row: 2 / 3;
+  align-self: flex-start;
 }
 
 .AddProject {
@@ -146,9 +152,32 @@ input:checked + .slider:before {
 }
 
 @media only screen and (max-width: 600px) {
+  main {
+    height: calc(100vh - 45px);
+    overflow: clip;
+  }
   .ListPage {
-    grid-template-columns: 95%;
-    grid-template-rows: 55% 15% 25%;
+    grid-template-columns: 100%;
+    grid-template-rows: 70% 20%;
+    justify-content: center;
+    align-content: flex-start;
+  }
+  .WelcomeTxt {
+    height: 100% !important;
+    width: !important;
+    object-fit: cover !important;
+    margin: auto;
+    overflow: hidden;
+  }
+  .AddProject {
+    width: 100%;
+    width: 100%;
+    margin: auto;
+    background: none;
+    z-index: 99;
+    padding: 10px;
+    /* border: 1px #eeeeee solid;
+    border-radius: 5px;  */
   }
 }
 

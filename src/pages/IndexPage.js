@@ -8,7 +8,7 @@ import LoginBox from "../components/LoginBox";
 import Logo from "../components/Logo";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 
-function IndexPage({ userID, setUserID }) {
+function IndexPage({ userID, setUserID, isDesktop, setIsDeskTop }) {
   // const user = useContext(UserContext);
   const [isReady, setIsReady] = useState(false);
 
@@ -27,15 +27,20 @@ function IndexPage({ userID, setUserID }) {
     <main className="IndexPage">
       <WelcomeImg />
       {userID ? (
-        <WelcomBack userID={userID} setUserID={setUserID} />
+        <WelcomBack
+          userID={userID}
+          setUserID={setUserID}
+          isDesktop={isDesktop}
+          setIsDeskTop={setIsDeskTop}
+        />
       ) : (
         <LoginBox userID={userID} setUserID={setUserID} />
       )}
-      <Logo />
+      {isDesktop ? <Logo /> : ""}
       <Background />
       <Link className="Link" to="/list">
         <button
-          style={{ display: userID ? "block" : "none" }}
+          style={{ display: userID ? "block" : "none", zIndex: 999 }}
           className="go TextL"
         >
           Enter

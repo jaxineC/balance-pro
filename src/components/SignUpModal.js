@@ -293,7 +293,7 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
         >
           Contiune with Google
         </button>
-        <button
+        {/* <button
           onMouseEnter={(event) => {
             event.target.style.backgroundColor = "blueviolet";
             event.target.parentNode.children[8].style.backgroundColor =
@@ -313,7 +313,7 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
           type="button"
         >
           Contiune with Facebook
-        </button>
+        </button> */}
         <div style={{ textAlign: "center" }}>
           Already a member? close popup window to Log in
         </div>

@@ -7,10 +7,11 @@ function Welcome() {
     <div className="WelcomeImg">
       <img
         src={cover}
-        alt="welcome image"
+        alt="welcome"
         style={{
+          objectFit: "cover",
           height: "95%",
-          overflowY: "hidden",
+          width: "100%",
         }}
       />
       <div className="TextXS">

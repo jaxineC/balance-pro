@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./ListPage.css";
-import WelcomeTxt from "../components/WelcomeTxt";
+import WelcomeTxt1 from "../components/WelcomeTxt1";
+import WelcomeTxt2 from "../components/WelcomeTxt2";
 import AddProject from "../components/AddProject";
 import ProjectList from "../components/ProjectList";
 import Background from "../components/Background";
@@ -12,6 +13,8 @@ function ListPage({
   selectedProjects,
   setSelectedProjects,
   setUserID,
+  isDesktop,
+  setIsDeskTop,
 }) {
   const [checked, setChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -34,7 +37,8 @@ function ListPage({
   if (userID) {
     return (
       <main className="ListPage">
-        <WelcomeTxt userID={userID} />
+        <WelcomeTxt1 userID={userID} />
+        <WelcomeTxt2 userID={userID} />
         <AddProject userID={userID} />
         <ProjectList
           cat="work"

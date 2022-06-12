@@ -33,6 +33,8 @@ function ProjectPage({
   selectedProjects,
   setSelectedProjects,
   setUserID,
+  isDesktop,
+  setIsDeskTop,
 }) {
   const [XPosition, setXPosition] = useState(20 * (8 * 7 - 1));
   const [focus, setFocus] = useState("balance"); //"balance", "work", "life", "overlay"

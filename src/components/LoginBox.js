@@ -136,7 +136,7 @@ function LoginBox({ userID, setUserID }) {
           src={googleIcon}
           alt="google icon"
         />
-        <img
+        {/* <img
           style={{
             height: 16,
             placeSelf: "flex-start",
@@ -148,7 +148,7 @@ function LoginBox({ userID, setUserID }) {
           className="icon"
           src={fbIcon}
           alt="fb icon"
-        />
+        /> */}
         <button
           onClick={handleSignIn}
           style={{

@@ -3,7 +3,14 @@ import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
+function LoginBox({
+  userID,
+  setUserID,
+  isLoggedIn,
+  setIsLoggedIn,
+  isDesktop,
+  setIsDeskTop,
+}) {
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [message, setMessage] = useState("");
@@ -17,6 +24,8 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
       <div
         className="TextXL bold"
         style={{
+          fontSize: isDesktop ? "48px" : "36px",
+          width: isDesktop ? "100%" : "70%",
           padding: "5px 0px 1px 10px",
           margin: "0px 5px",
         }}
@@ -26,6 +35,8 @@ function LoginBox({ userID, setUserID, isLoggedIn, setIsLoggedIn }) {
       <div
         className="TextXL bold"
         style={{
+          fontSize: isDesktop ? "48px" : "36px",
+          width: isDesktop ? "100%" : "70%",
           padding: "5px 0px 1px 10px",
           margin: "0px 5px",
         }}
