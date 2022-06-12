@@ -11,7 +11,8 @@ function Welcome() {
         style={{
           objectFit: "cover",
           height: "95%",
-          width: "100%",
+          width: "140%",
+          overflow: "visible",
         }}
       />
       <div className="TextXS">

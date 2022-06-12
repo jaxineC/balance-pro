@@ -1,5 +1,9 @@
 .ProjectPage {
   box-sizing: border-box;
+  display: grid;
+  column-gap: 2.5%;
+  align-content: center;
+  justify-content: center;
   grid-template-columns: 1fr;
   grid-template-rows: 11% 39% 11% 39%;
   width: 100%;
