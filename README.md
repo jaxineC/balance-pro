@@ -24,7 +24,7 @@ We opt out of compelicated forms in traditional gantt chart tools --- you can no
 - CSS architecture: BEM
 - CSS-in-JS: styled-components
 
-Linters / Formatters:
+#### Formatters:
 - Prettier
 
 
