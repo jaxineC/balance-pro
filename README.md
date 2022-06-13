@@ -15,8 +15,10 @@ We opt out of compelicated forms in traditional gantt chart tools --- you can no
 
 JavaScript
 
-JavaScript library:
+Framework:
 - React
+- functional component
+- Hooks (useState, useEffect, useRef)
 - React-router
 
 CSS Tool:
