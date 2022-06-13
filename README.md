@@ -41,5 +41,5 @@ We opt out of compelicated forms in traditional gantt chart tools --- you can no
 ## React Component Architecture
 
 ## Contact Information
-- Jaxine Chia-Hsing Chang
-- email: jaxine.c@gmail.com
+#### Jaxine Chia-Hsing Chang
+#### email: jaxine.c@gmail.com
