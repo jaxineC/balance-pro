@@ -22,4 +22,11 @@ CSS Tool:
 - CSS architecture: BEM
 - CSS-in-JS: styled-components
 
+
+## Back-end service: Firebase
+
+Firebase hosting
+Firestore
+Firebase authentication
+
 ## React component architecture
