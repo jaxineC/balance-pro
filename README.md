@@ -1,5 +1,5 @@
 # balancePro.me
-balancePro is an online Gantt chart tool helps the user to achieve work-life balance.
+balancePro is an online Gantt chart tool that helps the user to achieve work-life balance.
 
 ### Create an account to get started
 
