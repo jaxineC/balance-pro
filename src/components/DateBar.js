@@ -124,7 +124,7 @@ function DateBar({ ZDay, setZDay }) {
         }}
       >
         <div>.{/* {ZDay.YYYY} {ZDay.MM} */}</div>
-        {ZDay.MondayDate}
+        {ZDay.DAY === 1 ? "" : ZDay.MondayDate}
       </div>
       <div className="TextS d" style={divStyle}>
         <div>

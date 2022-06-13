@@ -28,6 +28,7 @@
   grid-row: 1 / -1;
   align-self: center;
   z-index: 99;
+  text-align: center;
 }
 
 .ProjectList {
@@ -185,7 +186,6 @@ input:checked + .slider:before {
     margin: auto;
     position: relative;
     left: -5%;
-    background-color: var(--lime);
     grid-row: 3 / 4;
     z-index: 99;
     padding: 10px;

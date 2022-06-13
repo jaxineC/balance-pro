@@ -32,7 +32,7 @@ function TimeCanvas({
   const [editTaskItem, setEditTaskItem] = useState("");
   // let clientW = window.innerWidth;
   // let totalDays = Math.floor(ClientW / 20);
-  let totalWks = 25;
+  let totalWks = 26;
   let totalDays = totalWks * 7;
   let frames = [];
 

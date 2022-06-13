@@ -11,7 +11,7 @@ function Welcome() {
         style={{
           objectFit: "cover",
           height: "95%",
-          width: "140%",
+          width: "120%",
           overflow: "visible",
         }}
       />

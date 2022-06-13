@@ -37,10 +37,15 @@ function IndexPage({ userID, setUserID, isDesktop, setIsDeskTop }) {
         <LoginBox userID={userID} setUserID={setUserID} />
       )}
       {isDesktop ? <Logo /> : ""}
-      <Background />
+      {isDesktop ? <Background /> : ""}
+
       <Link className="Link" to="/list">
         <button
-          style={{ display: userID ? "block" : "none", zIndex: 999 }}
+          style={{
+            display: userID ? "block" : "none",
+            zIndex: 999,
+            backgroundColor: userID ? "blueviolet" : "none",
+          }}
           className="go TextL"
         >
           Enter

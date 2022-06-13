@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ProjectPage.css";
 import { Link } from "react-router-dom";
 import DisplayMode from "../components/DisplayMode";
+import DisplayModeIcon from "../components/DisplayModeIcon";
 import Unfold from "../components/Unfold";
 import QuickAccess from "../components/QuickAccess";
 import ProjectInfo from "../components/ProjectInfo";
@@ -29,11 +30,11 @@ import {
 import { db } from "../firebase.js";
 
 function ProjectPage({
+  isDesktop,
   userID,
   selectedProjects,
   setSelectedProjects,
   setUserID,
-  isDesktop,
   setIsDeskTop,
 }) {
   const [XPosition, setXPosition] = useState(20 * (8 * 7 - 1));
@@ -99,6 +100,7 @@ function ProjectPage({
     return (
       <main className="ProjectPage" style={divStyle}>
         <ProjectInfo
+          isDesktop={isDesktop}
           userID={userID}
           cat="work"
           selectedProjects={selectedProjects}
@@ -121,6 +123,7 @@ function ProjectPage({
           setInstruction={setInstruction}
         />
         <ProjectInfo
+          isDesktop={isDesktop}
           userID={userID}
           cat="life"
           selectedProjects={selectedProjects}
@@ -141,7 +144,12 @@ function ProjectPage({
           XPosition={XPosition}
           setXPosition={setXPosition}
         />
-        <DisplayMode focus={focus} setFocus={setFocus} />
+        {isDesktop ? (
+          <DisplayMode focus={focus} setFocus={setFocus} />
+        ) : (
+          <DisplayModeIcon focus={focus} setFocus={setFocus} />
+        )}
+
         {/* <QuickAccess XPosition={XPosition} setXPosition={setXPosition} /> */}
         <HoverTxt instruction={instruction} mousePosition={mousePosition} />
       </main>

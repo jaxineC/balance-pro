@@ -120,7 +120,9 @@ function HeaderSec({
             borderColor: "#bbbbbb",
           }}
         />
-        <div className="padH"> About </div>
+        <Link to="/about">
+          <span className="padH"> About </span>{" "}
+        </Link>
         <hr
           style={{
             width: 100,

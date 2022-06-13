@@ -1,7 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledElement = styled(EditableTxt)`
+const AboutPage = ({ isDesktop, className }) => {
+  return (
+    <main className={className}>
+      <section className="section" />
+      <div className="element__info">
+        <div className="element__title" skyblue>
+          Cute Puppy
+        </div>
+        <div className="element__description">
+          Sed ut voluptatem neque cumque. Qui sed ut itaque est doloribus qui.
+          Eos perferendis autem qui fugiat.
+        </div>
+      </div>
+    </main>
+  );
+};
+
+const styledAboutPage = styled(AboutPage)`
     height: 40px;
     width: 100%;
     grid-column-start: 1;
@@ -33,4 +50,4 @@ const StyledElement = styled(EditableTxt)`
   }
 `;
 
-export default StyledElement;
+export { styledAboutPage };

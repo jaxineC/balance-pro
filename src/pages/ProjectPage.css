@@ -35,6 +35,11 @@ path:hover {
   cursor: pointer;
 }
 
+.DisplayModeIcon > button > svg > path:hover {
+  fill: var(--lime);
+  cursor: pointer;
+}
+
 ul {
   padding-inline-start: 0px !important;
 }
@@ -231,4 +236,28 @@ ul {
 
 .hide {
   display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  main {
+    height: calc(100vh - 45px);
+    width: 100%;
+    overflow: clip;
+  }
+
+  .ProjectPage {
+    box-sizing: border-box;
+    display: grid;
+    column-gap: 2.5%;
+    align-content: center;
+    justify-content: center;
+    grid-template-columns: 100%;
+    grid-template-rows: 11% 39% 11% 39%;
+    width: 100%;
+    margin: auto;
+    text-align: start;
+  }
+  .ProjectInfo {
+    width: 100%;
+  }
 }

@@ -39,7 +39,7 @@ function ListPage({
       <main className="ListPage">
         <WelcomeTxt1 userID={userID} />
         <WelcomeTxt2 userID={userID} />
-        <AddProject userID={userID} />
+        <AddProject userID={userID} isDesktop={isDesktop} />
         <ProjectList
           cat="work"
           userID={userID}

@@ -22,8 +22,17 @@ import { fetchAllData } from "../module/manageDB.js";
 import { renderIntoDocument } from "react-dom/test-utils";
 import EditableTxt from "./EditableTxt.js";
 import LoadingModal from "./LoadingModal.js";
+import { isEditable } from "@testing-library/user-event/dist/utils";
 
-function ProjectInfo({ userID, cat, selectedProjects, test, Tasks, setTasks }) {
+function ProjectInfo({
+  isDesktop,
+  userID,
+  cat,
+  selectedProjects,
+  test,
+  Tasks,
+  setTasks,
+}) {
   const [inputText, setInputText] = useState(""); //inside ProjectTinfo or Hashtag component for addHashTag
   const [projectInfo, setprojectInfo] = useState({});
   const [hashtags, setHashtags] = useState([]);
@@ -151,7 +160,7 @@ function ProjectInfo({ userID, cat, selectedProjects, test, Tasks, setTasks }) {
   };
 
   const editableTxtStyle = {
-    width: "100%",
+    width: isDesktop ? "100%" : "60%",
     padding: 0,
     margin: 0,
     borderStyle: "none",

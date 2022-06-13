@@ -29,11 +29,16 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (window.innerWidth <= 600) {
-      setIsDeskTop(false);
-    } else {
-      setIsDeskTop(true);
+    function checkDevice() {
+      if (window.innerWidth <= 600) {
+        setIsDeskTop(false);
+      } else {
+        setIsDeskTop(true);
+      }
     }
+
+    window.addEventListener("resize", checkDevice);
+    checkDevice();
   }, []);
 
   return (
