@@ -13,7 +13,7 @@ We opt out of compelicated forms in traditional gantt chart tools --- you can no
 
 ## Front-end Technique
 
-JavaScript
+#### JavaScript
 
 Framework:
 - React
