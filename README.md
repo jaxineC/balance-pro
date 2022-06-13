@@ -18,18 +18,24 @@ JavaScript
 JavaScript library:
 - React
 - React-router
-- EmailJS
 
 CSS Tool:
 - CSS architecture: BEM
 - CSS-in-JS: styled-components
 
+Linters / Formatters:
+- Prettier
 
-## Back-end Service: Firebase
 
-Firebase hosting
-Firestore
-Firebase authentication
+## Back-end Service
+
+Firebase
+- Deploy: Firebase hosting
+- Detabase: Firestore (Nosql)
+- User authentication: Firebase authentication
+
+EmailJS
+- Email service
 
 ## React Component Architecture
 
