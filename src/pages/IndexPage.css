@@ -54,10 +54,9 @@
 
 @media only screen and (max-width: 600px) {
   main {
-    height: calc(100vh - 45px);
-    overflow: clip;
   }
   .IndexPage {
+    height: calc(100vh - 45px);
     grid-template-columns: 100%;
     grid-template-rows: 70% 20%;
     justify-content: center;

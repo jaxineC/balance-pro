@@ -158,11 +158,9 @@ input:checked + .slider:before {
 }
 
 @media only screen and (max-width: 600px) {
-  main {
+  .ListPage {
     height: calc(100vh - 45px);
     overflow: clip;
-  }
-  .ListPage {
     grid-template-columns: 90%;
     grid-template-rows: 20% 20% 10% 20% 20%;
     row-gap: 2%;

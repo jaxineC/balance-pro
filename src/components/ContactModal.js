@@ -64,7 +64,6 @@ function ContactModal({ isContact, setIsContact }) {
         className="SignupForm"
         style={{
           position: "absolute",
-          top: 25,
           width: 360,
           display: "flex",
           flexDirection: "column",

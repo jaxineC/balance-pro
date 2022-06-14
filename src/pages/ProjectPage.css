@@ -239,13 +239,10 @@ ul {
 }
 
 @media only screen and (max-width: 600px) {
-  main {
+  .ProjectPage {
     height: calc(100vh - 45px);
     width: 100%;
     overflow: clip;
-  }
-
-  .ProjectPage {
     box-sizing: border-box;
     display: grid;
     column-gap: 2.5%;

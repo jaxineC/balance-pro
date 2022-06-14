@@ -138,7 +138,7 @@ function ProjectInfo({
 
   const hashtagItems = hashtags.map((item, index) => (
     <Hashtag
-      key={index}
+      key={item}
       className="Hashtag TextXS"
       item={item}
       index={index}

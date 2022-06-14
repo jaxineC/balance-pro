@@ -46,6 +46,7 @@ function HeaderSec({
       <span
         onClick={userID ? handleSignOut : renderSignUpModal}
         className="padH"
+        style={{ cursor: "pointer" }}
       >
         {" "}
         {userID
@@ -79,6 +80,7 @@ function HeaderSec({
         viewBox="0 0 24 24"
         width="30"
         xmlns="http://www.w3.org/2000/svg"
+        style={{ marginRight: "20px" }}
       >
         <path
           clipRule="evenodd"
@@ -132,6 +134,9 @@ function HeaderSec({
         />
         <div
           className="padH"
+          onClick={() => {
+            setIsContact(true);
+          }}
           style={{
             cursor: "pointer",
             "&:hover": {
