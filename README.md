@@ -3,14 +3,14 @@ balancePro is an online Gantt chart tool that helps the user to achieve work-lif
 
 #### Create an account to get started
 
-Click "sign up" in the navigation bar on the top, 
+Click "sign up" in the navigation bar on the top to create an account, 
 <br/>
-you can create an account with an email, or just use your Google account.
+With an email, or your Google account.
 
 
 #### Create/ Edit/ Delete/ Drag/ Stretch directly on the screen
 
-We opt out of compelicated forms in traditional gantt chart tools 
+We opt out compelicated forms in traditional gantt chart tools 
 <br/>--- you can now focus on review and manage your tasks.
 
 Link :point_right:: https://balancepro.me/
