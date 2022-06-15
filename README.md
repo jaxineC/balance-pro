@@ -1,4 +1,6 @@
 # balancePro.me
+![Logo45x120](https://user-images.githubusercontent.com/94296465/173788246-2a3a607c-2880-4403-b546-bd2da613b53a.png)
+
 balancePro is an online Gantt chart tool that helps the user to achieve work-life balance.
 
 #### Create an account to get started
@@ -47,6 +49,8 @@ About& Demo :point_right:: https://balancepro.me/about
 
 #### EmailJS
 - Email service
+
+## Sills and services diagram
 ![ReadMe diagrams-02](https://user-images.githubusercontent.com/94296465/173768608-7a23b6f1-7d75-487a-be09-cd4ff1f12951.jpg)
 
 ## React Component Architecture
