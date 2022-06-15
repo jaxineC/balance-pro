@@ -37,8 +37,10 @@ We opt out of compelicated forms in traditional gantt chart tools --- you can no
 
 #### EmailJS
 - Email service
+![ReadMe diagrams-02](https://user-images.githubusercontent.com/94296465/173768608-7a23b6f1-7d75-487a-be09-cd4ff1f12951.jpg)
 
 ## React Component Architecture
+![ReadMe diagrams-01](https://user-images.githubusercontent.com/94296465/173768582-bb467f87-3e1c-43ab-8691-354e9ce4bd81.jpg)
 
 ## Contact Information
 #### Jaxine Chia-Hsing Chang
