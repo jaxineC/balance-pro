@@ -1,5 +1,4 @@
-# balancePro.me
-![Logo45x120](https://user-images.githubusercontent.com/94296465/173788246-2a3a607c-2880-4403-b546-bd2da613b53a.png)
+# balancePro
 
 balancePro is an online Gantt chart tool that helps the user to achieve work-life balance.
 
@@ -11,6 +10,7 @@ With an email, or your Google account.
 
 
 #### Create/ Edit/ Delete/ Drag/ Stretch directly on the screen
+
 
 We opt out compelicated forms in traditional gantt chart tools 
 <br/>--- you can now focus on review and manage your tasks.
