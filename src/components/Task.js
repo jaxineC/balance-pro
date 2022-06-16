@@ -131,7 +131,8 @@ function Task({
     }
 
     let taskNoteNode = event.currentTarget.children[2];
-    if (taskNoteNode.style.dispaly) {
+    console.log(taskNoteNode);
+    if (taskNoteNode.style.display) {
       if (taskNoteNode.style.display === "none") {
         taskNoteNode.style.display = "inline";
       } else {
@@ -251,7 +252,7 @@ function Task({
         style={{
           color: "#666",
           position: "absolute",
-          top: 22,
+          top: 24,
           left: 0,
           display: "none",
         }}

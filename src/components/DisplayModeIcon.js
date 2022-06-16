@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { StyledDisplayMode } from "../styles/styledComponents";
 
-function DisplayMode({ focus, setFocus }) {
+function DisplayModeIcon({ focus, setFocus }) {
   return (
-    <div className="DisplayMode DisplayModeIcon " style={{ right: "10px" }}>
+    <StyledDisplayMode focus={focus} className="DisplayModeIcon ">
       <button
         onClick={(event) => {
           setFocus("work");
         }}
         className="Focus"
-        // style={{
-        //   borderColor:
-        //     focus === "work" || focus === "life" ? "#e6f252" : "#eeeeee",
-        // }}
       >
         <svg
           fill="none"
@@ -27,7 +23,6 @@ function DisplayMode({ focus, setFocus }) {
 			c1-6.4,6.6-11.1,13.1-11.1h478.5c6.5,0,12.1,4.7,13.1,11.1c6.5,44.1,4.4,89.2-6.5,132.7c-18.5,74.4-77.8,131.9-152.9,148.4
 			l-11.3,2.5c-53.8,11.9-109.5,11.9-163.3,0l-11.3-2.5C163.9,394.6,104.7,337.1,86.2,262.7L86.2,262.7z M195.7,159.6
 			c-11.3,0-20.4,9.1-20.4,20.4c0,11.2,9.2,20.4,20.4,20.4h109.1c11.3,0,20.5-9.1,20.5-20.4c0-11.2-9.2-20.4-20.5-20.4H195.7z"
-            // d="m15.5308 3.3303c-1.9963-.4404-4.0653-.4404-6.06163 0l-.41762.09213c-2.30795.50914-4.2116 2.05898-5.18928 4.14312-.14689.31312.0935.65606.43937.65606h16.39676c.3458 0 .5862-.34294.4393-.65606-.9777-2.08414-2.8813-3.63398-5.1893-4.14312zm-12.15382 11.7385c-.40254-1.6139-.4827-3.2867-.2405-4.9241.03536-.23903.24351-.41174.48517-.41174h17.75665c.2417 0 .4499.17271.4852.41174.2422 1.6374.1621 3.3102-.2405 4.9241-.6883 2.7598-2.8864 4.8937-5.6746 5.5088l-.4176.0921c-1.9963.4404-4.0653.4404-6.06163 0l-.41762-.0921c-2.78812-.6151-4.98621-2.749-5.67457-5.5088zm4.06387-3.8245c-.41911 0-.75887.3383-.75887.7557 0 .4173.33976.7557.75887.7557h4.04735c.4191 0 .7589-.3384.7589-.7557 0-.4174-.3398-.7557-.7589-.7557z"
             fill="rgb(152,152,152)"
             fill-rule="evenodd"
           />
@@ -38,9 +33,6 @@ function DisplayMode({ focus, setFocus }) {
           setFocus("balance");
         }}
         className="Balance"
-        // style={{
-        //   borderColor: focus === "balance" ? "#e6f252" : "#eeeeee",
-        // }}
       >
         <svg
           version="1.1"
@@ -69,9 +61,6 @@ function DisplayMode({ focus, setFocus }) {
           setFocus("overlay");
         }}
         className="Overlay"
-        // style={{
-        //   borderColor: focus === "overlay" ? "#e6f252" : "#eeeeee",
-        // }}
       >
         <svg
           version="1.1"
@@ -95,8 +84,8 @@ function DisplayMode({ focus, setFocus }) {
           />
         </svg>
       </button>
-    </div>
+    </StyledDisplayMode>
   );
 }
 
-export default DisplayMode;
+export default DisplayModeIcon;

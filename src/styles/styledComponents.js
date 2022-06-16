@@ -158,11 +158,18 @@ export const Login = styled.div`
     border-style: solid;
     border-width: 0 0 1px;
     margin: 10px;
+    letter-spacing: 1px;
     &:focus {
       outline: 1.5px solid blueviolet;
       box-shadow: blueviolet;
       border-radius: 5px;
     }
+  }
+  .passwordInput {
+    &::placeholder {
+      letter-spacing: 1px;
+    }
+    letter-spacing: 6px;
   }
 
   .Login__ErrorMessage {
@@ -256,3 +263,55 @@ export const StyledAddProjectSection = styled.section`
 `;
 
 //------------------- Project Page--------------------//
+export const StyledDisplayMode = styled.div`
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  ${MQ} {
+    right: 10px;
+  }
+  button {
+    background-color: transparent;
+    margin: auto 2px;
+    border-width: 0px 0px 5px 0px;
+    border-style: solid;
+    border-color: #eeeeee;
+    cursor: pointer;
+    ${MQ} {
+      border-style: none;
+      padding: 2px;
+    }
+  }
+  .Focus {
+    border-color: ${(props) =>
+      props.focus === "work" || props.focus === "life" ? "#e6f252" : "#eeeeee"};
+    svg {
+      path {
+        fill: ${(props) =>
+          props.focus === "work" || props.focus === "life"
+            ? "blueviolet"
+            : "rgb(152,152,152)"};
+      }
+    }
+  }
+  .Balance {
+    border-color: ${(props) =>
+      props.focus === "balance" ? "#e6f252" : "#eeeeee"};
+    svg {
+      path {
+        fill: ${(props) =>
+          props.focus === "balance" ? "blueviolet" : "rgb(152,152,152)"};
+      }
+    }
+  }
+  .Overlay {
+    border-color: ${(props) =>
+      props.focus === "overlay" ? "#e6f252" : "#eeeeee"};
+    svg {
+      path {
+        fill: ${(props) =>
+          props.focus === "overlay" ? "blueviolet" : "rgb(152,152,152)"};
+      }
+    }
+  }
+`;

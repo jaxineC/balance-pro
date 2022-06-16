@@ -90,6 +90,7 @@ function LoginBox({ userID, setUserID }) {
         value={passwordInput}
         type="password"
         placeholder="6+ characters"
+        className="passwordInput"
       ></input>
       <div className="Login__ErrorMessage">{loginErrorMessage}</div>
       <div className="Login__Method">

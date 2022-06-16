@@ -140,10 +140,17 @@ export const Modal = styled.div`
       border-radius: 10px;
       border-color: #dddddd;
       margin: 10px;
+      letter-spacing: 1px;
       padding-left: 10px;
       &:hover {
         border-color: #8a2be2;
       }
+    }
+    .passwordInput {
+      &::placeholder {
+        letter-spacing: 1px;
+      }
+      letter-spacing: 6px;
     }
     .errorMessage {
       color: blueviolet;
@@ -207,6 +214,7 @@ export const ConModal = styled.form`
       border: 1px solid;
       border-radius: 10px;
       border-color: #dddddd;
+      letter-spacing: 1px;
       &:hover {
         border-color: #8a2be2;
       }

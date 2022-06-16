@@ -1,20 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  collection,
-  doc,
-  setDoc,
-  getDoc, //get data once
-  getDocs,
-  updateDoc,
-  deleteDoc,
-  query,
-  orderBy,
-  where,
-  limit,
-  onSnapshot,
-  Timestamp,
-} from "firebase/firestore";
-import { db } from "../firebase.js";
+import { withTheme } from "styled-components";
 
 function StretchBtn({
   date,
@@ -38,7 +23,6 @@ function StretchBtn({
   //--------------------------------------------------useState & variables---------------------------------------//
   const [isHovered, setIsHovered] = useState(false);
 
-  let col = `${userID.uid}/${projectID}/tasks`;
   //--------------------------------------------------handle event-----------------------------------------------// 1
   //--------------------------------------------------handle event-----------------------------------------------//
   function initStretch(event) {
@@ -87,13 +71,6 @@ function StretchBtn({
     }
   }
 
-  //--------------------------------------------------CRUD-------------------------------------------------------// 2
-  //--------------------------------------------------CRUD-------------------------------------------------------//
-  async function updateData(db, col, docID, data) {
-    const queryRef = doc(db, col, docID);
-    await updateDoc(queryRef, data);
-  }
-
   //--------------------------------------------------RENDER-----------------------------------------------------// 3
   //--------------------------------------------------RENDER-----------------------------------------------------//
 
@@ -109,25 +86,21 @@ function StretchBtn({
   }
 
   return (
-    // <div className="StretchBtn TextS" style={{ display: "none" }}>
-    //   {date === "start" ? item.start : item.end}
-    // </div>
     <button
       onMouseDown={initStretch}
-      // onMouseUp={endStretch}
       onMouseEnter={renderStretchBtn}
       onMouseLeave={renderStretchBtn}
-      // onMouseMove={handleStretch}
       className="stretchBtn"
       style={{
         height: 26,
         width: 15,
+        backgroundColor: "transparent",
+        border: "0px none white",
         display: "none",
         position: "absolute",
         top: -3,
         left: date === "start" ? -12 : "auto",
         right: date === "end" ? -12 : "auto",
-        // zIndex: 999,
       }}
     >
       <svg

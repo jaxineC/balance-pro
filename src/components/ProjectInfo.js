@@ -1,28 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Hashtag from "./Hashtag";
 import EditableTxt from "./EditableTxt.js";
 import LoadingModal from "./LoadingModal.js";
 import {
-  collection,
   doc,
-  setDoc,
   getDoc,
-  getDocs,
-  deleteDoc,
-  query,
-  orderBy,
-  where,
   onSnapshot,
   arrayUnion,
   updateDoc,
-  Timestamp,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
-import { render } from "react-dom";
-import { fetchAllData } from "../module/manageDB.js";
-import { renderIntoDocument } from "react-dom/test-utils";
-import { isEditable } from "@testing-library/user-event/dist/utils";
 import { HashtagButton } from "../styles/SharedStyled.js";
 
 function ProjectInfo({
@@ -54,10 +41,6 @@ function ProjectInfo({
     fetchInfo(cat);
     docListener(cat, projectID);
   }, []);
-
-  // useEffect(() => {
-  //   renderDate();
-  // }, [projectInfo]);
 
   async function fetchInfo(cat) {
     const docRef = doc(db, col, projectID);

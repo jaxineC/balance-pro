@@ -88,12 +88,6 @@ ul {
   display: none;
 }
 
-.DisplayMode {
-  position: fixed;
-  top: 60px;
-  right: 20px;
-}
-
 .Divider {
   border-width: 0px 0px 1px 0px;
   border-style: solid;
@@ -172,9 +166,6 @@ ul {
 }
 
 /* ----------------------------------element---------------------------------- */
-.stretchBtn {
-  cursor: col-resize;
-}
 
 .projectName {
   width: 150px;
@@ -209,12 +200,6 @@ ul {
 }
 
 /* ---------------------------------styled className----------------------------------- */
-.modeBar {
-  margin: auto 2px;
-  border-width: 0px 0px 5px 0px;
-  border-style: solid;
-  border-color: #eeeeee;
-}
 
 .highlight {
   border-color: #e6f252;
