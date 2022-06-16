@@ -210,8 +210,10 @@ export const WelcomeBack = styled(Login)`
   }
   ${MQ} {
     font-size: var(--TextXL);
-    /* width: 70%; */
-    align-self: flex-start;
+    width: 80%;
+    justify-self: start;
+    position: relative;
+    right: 30px;
   }
 `;
 
@@ -248,7 +250,6 @@ export const StyledAddProjectSection = styled.section`
   ${MQ} {
     grid-row: 3/4;
     margin: auto;
-    padding: 10px;
     position: relative;
     z-index: 99;
   }

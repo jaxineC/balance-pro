@@ -26,39 +26,50 @@ import { StyledAddProjectSection } from "../styles/styledComponents.js";
 function AddProject({ userID, isDesktop }) {
   const options = { year: "numeric", month: "numeric", day: "numeric" };
   const [isAddProject, setIsAddProject] = useState(false);
-  const [category, setCategory] = useState("work");
+  const [category, setCategory] = useState("");
   const [nameInput, setNameInput] = useState("");
   const [startDateInput, setStartDateInput] = useState(
     new Date(Date.now()).toISOString(undefined, options).split("T")[0]
   );
+  const [errorMessage, setErrorMessage] = useState("");
 
   function RenderNewProjectModal() {
     setIsAddProject(true);
   }
 
   async function handleAddProject() {
-    let col = userID.uid;
-    let docID = "P-" + Date.now().toString();
-    let data = {
-      balanced: false,
-      cat: category,
-      end: Timestamp.fromDate(new Date(Date.now() + 86400000 * 30)),
-      hashtag: ["hashtag"],
-      name: nameInput,
-      projectID: docID,
-      // start: Timestamp.fromDate(new Date(Date.now())),
-      start: Timestamp.fromDate(new Date(startDateInput)),
-    };
-    try {
-      // const docRef = await addDoc(collection(db, col), data);
-      await setDoc(doc(db, col, docID), data);
-      console.log("Document written with ID: ", docID); //docRef.id if use addDoc with unknown doc id
-      setNameInput("");
-      setCategory("");
-      setStartDateInput("");
-      setIsAddProject(false);
-    } catch (event) {
-      console.error("Error adding document: ", event);
+    if (category === "") {
+      setErrorMessage("Oops! you need to descide it's category");
+    } else if (nameInput === "") {
+      setErrorMessage("Oops! you need to give the project a name");
+    } else {
+      let col = userID.uid;
+      let docID = "P-" + Date.now().toString();
+      let data = {
+        balanced: false,
+        cat: category,
+        end: Timestamp.fromDate(new Date(Date.now() + 86400000 * 30)),
+        hashtag: ["hashtag"],
+        name: nameInput,
+        projectID: docID,
+        // start: Timestamp.fromDate(new Date(Date.now())),
+        start: Timestamp.fromDate(new Date(startDateInput)),
+      };
+      try {
+        // const docRef = await addDoc(collection(db, col), data);
+        await setDoc(doc(db, col, docID), data);
+        console.log("Document written with ID: ", docID); //docRef.id if use addDoc with unknown doc id
+        setNameInput("");
+        setCategory("");
+        setStartDateInput(
+          new Date(Date.now()).toISOString(undefined, options).split("T")[0]
+        );
+        setErrorMessage("");
+        setIsAddProject(false);
+      } catch (event) {
+        console.error("Error adding document: ", event);
+        setErrorMessage("Oops! something's wrong, try again.");
+      }
     }
   }
 
@@ -81,6 +92,15 @@ function AddProject({ userID, isDesktop }) {
           name="catInput"
           onChange={(event) => setCategory(event.target.value)}
         >
+          <option
+            value=""
+            disabled
+            selected="selected"
+            hidden
+            style={{ color: "#888888" }}
+          >
+            Select a category
+          </option>
           <option value="work">work project</option>
           <option value="life">life project</option>
         </select>
@@ -100,6 +120,7 @@ function AddProject({ userID, isDesktop }) {
           type="date"
           className="startInput"
         ></input>
+        <div className="errorMessage">{errorMessage}</div>
 
         <ModalButton attr="primary" onClick={handleAddProject} type="button">
           Confirm

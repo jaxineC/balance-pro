@@ -18,6 +18,7 @@ function HeaderSec({
 
   function renderSignUpModal() {
     setIsSignUp(true);
+    setTimeout(() => setIsToggle(false), 300);
   }
 
   function handleSignOut() {
@@ -80,7 +81,6 @@ function HeaderSec({
         viewBox="0 0 24 24"
         width="30"
         xmlns="http://www.w3.org/2000/svg"
-        style={{ marginRight: "20px" }}
       >
         <path
           clipRule="evenodd"
@@ -117,17 +117,25 @@ function HeaderSec({
         </div>
         <hr
           style={{
-            width: 100,
+            width: 80,
             margin: "5px 10px 3px 10px",
             borderColor: "#bbbbbb",
           }}
         />
         <Link to="/about">
-          <span className="padH"> About </span>{" "}
+          <span
+            onClick={() => {
+              setIsToggle(false);
+            }}
+            className="padH"
+          >
+            {" "}
+            About{" "}
+          </span>{" "}
         </Link>
         <hr
           style={{
-            width: 100,
+            width: 80,
             margin: "4px 10px 3px 10px",
             borderColor: "#bbbbbb",
           }}
@@ -136,6 +144,7 @@ function HeaderSec({
           className="padH"
           onClick={() => {
             setIsContact(true);
+            setTimeout(() => setIsToggle(false), 300);
           }}
           style={{
             cursor: "pointer",

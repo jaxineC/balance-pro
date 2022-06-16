@@ -53,7 +53,7 @@ function IndexPage({ userID, setUserID, isDesktop, setIsDeskTop }) {
       {isDesktop ? <Background /> : ""}
 
       <Link className="Link" to="/list">
-        <GoButton attr="primary" userID={userID} className="bold">
+        <GoButton attr="primary" userID={userID} className="GoButton bold">
           Enter
         </GoButton>
       </Link>

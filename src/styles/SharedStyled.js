@@ -29,22 +29,21 @@ export const HashtagButton = styled(Button)`
 
 export const GoButton = styled(Button)`
   display: ${(props) => (props.userID ? "block" : "none")};
-  height: 100px;
-  width: 150px;
+  height: 90px;
+  width: 140px;
   border-radius: 50px 0px 0px 50px;
-  font-size: var(--TextXL);
+  font-size: var(--TextXXL);
   position: fixed;
   right: 0px;
-  bottom: 80px;
+  top: calc(70vh + 45px);
   &:hover {
     outline-style: none;
     box-shadow: rgb(204 204 204) 1px 5px 10px;
   }
   ${MQ} {
     font-size: var(--TextL);
-    height: 80px;
-    width: 110px;
-    z-index: 999;
+    height: 60px;
+    width: 90px;
   }
 `;
 
@@ -81,10 +80,7 @@ export const AddProjectBtn = styled(Button)`
     font-size: 16px;
     border: 1px solid blueviolet;
     border-radius: 25px;
-    width: 105%;
     margin: auto;
-    position: relative;
-    left: -5%;
     grid-row: 3 / 4;
     z-index: 99;
     padding: 10px;
@@ -255,7 +251,6 @@ export const StyledAddProjectModal = styled.div`
   background-color: white;
   box-shadow: 1px 3px 8px #cccccc;
   position: absolute;
-  top: 60vh;
   display: ${(props) => (props.isAddProject === true ? "grid" : "none")};
   border: 1px solid #cccccc;
   border-radius: 5px;
@@ -263,17 +258,22 @@ export const StyledAddProjectModal = styled.div`
   grid-template-columns: 35% 65%;
   font-size: var(--TextM);
   ${MQ} {
-    top: auto;
+    box-sizing: border-box;
+    width: 100%;
   }
   label {
     padding: 5px 10px 1px 10px;
     margin: 0px 0px 5px 0px;
+    text-align: left;
+    ${MQ} {
+      font-size: var(--TextS);
+    }
   }
   select {
-    border: 0px none white;
+    border: 1px solid var(--lightGrey);
     width: 160px;
-    padding: 5px 10px 1px 10px;
-    border-radius: 0px;
+    padding: 5px 10px 1px 5px;
+    border-radius: 10px;
     margin: 0px 0px 5px 0px;
     &:focus {
       outline-style: none;
@@ -286,7 +286,11 @@ export const StyledAddProjectModal = styled.div`
     border-radius: 0px;
     margin: 0px 0px 5px 0px;
   }
+  button {
+    place-self: flex-start;
+  }
   .errorMessage {
+    grid-column: 1/-1;
     color: blueviolet;
     font-size: var(--TextS);
   }
