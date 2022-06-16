@@ -7,6 +7,8 @@ import AddProject from "../components/AddProject";
 import ProjectList from "../components/ProjectList";
 import Background from "../components/Background";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { GoButton } from "../styles/SharedStyled.js";
+import { StyledListPage } from "../styles/styledComponents.js";
 
 function ListPage({
   userID,
@@ -36,7 +38,7 @@ function ListPage({
 
   if (userID) {
     return (
-      <main className="ListPage">
+      <StyledListPage className="ListPage">
         <WelcomeTxt1 userID={userID} />
         <WelcomeTxt2 userID={userID} />
         <AddProject userID={userID} isDesktop={isDesktop} />
@@ -57,16 +59,10 @@ function ListPage({
           setSelectedProjects={setSelectedProjects}
         />
         <Background />
-        <div
-          className="goTxt TextS"
-          style={{
-            display: errorMessage ? "block" : "none",
-          }}
-        >
-          Select one project in each category to start.
-        </div>
         <Link className="Link" to="/project">
-          <button
+          <GoButton
+            userID={userID}
+            attr="primary"
             onClick={(event) => {
               if (selectedProjects[0] && selectedProjects[1]) {
                 console.log("ok");
@@ -78,16 +74,12 @@ function ListPage({
                 }, 2000);
               }
             }}
-            style={{
-              display: "block",
-              backgroundColor: "blueviolet",
-            }}
-            className="go TextXL bold"
+            className="bold"
           >
             Go!
-          </button>
+          </GoButton>
         </Link>
-      </main>
+      </StyledListPage>
     );
   } else {
     <></>;

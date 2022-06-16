@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import images from "../icon/images.png";
 import cover from "../icon/2201_w039_n003_74b_p1_74 [Converted].png";
+import { WelcomeImg } from "../styles/styledComponents.js";
 
 function Welcome() {
   return (
@@ -15,8 +16,9 @@ function Welcome() {
           overflow: "visible",
         }}
       />
-      <div className="TextXS">
+      <div>
         <a
+          className="TextXS"
           href="https://www.freepik.com/vectors/working-time"
           style={{ color: "#dddddd" }}
         >

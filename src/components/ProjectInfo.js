@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Hashtag from "./Hashtag";
+import EditableTxt from "./EditableTxt.js";
+import LoadingModal from "./LoadingModal.js";
 import {
   collection,
   doc,
@@ -20,9 +22,8 @@ import { db } from "../firebase.js";
 import { render } from "react-dom";
 import { fetchAllData } from "../module/manageDB.js";
 import { renderIntoDocument } from "react-dom/test-utils";
-import EditableTxt from "./EditableTxt.js";
-import LoadingModal from "./LoadingModal.js";
 import { isEditable } from "@testing-library/user-event/dist/utils";
+import { HashtagButton } from "../styles/SharedStyled.js";
 
 function ProjectInfo({
   isDesktop,
@@ -199,14 +200,14 @@ function ProjectInfo({
       <div className="Hashtags">
         {hashtagItems}
         {isAddHashtag ? addHashtagForm : ""}
-        <button
+        <HashtagButton
           onClick={renderAddHashtag}
           className="TextS theme bold"
           style={{ cursor: "pointer" }}
         >
           {""}
           >>>+{" "}
-        </button>
+        </HashtagButton>
       </div>
     </div>
   ) : (

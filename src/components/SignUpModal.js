@@ -8,12 +8,14 @@ import {
 } from "firebase/auth";
 import { doc, collection, setDoc, setCol, Timestamp } from "firebase/firestore";
 import { db } from "../firebase.js";
+import { ModalButton, Modal } from "../styles/SharedStyled.js";
 
 function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [message, setMessage] = useState("");
+  const [isHover, setIsHover] = useState(false);
 
   const validRegExp = /[A-Za-z0-9]/;
   const invalidRegExp = /[$%^&*-+\=<>?,/]/;
@@ -26,13 +28,16 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
   function handleSubmit() {
     if (!nameInput || !emailInput || !passwordInput) {
       setMessage("Don't leave any blank input.");
+      setTimeout(() => setMessage(""), 2000);
     } else if (
       validRegExp.test(nameInput) === false ||
       invalidRegExp.test(nameInput) === true
     ) {
-      setMessage("Please enter a valid name that contains no symbol.");
+      setMessage("No symbol allowed in the name.");
+      setTimeout(() => setMessage(""), 2000);
     } else if (emailRegExp.test(emailInput) === false) {
       setMessage("That doesn't seems like an email address.");
+      setTimeout(() => setMessage(""), 2000);
     } else if (
       validRegExp.test(passwordInput) === false ||
       invalidRegExp.test(passwordInput) === true ||
@@ -41,6 +46,7 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
       setMessage(
         "Your password is too short! You need 6+ characters and contains no symbol."
       );
+      setTimeout(() => setMessage(""), 2000);
     } else {
       setMessage(
         "Signed up succesfully! Check your email to activate your account."
@@ -72,9 +78,7 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-        // ..
+        console.log(errorCode, errorMessage);
       });
   }
 
@@ -84,10 +88,8 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
 
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
         updateProfile(user, { displayName: user.displayName });
         initUserFirestore(user);
@@ -101,15 +103,11 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
         closeModal();
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
         const email = error.customData.email;
-        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.log(errorMessage);
-        // ...
       });
   }
 
@@ -170,64 +168,18 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
   }
 
   return (
-    <div
-      className="SignUpModal TextM Modal"
-      style={{
-        height: "100vh",
-        width: "100vw",
-        position: "fixed",
-        bottom: 0,
-        zIndex: 999,
-        display: isSignUp === true ? "flex" : "none",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        className="SignupForm"
-        style={{
-          position: "absolute",
-          width: 360,
-          display: isSignUp === true ? "flex" : "none",
-          flexDirection: "column",
-          backgroundColor: "rgb(242, 242, 242)",
-          boxShadow: "black 5px 5px 10px",
-          borderStyle: "solid",
-          borderWidth: 1,
-          borderColor: "#cccccc",
-          borderRadius: 10,
-          padding: "50px 12.5px",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          zIndex: 999,
-        }}
-      >
+    <Modal isSignUp={isSignUp} size="full" className="SignUpModal TextM Modal">
+      <div className="Modal__Form">
         <div
           className="TextL bold"
           style={{
-            textAlign: "center",
             marginBottom: 5,
           }}
         >
           Welcome to balancePro
         </div>
-        <div
-          className="TextM"
-          style={{
-            gridColumn: "1/3",
-            textAlign: "center",
-          }}
-        >
-          Achieve your own life-work balance
-        </div>
-        <hr
-          style={{
-            width: 260,
-            textAlign: "center",
-            margin: "25px 0px 12.5px 0px",
-            borderColor: "blueviolet",
-          }}
-        />{" "}
+        <div className="TextM">Achieve your own life-work balance</div>
+        <hr />{" "}
         <input
           onChange={(event) => setNameInput(event.target.value)}
           value={nameInput}
@@ -248,65 +200,39 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
           placeholder="6+ characters"
           className="passwordInput"
         ></input>
-        <hr
-          style={{
-            width: 260,
-            textAlign: "center",
-            margin: "12.5px 0px 25px 0px",
-            borderColor: "blueviolet",
-          }}
-        />
-        <div className="TextS" style={{ color: "blueviolet" }}>
-          {message}
-        </div>
-        <button
-          style={{
-            border: "1px solid #cccccc",
-            backgroundColor: "blueviolet",
-            color: "white",
-          }}
+        <hr />
+        <div className="errorMessage">{message}</div>
+        <ModalButton
+          attr={isHover ? "" : "primary"}
           onClick={handleSubmit}
           type="button"
         >
           Create Account
-        </button>
-        <div style={{ textAlign: "center" }}> OR </div>
-        <button
+        </ModalButton>
+        <div> OR </div>
+        <ModalButton
+          attr={isHover ? "primary" : ""}
           onMouseEnter={(event) => {
-            event.target.style.backgroundColor = "blueviolet";
-            event.target.parentNode.children[8].style.backgroundColor =
-              "#bbbbbb";
+            setIsHover(true);
           }}
           onMouseLeave={(event) => {
-            event.target.style.backgroundColor = "#bbbbbb";
-            event.target.parentNode.children[8].style.backgroundColor =
-              "blueviolet";
+            setIsHover(false);
           }}
           onClick={handeGoogleAuth}
-          style={{
-            border: "1px solid #eeeeee",
-            backgroundColor: "#bbbbbb",
-            color: "white",
-          }}
           type="button"
         >
           Contiune with Google
-        </button>
-        <div style={{ textAlign: "center" }}>
-          Already a member? close popup window to Log in
+        </ModalButton>
+        <div>
+          Already a member?
+          <br />
+          close this window to Log in
         </div>
         <svg
           onClick={closeModal}
           className="closeBtn"
-          style={{
-            height: 20,
-            position: "absolute",
-            top: 15,
-            right: 15,
-          }}
           xmlns="http://www.w3.org/2000/svg"
           version="1.1"
-          id="Capa_1"
           x="0px"
           y="0px"
           viewBox="0 0 298.667 298.667"
@@ -315,22 +241,8 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
           <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   " />
         </svg>
       </div>
-      <div
-        className="SignUpModal TextM Modal"
-        style={{
-          height: "100vh",
-          width: "100vw",
-          backgroundColor: "#666666",
-          opacity: 0.9,
-          position: "fixed",
-          bottom: 0,
-          zIndex: 998,
-          display: isSignUp === true ? "flex" : "none",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      ></div>
-    </div>
+      <div className="Modal__Background"></div>
+    </Modal>
   );
 }
 

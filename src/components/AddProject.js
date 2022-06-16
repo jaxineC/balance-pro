@@ -16,6 +16,12 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
+import {
+  AddProjectBtn,
+  StyledAddProjectModal,
+  ModalButton,
+} from "../styles/SharedStyled";
+import { StyledAddProjectSection } from "../styles/styledComponents.js";
 
 function AddProject({ userID, isDesktop }) {
   const options = { year: "numeric", month: "numeric", day: "numeric" };
@@ -61,42 +67,17 @@ function AddProject({ userID, isDesktop }) {
   }
 
   return (
-    <div className="AddProject">
-      <button
-        onClick={RenderNewProjectModal}
-        type="button"
-        className="TextL"
-        style={{
-          fontSize: isDesktop ? "auto" : "16px",
-          color: "blueviolet",
-          border: isDesktop ? "none" : "1px solid blueviolet",
-          borderRadius: isDesktop ? "none" : "25px",
-          padding: isDesktop ? "0px" : "5px 125px",
-        }}
-      >
+    <StyledAddProjectSection className="AddProject">
+      <AddProjectBtn onClick={RenderNewProjectModal} type="button">
         + New Project
-      </button>
-      <div
-        style={{
-          color: "black",
-          width: 320,
-          backgroundColor: "white",
-          boxShadow: "1px 3px 8px #cccccc",
-          position: "absolute",
-          top: isDesktop ? "60vh" : "auto",
-          display: isAddProject === true ? "grid" : "none",
-          borderStyle: "solid",
-          borderWidth: 1,
-          borderColor: "#cccccc",
-          borderRadius: 5,
-          padding: 15,
-          gridTemplateColumns: "35% 65%",
-        }}
-        className="TextM Modal"
+      </AddProjectBtn>
+      <StyledAddProjectModal
+        isAddProject={isAddProject}
+        size={{ height: "auto", width: "320px" }}
       >
         <label>Category</label>
         <select
-          style={{ borderStyle: "none", width: "87%" }}
+          // style={{ borderStyle: "none", width: "87%" }}
           name="catInput"
           onChange={(event) => setCategory(event.target.value)}
         >
@@ -120,29 +101,12 @@ function AddProject({ userID, isDesktop }) {
           className="startInput"
         ></input>
 
-        <button
-          style={{
-            height: 25,
-            width: 80,
-            border: "1px solid #cccccc",
-            borderRadius: 5,
-            backgroundColor: "blueviolet",
-            color: "white",
-          }}
-          onClick={handleAddProject}
-          type="button"
-        >
+        <ModalButton attr="primary" onClick={handleAddProject} type="button">
           Confirm
-        </button>
+        </ModalButton>
         <svg
           onClick={closeModal}
           className="closeBtn"
-          style={{
-            height: 20,
-            position: "absolute",
-            top: 15,
-            right: 15,
-          }}
           xmlns="http://www.w3.org/2000/svg"
           version="1.1"
           id="Capa_1"
@@ -153,8 +117,8 @@ function AddProject({ userID, isDesktop }) {
         >
           <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   " />
         </svg>
-      </div>
-    </div>
+      </StyledAddProjectModal>
+    </StyledAddProjectSection>
   );
 }
 

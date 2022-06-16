@@ -1,7 +1,8 @@
-.App {
+body {
   box-sizing: border-box;
   font-family: "Nanum Gothic", sans-serif;
   font-family: "Work Sans", sans-serif;
+  width: 100%;
 }
 
 :root {
@@ -11,10 +12,17 @@
   --midGrey: #666666;
   --grey: #888888;
   --black: #222500;
-  --purple: #8a2be2;
+  --purple: rgb(138, 43, 226);
   --lightPurple: #fae6ff;
   --pink: #ffc402;
   --blue: #233a2e;
+
+  --TextXXL: 48px;
+  --TextXL: 36px;
+  --TextL: 24px;
+  --TextM: 18px;
+  --TextS: 14px;
+  --TextXS: 12px;
 }
 
 /* --------------------------------------------------------------------------------- */
@@ -62,9 +70,6 @@ a:-webkit-any-link {
   cursor: pointer;
 }
 
-header {
-}
-
 nav {
   z-index: 999;
 }
@@ -82,36 +87,6 @@ hr {
   border-color: #666666;
   margin: 0px;
 }
-footer {
-}
-
-label {
-  padding: 5px 10px 1px 10px;
-  margin: 10px 5px;
-}
-
-.Modal > select {
-  padding: 5px 10px 1px 5px;
-  border-radius: 0px;
-  margin: 0px 0px 5px 0px;
-}
-
-select:focus {
-  outline-style: none;
-}
-
-.Modal > label {
-  padding: 5px 10px 1px 10px;
-  margin: 0px 0px 5px 0px;
-}
-
-.Modal > button {
-  margin-top: 10px;
-}
-button {
-  border: none;
-  background: none;
-}
 
 li {
   list-style: none;
@@ -120,26 +95,6 @@ li {
 textarea {
   resize: vertical;
   padding-left: 2px;
-}
-.SignupForm > input {
-  width: 225px;
-  height: 30px;
-  border: 1px solid;
-  border-radius: 10px;
-  border-color: #dddddd;
-}
-.SignupForm > input:hover {
-  border-color: #8a2be2;
-}
-
-.SignupForm > button {
-  width: 225px;
-  height: 30px;
-  border-style: none;
-  border-radius: 15px;
-  margin: 10px 0px;
-  text-align: center;
-  place-self: center;
 }
 
 /* ---------------------------------Shared Component----------------------------------- */
@@ -152,15 +107,6 @@ textarea {
 }
 
 /* ----------------------------------element---------------------------------- */
-.icon {
-  height: 18px;
-  padding: 0px 5px;
-}
-
-.image {
-  width: 100%;
-  object-fit: scale-down;
-}
 
 .circle {
   width: 26px;
@@ -220,15 +166,4 @@ textarea {
 
 .theme {
   color: #e6f252;
-}
-
-/* --------------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: no-preference) {
-}
-
-@media only screen and (max-width: 600px) {
-}
-
-/* --------------------------------------------------------------------------------- */
-@keyframes App-logo-spin {
 }

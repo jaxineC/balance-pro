@@ -2,6 +2,7 @@ import React, { useState, useEffect, navigate } from "react";
 import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { WelcomeBack } from "../styles/styledComponents.js";
 
 function LoginBox({
   userID,
@@ -11,39 +12,13 @@ function LoginBox({
   isDesktop,
   setIsDeskTop,
 }) {
-  const [emailInput, setEmailInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
-  const [message, setMessage] = useState("");
-  const [loginErrorMessage, setLoginErrorMessage] = useState("");
-
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column" }}
-      className="LoginBox TextM"
-    >
-      <div
-        className="TextXL bold"
-        style={{
-          fontSize: isDesktop ? "48px" : "36px",
-          width: isDesktop ? "100%" : "70%",
-          padding: "5px 0px 1px 10px",
-          margin: "0px 5px",
-        }}
-      >
+    <WelcomeBack className="WelcomeBack">
+      <div className="bold">
         Hey {userID.displayName ? userID.displayName : "newcomer"},
       </div>
-      <div
-        className="TextXL bold"
-        style={{
-          fontSize: isDesktop ? "48px" : "36px",
-          width: isDesktop ? "100%" : "70%",
-          padding: "5px 0px 1px 10px",
-          margin: "0px 5px",
-        }}
-      >
-        Welcome {userID.displayName ? "back!" : "!"}
-      </div>
-    </div>
+      <div className="bold">Welcome {userID.displayName ? "back!" : "!"}</div>
+    </WelcomeBack>
   );
 }
 

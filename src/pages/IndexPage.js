@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./IndexPage.css";
 import { Link } from "react-router-dom";
+import cover from "../icon/2201_w039_n003_74b_p1_74 [Converted].png";
+import LogoImage from "../media/Logo144.png";
 import Background from "../components/Background";
-import WelcomeImg from "../components/WelcomeImg";
 import WelcomBack from "../components/WelcomeBack";
 import LoginBox from "../components/LoginBox";
-import Logo from "../components/Logo";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { MainIndex } from "../styles/styledComponents.js";
+import { GoButton } from "../styles/SharedStyled.js";
 
 function IndexPage({ userID, setUserID, isDesktop, setIsDeskTop }) {
   // const user = useContext(UserContext);
@@ -24,8 +25,18 @@ function IndexPage({ userID, setUserID, isDesktop, setIsDeskTop }) {
   }, []);
 
   return (
-    <main className="IndexPage">
-      <WelcomeImg />
+    <MainIndex className="IndexPage">
+      <div className="WelcomeImg">
+        <img src={cover} alt="welcome" />
+        <div>
+          <a
+            className="TextXS"
+            href="https://www.freepik.com/vectors/working-time"
+          >
+            Working time vector created by upklyak - www.freepik.com
+          </a>
+        </div>
+      </div>
       {userID ? (
         <WelcomBack
           userID={userID}
@@ -36,22 +47,17 @@ function IndexPage({ userID, setUserID, isDesktop, setIsDeskTop }) {
       ) : (
         <LoginBox userID={userID} setUserID={setUserID} />
       )}
-      {isDesktop ? <Logo /> : ""}
+      <div className="Logo">
+        <img src={LogoImage} alt="logo for images" className="image" />
+      </div>
       {isDesktop ? <Background /> : ""}
 
       <Link className="Link" to="/list">
-        <button
-          style={{
-            display: userID ? "block" : "none",
-            zIndex: 999,
-            backgroundColor: userID ? "blueviolet" : "none",
-          }}
-          className="go TextL"
-        >
+        <GoButton attr="primary" userID={userID} className="bold">
           Enter
-        </button>
+        </GoButton>
       </Link>
-    </main>
+    </MainIndex>
   );
 }
 

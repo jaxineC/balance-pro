@@ -12,10 +12,7 @@
 }
 
 input {
-  border-style: solid;
   border-width: 0px 0px 1px 0px;
-  padding: 5px 10px 1px 10px;
-  margin: 10px;
 }
 
 .Modal > input {

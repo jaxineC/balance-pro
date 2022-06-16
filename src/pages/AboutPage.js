@@ -1,54 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./AboutPage.css";
 import { Link } from "react-router-dom";
-import Background from "../components/Background";
-import WelcomeImg from "../components/WelcomeImg";
-import WelcomBack from "../components/WelcomeBack";
-import LoginBox from "../components/LoginBox";
-import Logo from "../components/Logo";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import WorkLife from "../media/Work-Life.png";
 import Greeting from "../media/Greeting.gif";
 import DemoDisplay from "../media/demoDisplay.gif";
 import DemoOverall from "../media/DemoOverall.gif";
-// import { styledAboutPage } from "../styles/styleAbout.js";
+import {
+  MainAbout,
+  SectionBlock,
+  TextSection,
+} from "../styles/styledComponents.js";
+import { Button } from "../styles/SharedStyled.js";
 
-function AboutPage({ isDesktop, userID, setUserID, setIsSignUp }) {
-  // const user = useContext(UserContext);
-  const [isReady, setIsReady] = useState(false);
-  useEffect(() => {
-    getCurrentUserInfo();
-  }, []);
-  const refContainer = useRef(null);
-
-  function getCurrentUserInfo() {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user) {
-      setUserID(user);
-    }
-  }
-
+function AboutPage({ isDesktop, setUserID }) {
   return (
-    <main className="AboutPage" ref={refContainer}>
+    <MainAbout className="AboutPage">
       {/* -----------------work-life image--------------------- */}
-      <section className="WorkLife section section--start">
-        <div className="texts section__text">
-          <div className="section__text__title">
+      <SectionBlock start className="balancePro">
+        <TextSection>
+          <div className="TextSection__title">
             <div>Live with a life you like.</div>
-            <div className="section__text__sub">
+            <div className="TextSection__sub">
               with simple work-life balanced GANTT CHART.
             </div>
           </div>
 
           <hr />
-          <div className="section__text__description">
+          <div className="TextSection__description">
             From the small stuff to the big picture, visualize your work and
             life projects side-by-side so your know when it's tilting before it
             goes too far.
           </div>
-          <button
-            className="section__text__button"
+          <Button
             onClick={() => {
               isDesktop
                 ? window.scrollTo(0, 600)
@@ -57,26 +39,25 @@ function AboutPage({ isDesktop, userID, setUserID, setIsSignUp }) {
             type="button"
           >
             Next
-          </button>
-        </div>
-        <img className="image section__image" src={WorkLife} alt="work life " />
-      </section>
+          </Button>
+        </TextSection>
+        <img className="SectionBlock__img" src={WorkLife} alt="work life " />
+      </SectionBlock>
       {/* -----------------Greeting--------------------- */}
-      <section className="Greeting section">
-        <img className="image section__image" src={Greeting} alt="Greeting" />
-        <div className="texts section__text section__text--reverse">
-          <div className="section__text__title">
+      <SectionBlock className="Greeting">
+        <img className="SectionBlock__img" src={Greeting} alt="Greeting" />
+        <TextSection rightSide>
+          <div className="TextSection__title">
             <div>Read messeages you want to read.</div>
-            <div className="section__text__sub">Your own greeting text!</div>
+            <div className="TextSection__sub">Your own greeting text!</div>
           </div>
 
           <hr />
-          <div className="section__text__description">
+          <div className="TextSection__description">
             We dedicated to let our users to own this webiste --- CLICK, TYPING,
             and don't forget to hit ENTER.
           </div>
-          <button
-            className="section__text__button"
+          <Button
             onClick={(event) => {
               isDesktop
                 ? window.scrollTo(0, 1100)
@@ -85,27 +66,26 @@ function AboutPage({ isDesktop, userID, setUserID, setIsSignUp }) {
             type="button"
           >
             Next
-          </button>
-        </div>
-      </section>
+          </Button>
+        </TextSection>
+      </SectionBlock>
       {/* -----------------Dispay--------------------- */}
 
-      <section className="demoDisplay section">
-        <div className="texts section__text">
-          <div className="section__text__title">
+      <SectionBlock className="demoDisplay">
+        <TextSection>
+          <div className="TextSection__title">
             <div>Visualize layout as you like.</div>
-            <div className="section__text__sub">
+            <div className="TextSection__sub">
               with our Focus/ Balance/ Overlay mode.
             </div>
           </div>
 
           <hr />
-          <div className="section__text__description">
+          <div className="TextSection__description">
             The default mode is 1:1 balace mode. We hope to show you how your
             work-life and personal life is balanced or tilt at the first glance.
           </div>
-          <button
-            className="section__text__button"
+          <Button
             onClick={(event) => {
               isDesktop
                 ? window.scrollTo(0, 1700)
@@ -114,46 +94,43 @@ function AboutPage({ isDesktop, userID, setUserID, setIsSignUp }) {
             type="button"
           >
             Next
-          </button>
-        </div>
+          </Button>
+        </TextSection>
 
         <img
-          className="image section__image"
+          className="SectionBlock__img"
           src={DemoDisplay}
           alt="DemoDisplay"
         />
-      </section>
+      </SectionBlock>
 
       {/* -----------------overall--------------------- */}
 
-      <section className="demoOverall section">
+      <SectionBlock className="demoOverall">
         <img
-          className="image section__image"
+          className="SectionBlock__img"
           src={DemoOverall}
           alt="DemoOverall"
         />
-        <div className="texts section__text section__text--reverse">
-          <div className="section__text__title">
+        <TextSection rightSide>
+          <div className="TextSection__title">
             <div>Move tasks with Drag & Stretch.</div>
-            <div className="section__text__sub">Hover to Edit & Delete.</div>
+            <div className="TextSection__sub">Hover to Edit & Delete.</div>
           </div>
 
           <hr />
-          <div className="section__text__description">
+          <div className="TextSection__description">
             From the small stuff to the big picture, visualize your work and
             life projects side-by-side so your know when it's tilting before it
             goes too far.
           </div>
           <Link to="/">
-            <button
-              className="section__text__button section__text__button--backToHome"
-              type="button"
-            >
+            <Button attr="primary" type="button">
               Ready, back to the homepage
-            </button>
+            </Button>
           </Link>
-        </div>
-      </section>
+        </TextSection>
+      </SectionBlock>
       <div
         className="grey backToTop"
         onClick={() => {
@@ -181,7 +158,7 @@ function AboutPage({ isDesktop, userID, setUserID, setIsSignUp }) {
       </div>
 
       <div className="footerBackground"></div>
-    </main>
+    </MainAbout>
   );
 }
 

@@ -9,6 +9,8 @@ import {
 } from "firebase/auth";
 import googleIcon from "../icon/Google.png";
 import fbIcon from "../icon/facebook.png";
+import { Login } from "../styles/styledComponents";
+import { LoginButton } from "../styles/SharedStyled.js";
 
 function LoginBox({ userID, setUserID }) {
   const [emailInput, setEmailInput] = useState("test@balancepro.me");
@@ -30,13 +32,11 @@ function LoginBox({ userID, setUserID }) {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, emailInput, passwordInput)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
         setUserID(user);
         getCurrentUserInfo();
         setEmailInput("");
         setPasswordInput("");
-        // ...
       })
       .catch((error) => {
         setLoginErrorMessage("Ummm... check your entry again.");
@@ -55,31 +55,22 @@ function LoginBox({ userID, setUserID }) {
 
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
         setUserID(user);
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
         const email = error.customData.email;
-        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.log(errorMessage);
-        // ...
       });
   }
 
   return (
-    <div
-      style={{ display: "grid", gridTemplateColumns: "30% 70%" }}
-      className="LoginBox TextM"
-    >
+    <Login className="LoginBox">
       <label>email</label>
       <input
         onChange={(event) => setEmailInput(event.target.value)}
@@ -100,69 +91,17 @@ function LoginBox({ userID, setUserID }) {
         type="password"
         placeholder="6+ characters"
       ></input>
-      <div
-        className="TextS"
-        style={{
-          color: "blueviolet",
-          gridColumn: "1/3",
-          padding: "5px 0px 1px 10px",
-          margin: "0px 5px",
-          textAlign: "center",
-        }}
-      >
-        {loginErrorMessage}
-      </div>
-      <div
-        className="TextS"
-        style={{
-          gridColumn: "2/3",
-          display: "flex",
-          padding: "5px 0px 1px 10px",
-          textAlign: "center",
-          placeSelf: "flex-start",
-        }}
-      >
+      <div className="Login__ErrorMessage">{loginErrorMessage}</div>
+      <div className="Login__Method">
         <img
           onClick={handeGoogleAuth}
-          style={{
-            height: 16,
-            placeSelf: "flex-start",
-            backgroundColor: "white",
-            borderRadius: 7,
-            padding: "1px 5px",
-            cursor: "pointer",
-          }}
-          className="icon"
+          className="Login__Method__icon"
           src={googleIcon}
           alt="google icon"
         />
-        {/* <img
-          style={{
-            height: 16,
-            placeSelf: "flex-start",
-            backgroundColor: "white",
-            borderRadius: 7,
-            padding: "1px 5px",
-            cursor: "pointer",
-          }}
-          className="icon"
-          src={fbIcon}
-          alt="fb icon"
-        /> */}
-        <button
-          onClick={handleSignIn}
-          style={{
-            width: 120,
-            border: "1px solid blueviolet",
-            borderRadius: "10px",
-            marginLeft: "7px",
-            cursor: "pointer",
-          }}
-        >
-          Log in
-        </button>
+        <LoginButton onClick={handleSignIn}>Log in</LoginButton>
       </div>
-    </div>
+    </Login>
   );
 }
 
