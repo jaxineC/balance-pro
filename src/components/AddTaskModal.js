@@ -99,6 +99,10 @@ function AddTaskModal({
         }}
         style={{
           display: cat === "overlay" ? "block" : "none",
+          backgroundColor: "transparent",
+          borderTop: "none",
+          borderLeft: "none",
+          borderRight: "none",
           height: 20,
           position: "absolute",
           left: Math.floor(clickPosition + XPosition) - 35,
@@ -118,6 +122,10 @@ function AddTaskModal({
         }}
         style={{
           display: cat === "overlay" ? "block" : "none",
+          backgroundColor: "transparent",
+          borderTop: "none",
+          borderLeft: "none",
+          borderRight: "none",
           height: 20,
           position: "absolute",
           left: Math.floor(clickPosition + XPosition) - 15,

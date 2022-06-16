@@ -18,8 +18,20 @@ import {
 import { db } from "../firebase.js";
 import { updateData } from "../module/manageDB.js";
 import DeleteBtn from "./DeleteBtn.js";
+import {
+  StyledHashtag,
+  StyledEditableInput,
+} from "../styles/styledComponents.js";
 
-function Hashtag({ item, index, col, docID, projectInfo, HashtagInputStyle }) {
+function Hashtag({
+  item,
+  isAddHashtag,
+  index,
+  col,
+  docID,
+  projectInfo,
+  HashtagInputStyle,
+}) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
   const [hashtagInput, setHashtagInput] = useState(item);
@@ -44,8 +56,9 @@ function Hashtag({ item, index, col, docID, projectInfo, HashtagInputStyle }) {
   }
 
   return (
-    <div
-      className="Hashtag TextXS"
+    <StyledHashtag
+      hashtagInput={hashtagInput}
+      className="Hashtag"
       onMouseEnter={() => {
         setIstHover(true);
       }}
@@ -54,20 +67,17 @@ function Hashtag({ item, index, col, docID, projectInfo, HashtagInputStyle }) {
       }}
     >
       <span>#</span>
-      <input
-        size="10"
-        style={HashtagInputStyle}
-        onKeyDown={(event) => {
-          if (event.key === "Enter") {
-            // handleHashtagUpdate();
-          }
-        }}
-        onChange={(event) => {
-          setHashtagInput(event.target.value);
-        }}
-        value={hashtagInput}
+      <span
+        // size={hashtagInput ? hashtagInput.length : "5"}
+        // onChange={(event) => {
+        //   setHashtagInput(event.target.value);
+        // }}
+        // value={hashtagInput}
         ref={refInput}
-      ></input>
+      >
+        {item}
+      </span>
+
       <svg
         className="DeleteBtn"
         onClick={handleDeleteHashtag}
@@ -84,7 +94,6 @@ function Hashtag({ item, index, col, docID, projectInfo, HashtagInputStyle }) {
         height="12"
         viewBox="0 0 24 24"
         width="16"
-        // xmlns="http://www.w3.org/2000/svg"
       >
         <path
           clipRule="evenodd"
@@ -93,7 +102,7 @@ function Hashtag({ item, index, col, docID, projectInfo, HashtagInputStyle }) {
           fillRule="evenodd"
         />
       </svg>
-    </div>
+    </StyledHashtag>
   );
 }
 

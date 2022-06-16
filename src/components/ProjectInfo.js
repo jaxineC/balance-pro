@@ -11,6 +11,10 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { HashtagButton } from "../styles/SharedStyled.js";
+import {
+  StyledHashtag,
+  StyledEditableInput,
+} from "../styles/styledComponents.js";
 
 function ProjectInfo({
   isDesktop,
@@ -89,24 +93,14 @@ function ProjectInfo({
 
   //------------------------------------------------------------------------------
   let HashtagInputStyle = {
-    pointerEvents: isAddHashtag ? "auto" : "none",
     // width: "60px",
-    marginRight: "0px",
-    alignSelf: "flex-end",
-    whiteSpace: "nowrap",
-    padding: "0px 8px",
-    backgroundColor: "#e6f252",
-    color: "#666666",
-    borderStyle: "none",
-    borderRadius: "5px",
-    margin: 0,
   };
 
   let addHashtagForm = (
-    <div className="Hashtag TextXS">
+    <StyledHashtag className="Hashtag TextXS">
       <span>#</span>
-      <input
-        style={HashtagInputStyle}
+      <StyledEditableInput
+        isAddHashtag={isAddHashtag}
         onKeyDown={(event) => {
           if (event.key === "Enter") {
             handleHashtagUpdate();
@@ -116,12 +110,13 @@ function ProjectInfo({
           setAddHashtagInput(event.target.value);
         }}
         value={addHashtagInput}
-      ></input>
-    </div>
+      ></StyledEditableInput>
+    </StyledHashtag>
   );
 
   const hashtagItems = hashtags.map((item, index) => (
     <Hashtag
+      isAddHashtag={isAddHashtag}
       key={item}
       className="Hashtag TextXS"
       item={item}
@@ -162,12 +157,7 @@ function ProjectInfo({
         editableTxtStyle={editableTxtStyle}
         editableBoxStyle={editableBoxStyle}
       />
-      <div
-        className="ProjectDate TextS"
-        onClick={renderDateModal}
-        // onClick={() => {
-        // }}
-      >
+      <div className="ProjectDate TextS" onClick={renderDateModal}>
         <span>
           {projectInfo.start
             ? projectInfo.start.toDate().toLocaleDateString(undefined, options)
