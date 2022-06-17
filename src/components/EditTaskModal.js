@@ -26,6 +26,9 @@ function EditTaskModal({
   editTaskItem,
   setEditTaskItem,
   XPosition,
+  refContainer,
+  currentZero,
+  setCurrentZero,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -33,6 +36,7 @@ function EditTaskModal({
   const [noteInput, setNoteInput] = useState("");
   const [startDateInput, setStartDateInput] = useState();
   const [endDateInput, setEndDateInput] = useState({});
+
   let col = `${userID.uid}/${projectID}/tasks`;
 
   useEffect(() => {
@@ -58,11 +62,6 @@ function EditTaskModal({
   //--------------------------------------------------CRUD-------------------------------------------------------//
   // UPDATE(editBtn)
   async function handleEdit() {
-    //   console.log("-----");
-    //   console.log(editTaskItem.start.toDate());
-    //   console.log(Timestamp.fromDate(new Date(editTaskItem.start.toDate())));
-    //   console.log(startDateInput);
-    //   console.log(Timestamp.fromDate(new Date(Date.now())));
     const queryRef = doc(db, col, targetTask);
     await updateDoc(queryRef, {
       content: contentInput,
@@ -79,13 +78,6 @@ function EditTaskModal({
   //set default date
   const options = { year: "numeric", month: "numeric", day: "numeric" };
   let defaultStartDate;
-  // if (editTaskItem.start) {
-  //   defaultStartDate = editTaskItem.start
-  //     .toDate()
-  //     .toLocaleDateString(undefined, options)
-  //     .format("DD-MM-YYYY");
-  //   console.log(defaultStartDate);
-  // }
 
   //--------------------------------------------------RENDER-----------------------------------------------------// 3
   //--------------------------------------------------RENDER-----------------------------------------------------//
@@ -100,7 +92,7 @@ function EditTaskModal({
         backgroundColor: "rgb(240, 240, 240, 0.8)",
         boxShadow: "1px 3px 8px #cccccc",
         position: "absolute",
-        left: XPosition,
+        left: currentZero,
         display: isEditTask === true ? "grid" : "none",
         borderStyle: "solid",
         borderWidth: 1,
@@ -110,6 +102,10 @@ function EditTaskModal({
       }}
     >
       <div
+        onClick={() => {
+          console.log(refContainer.current.scrollLeft);
+          console.log("XPosition", XPosition);
+        }}
         style={{
           width: "100%",
           gridColumn: "1/3",
@@ -167,14 +163,6 @@ function EditTaskModal({
       <svg
         className="DeleteBtn"
         onClick={closeModal}
-        // onClick={() => {
-        //   console.log(
-        //     editTaskItem.start
-        //       .toDate()
-        //       .toISOString(undefined, options)
-        //       .split("T")[0]
-        //   );
-        // }}
         style={{
           height: 30,
           position: "absolute",

@@ -24,12 +24,14 @@ function TimeCanvas({
   setIsStretch,
   isEditTask,
   setIsEditTask,
+  refContainer,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
 
   const [targetTask, setTargetTask] = useState("");
   const [editTaskItem, setEditTaskItem] = useState("");
+  const [currentZero, setCurrentZero] = useState(XPosition);
   // let clientW = window.innerWidth;
   // let totalDays = Math.floor(ClientW / 20);
   let totalWks = 26;
@@ -73,6 +75,9 @@ function TimeCanvas({
         setCurrentMouseLocation={setCurrentMouseLocation}
         isStretch={isStretch}
         setIsStretch={setIsStretch}
+        currentZero={currentZero}
+        setCurrentZero={setCurrentZero}
+        refContainer={refContainer}
       />
       <EditTaskModal
         userID={userID}
@@ -84,6 +89,9 @@ function TimeCanvas({
         editTaskItem={editTaskItem}
         setEditTaskItem={setEditTaskItem}
         XPosition={XPosition}
+        refContainer={refContainer}
+        currentZero={currentZero}
+        setCurrentZero={setCurrentZero}
       />
       {frames}
     </div>

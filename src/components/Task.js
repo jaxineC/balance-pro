@@ -40,6 +40,9 @@ function Task({
   setCurrentMouseLocation,
   isStretch,
   setIsStretch,
+  currentZero,
+  setCurrentZero,
+  refContainer,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -131,7 +134,6 @@ function Task({
     }
 
     let taskNoteNode = event.currentTarget.children[2];
-    console.log(taskNoteNode);
     if (taskNoteNode.style.display) {
       if (taskNoteNode.style.display === "none") {
         taskNoteNode.style.display = "inline";
@@ -171,6 +173,7 @@ function Task({
   function renderEditTaskModal(event) {
     let docID = item.taskID;
     setEditTaskItem(item);
+    setCurrentZero(refContainer.current.scrollLeft);
     // let docID = event.target.getAttribute("value");
     setTargetTask(docID);
     setIsEditTask(true);
@@ -194,7 +197,8 @@ function Task({
       value={item.taskID}
       style={{
         width:
-          Math.floor((item.end - item.start) / (60 * 60 * 24)) * 20 -
+          Math.floor((item.end - item.start) / (60 * 60 * 24)) * 20 +
+          19 -
           (isActive && stretchType === "start"
             ? currentMouseLocation - initMouseClientX
             : 0) +

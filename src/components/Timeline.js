@@ -111,6 +111,7 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
         setIsAddTask={setIsAddTask}
         isEditTask={isEditTask}
         setIsEditTask={setIsEditTask}
+        refContainer={refContainer}
       />
     </div>
   );

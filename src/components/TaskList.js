@@ -44,6 +44,9 @@ function TaskList({
   setCurrentMouseLocation,
   isStretch,
   setIsStretch,
+  currentZero,
+  setCurrentZero,
+  refContainer,
 }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
   //--------------------------------------------------useState & variables---------------------------------------//
@@ -157,6 +160,9 @@ function TaskList({
       setCurrentMouseLocation={setCurrentMouseLocation}
       isStretch={isStretch}
       setIsStretch={setIsStretch}
+      currentZero={currentZero}
+      setCurrentZero={setCurrentZero}
+      refContainer={refContainer}
     />
   ));
 
