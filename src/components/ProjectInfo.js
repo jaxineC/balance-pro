@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Hashtag from "./Hashtag";
 import EditableTxt from "./EditableTxt.js";
+import ProjectDate from "./ProjectDate.js";
 import LoadingModal from "./LoadingModal.js";
 import {
   doc,
@@ -157,8 +158,8 @@ function ProjectInfo({
         editableTxtStyle={editableTxtStyle}
         editableBoxStyle={editableBoxStyle}
       />
-      <div className="ProjectDate TextS" onClick={renderDateModal}>
-        <span>
+      <div className="ProjectDate TextS">
+        {/* <span>
           {projectInfo.start
             ? projectInfo.start.toDate().toLocaleDateString(undefined, options)
             : ""}
@@ -168,7 +169,13 @@ function ProjectInfo({
           {projectInfo.end
             ? projectInfo.end.toDate().toLocaleDateString(undefined, options)
             : ""}
-        </span>
+        </span> */}
+        <ProjectDate
+          userID={userID}
+          col={userID.uid}
+          docID={projectID}
+          projectInfo={projectInfo}
+        />
       </div>
       <div className="Hashtags">
         {hashtagItems}

@@ -110,7 +110,7 @@ ul {
 
 .Task {
   height: 22px;
-  background-color: #ffffff;
+  background-color: var(--lightPurple);
   border: 1px solid #cccccc;
   border-radius: 5px;
   margin: 2px 0px;

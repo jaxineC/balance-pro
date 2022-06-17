@@ -42,6 +42,7 @@ function EditTaskModal({
   useEffect(() => {
     if (editTaskItem) {
       setContentInput(editTaskItem.content);
+      setNoteInput(editTaskItem.note);
       setStartDateInput(
         editTaskItem.start
           .toDate()
@@ -102,18 +103,16 @@ function EditTaskModal({
       }}
     >
       <div
-        onClick={() => {
-          console.log(refContainer.current.scrollLeft);
-          console.log("XPosition", XPosition);
-        }}
         style={{
           width: "100%",
           gridColumn: "1/3",
           textAlign: "center",
           color: "blueviolet",
+          fontWeight: "bold",
+          padding: "4px",
         }}
       >
-        Editing task " <span className="bold">{editTaskItem.content}</span> "
+        Editing task
       </div>
       <label>Task</label>
       <input

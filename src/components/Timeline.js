@@ -71,7 +71,12 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
 
   return (
     <div
-      onClick={handleAddTask}
+      onClick={() => {
+        if (isAddTask === true) {
+          setIsAddTask(false);
+        }
+      }}
+      onDoubleClick={handleAddTask}
       // onScroll={(event) => {
       //   setXPosition(event.currentTarget.scrollLeft);
       // }}

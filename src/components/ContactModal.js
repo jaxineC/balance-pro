@@ -94,6 +94,7 @@ function ContactModal({ isContact, setIsContact }) {
           onChange={(event) => setTextareaInput(event.target.value)}
           value={textareaInput}
           type="text"
+          rows="4"
           placeholder="Leave message here"
           className="messageInput"
           style={{}}

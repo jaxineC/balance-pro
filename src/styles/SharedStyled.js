@@ -23,6 +23,8 @@ export const Button = styled.button`
 `;
 
 export const HashtagButton = styled(Button)`
+  height: 18px;
+  width: 6ch;
   border: none;
   color: var(--lime);
 `;
@@ -98,6 +100,16 @@ export const Icon = styled.img`
 //------------------- input--------------------//
 export const EditableInput = styled.input`
   background: none;
+`;
+
+export const StyledProjectDate = styled.div`
+  input {
+    border-width: 0px 0px 0px 0px;
+    &::-webkit-calendar-picker-indicator {
+      display: none;
+      -webkit-appearance: none;
+    }
+  }
 `;
 
 //------------------- Shared--------------------//
@@ -211,6 +223,8 @@ export const ConModal = styled.form`
     input {
       width: 225px;
       height: 30px;
+      margin: 10px;
+      padding: 5px 10px 1px 10px;
       border: 1px solid;
       border-radius: 10px;
       border-color: #dddddd;
@@ -225,7 +239,6 @@ export const ConModal = styled.form`
       border-radius: 10px;
       padding: 5px 10px 1px 10px;
       margin: 10px;
-      rows: 6;
       resize: vertical;
     }
     .Message {
@@ -308,4 +321,15 @@ export const StyledAddProjectModal = styled.div`
     top: 15px;
     right: 15px;
   }
+`;
+
+export const StyledUpdatedMsg = styled.span`
+  position: relative;
+  height: 6px;
+  display: ${(props) => (props.updateAlert !== "" ? "block" : "none")};
+  position: absolute;
+  left: 0px;
+  top: -5px;
+  padding: 0px 4px;
+  background-color: #fae6ff;
 `;
