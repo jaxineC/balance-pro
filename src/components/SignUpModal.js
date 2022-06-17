@@ -28,35 +28,25 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
   function handleSubmit() {
     if (!nameInput || !emailInput || !passwordInput) {
       setMessage("Don't leave any blank input.");
-      setTimeout(() => setMessage(""), 2000);
+      setTimeout(() => setMessage(""), 3000);
     } else if (
       validRegExp.test(nameInput) === false ||
       invalidRegExp.test(nameInput) === true
     ) {
       setMessage("No symbol allowed in the name.");
-      setTimeout(() => setMessage(""), 2000);
+      setTimeout(() => setMessage(""), 3000);
     } else if (emailRegExp.test(emailInput) === false) {
       setMessage("That doesn't seems like an email address.");
-      setTimeout(() => setMessage(""), 2000);
+      setTimeout(() => setMessage(""), 3000);
     } else if (
       validRegExp.test(passwordInput) === false ||
       invalidRegExp.test(passwordInput) === true ||
       passwordInput.length < 6
     ) {
-      setMessage(
-        "Your password is too short! You need 6+ characters and contains no symbol."
-      );
-      setTimeout(() => setMessage(""), 2000);
+      setMessage("6+ characters and contains no symbol password!");
+      setTimeout(() => setMessage(""), 3000);
     } else {
-      setMessage(
-        "Signed up succesfully! Check your email to activate your account."
-      );
       handleSignUp(emailInput, passwordInput);
-      setNameInput("");
-      setEmailInput("");
-      setPasswordInput("");
-      closeModal();
-      setMessage("");
     }
   }
 
@@ -74,11 +64,28 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
           "STEP 2: Hover to init DRAG/ STRETCH/ EDIT/ DELETE"
         );
         setUserID(user);
+        setNameInput("");
+        setEmailInput("");
+        setPasswordInput("");
+        setMessage("Signed up succesfully!");
+        console.log("Signed up succesfully!");
+        setTimeout(() => {
+          closeModal();
+          setMessage("");
+        }, 2000);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        setNameInput("");
+        setEmailInput("");
+        setPasswordInput("");
+        setMessage(errorMessage.replace("Firebase: Error", "Oops!"));
+        console.log(errorMessage);
+        setTimeout(() => {
+          closeModal();
+          setMessage("");
+        }, 3000);
       });
   }
 
@@ -107,7 +114,7 @@ function SignUpModal({ isSignUp, setIsSignUp, userID, setUserID }) {
         const errorMessage = error.message;
         const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorMessage);
+        setMessage(errorMessage);
       });
   }
 

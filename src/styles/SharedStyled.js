@@ -37,12 +37,13 @@ export const GoButton = styled(Button)`
   font-size: var(--TextXXL);
   position: fixed;
   right: 0px;
-  top: calc(70vh + 45px);
+  top: calc(77.5vh + 45px);
   &:hover {
     outline-style: none;
     box-shadow: rgb(204 204 204) 1px 5px 10px;
   }
   ${MQ} {
+    top: calc(77.5vh - 30px);
     font-size: var(--TextL);
     height: 60px;
     width: 90px;

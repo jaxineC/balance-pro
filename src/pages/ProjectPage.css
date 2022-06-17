@@ -33,7 +33,7 @@ path:hover {
 }
 
 .DisplayModeIcon > button > svg > path:hover {
-  fill: var(--lime);
+  fill: var(--purple);
   cursor: pointer;
 }
 

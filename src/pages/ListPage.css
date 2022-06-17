@@ -142,8 +142,7 @@ input:checked + .slider:before {
   }
   .Background {
     position: fixed;
-    top: auto;
-    bottom: 140px;
+    top: 77.5vh;
     width: 100%;
     z-index: -1;
   }
