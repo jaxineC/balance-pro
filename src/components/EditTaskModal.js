@@ -100,6 +100,7 @@ function EditTaskModal({
         borderColor: "#cccccc",
         gridTemplateColumns: "30% 60%",
         justifyContent: "center",
+        alignContent: "start",
       }}
     >
       <div
@@ -110,33 +111,34 @@ function EditTaskModal({
           color: "blueviolet",
           fontWeight: "bold",
           padding: "4px",
+          marginTop: 10,
         }}
       >
         Editing task
       </div>
-      <label>Task</label>
+      <label style={{ height: 20, marginTop: 10 }}>Task</label>
       <input
         onChange={(event) => setContentInput(event.target.value)}
         value={contentInput}
         placeholder="Content"
         className="contentInput"
-        style={{ height: 20 }}
+        style={{ height: 20, marginTop: 10, borderRadius: 5 }}
       ></input>
 
-      <label>Note</label>
+      <label style={{ height: 20, marginTop: 10 }}>Note</label>
       <input
         onChange={(event) => setNoteInput(event.target.value)}
         value={noteInput}
         placeholder="Add notes"
         className="startInput"
-        style={{ height: 20 }}
+        style={{ height: 20, marginTop: 10, borderRadius: 5 }}
       ></input>
 
-      <label>Start from</label>
+      <label style={{ height: 20, marginTop: 10 }}>Start from</label>
       <input
         onChange={(event) => setStartDateInput(event.target.value)}
         value={startDateInput}
-        style={{ height: 20 }}
+        style={{ height: 20, marginTop: 10, borderRadius: 5 }}
         // value={Date.now().strftime("%Y-%m-%d")}
         type="date"
         className="startInput"
@@ -150,14 +152,14 @@ function EditTaskModal({
         }
       ></input>
 
-      <label>End on</label>
+      <label style={{ height: 20, marginTop: 10 }}>End on</label>
       <input
         onChange={(event) => setEndDateInput(event.target.value)}
         value={endDateInput}
         // value={Date.now().strftime("%Y-%m-%d")}
         type="date"
         className="startInput"
-        style={{ height: 20 }}
+        style={{ height: 20, marginTop: 10, borderRadius: 5 }}
       ></input>
       <svg
         className="DeleteBtn"

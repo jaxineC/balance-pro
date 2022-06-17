@@ -53,7 +53,8 @@ function Task({
   const [stretchX, setStretchX] = useState([0, 0]); //[start, end]
   const [stretchType, setStretchType] = useState("");
   const [isActive, setIsActive] = useState(false);
-  let col = `${userID.uid}/${projectID}/tasks`;
+  let col = `${userID.uid}/${item.projectID}/tasks`;
+  // item.projectID=projectID[0];
 
   useEffect(() => {
     if (isDrag === false && isActive === true) {
@@ -171,6 +172,7 @@ function Task({
   }
 
   function renderEditTaskModal(event) {
+    console.log(item.projectID);
     let docID = item.taskID;
     setEditTaskItem(item);
     setCurrentZero(refContainer.current.scrollLeft);
