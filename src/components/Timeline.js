@@ -64,7 +64,18 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
         1;
       let addNewTaskStartDate =
         ZDay.TODAY + (clickX + scrollPass - ZDay.DAY) * (1000 * 60 * 60 * 24);
-      setClickDate(addNewTaskStartDate);
+      // setClickDate(addNewTaskStartDate);
+      setClickDate(
+        ZDay.TODAY +
+          (Math.floor(
+            (event.clientX +
+              refContainer.current.scrollLeft -
+              20 * (8 * 7 - 1)) /
+              20
+          ) -
+            ZDay.DAY) *
+            (1000 * 60 * 60 * 24)
+      );
       setIsAddTask(true);
     }
 
