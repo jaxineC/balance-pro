@@ -66,11 +66,11 @@ function AddTaskModal({
       taskID: docID,
     };
     try {
+      setIsAddTask(false);
       const docRef = await setDoc(doc(db, col, docID), data);
       setClickPosition(null);
       setInputText("");
       console.log("Document written with ID: ", docID);
-      setIsAddTask(false);
     } catch (event) {
       console.error("Error adding document: ", event);
     }
@@ -128,7 +128,7 @@ function AddTaskModal({
           borderRight: "none",
           height: 20,
           position: "absolute",
-          left: Math.floor(clickPosition + XPosition) - 15,
+          left: Math.floor((clickPosition + XPosition) / 20) * 20 - 15,
           top: Tasks.length * (cat === "overlay" ? 31 : 26) + 2,
           padding: 0,
           margin: 0,

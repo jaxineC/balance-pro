@@ -46,9 +46,6 @@ function Hashtag({
   //--------------------------------------------------handle event-----------------------------------------------//
   // setHashtagInput(item);
   async function handleDeleteHashtag() {
-    console.log(col);
-    console.log(docID);
-    console.log(item);
     const queryRef = doc(db, col, docID);
     await updateDoc(queryRef, {
       hashtag: arrayRemove(item),

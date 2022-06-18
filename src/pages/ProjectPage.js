@@ -100,6 +100,7 @@ function ProjectPage({
     return (
       <main className="ProjectPage" style={divStyle}>
         <ProjectInfo
+          focus={focus}
           isDesktop={isDesktop}
           userID={userID}
           cat="work"
@@ -123,6 +124,7 @@ function ProjectPage({
           setInstruction={setInstruction}
         />
         <ProjectInfo
+          focus={focus}
           isDesktop={isDesktop}
           userID={userID}
           cat="life"

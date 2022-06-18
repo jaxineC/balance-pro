@@ -25,6 +25,7 @@ function ProjectInfo({
   test,
   Tasks,
   setTasks,
+  focus,
 }) {
   const [inputText, setInputText] = useState(""); //inside ProjectTinfo or Hashtag component for addHashTag
   const [projectInfo, setprojectInfo] = useState({});
@@ -82,8 +83,8 @@ function ProjectInfo({
     let data = { hashtag: arrayUnion(addHashtagInput) };
     const queryRef = doc(db, col, docID);
     try {
-      await updateDoc(queryRef, data);
       setIsAddHashtag(false);
+      await updateDoc(queryRef, data);
       setAddHashtagInput("");
     } catch (error) {}
   }
@@ -158,18 +159,8 @@ function ProjectInfo({
         editableTxtStyle={editableTxtStyle}
         editableBoxStyle={editableBoxStyle}
       />
+
       <div className="ProjectDate TextS">
-        {/* <span>
-          {projectInfo.start
-            ? projectInfo.start.toDate().toLocaleDateString(undefined, options)
-            : ""}
-        </span>
-        <span>~</span>
-        <span>
-          {projectInfo.end
-            ? projectInfo.end.toDate().toLocaleDateString(undefined, options)
-            : ""}
-        </span> */}
         <ProjectDate
           userID={userID}
           col={userID.uid}

@@ -226,8 +226,6 @@ function Task({
         item={item}
         userID={userID}
         projectID={projectID}
-        // stretchX={stretchX}
-        // setStretchX={setStretchX}
         isStretch={isStretch}
         setIsStretch={setIsStretch}
         currentMouseLocation={currentMouseLocation}

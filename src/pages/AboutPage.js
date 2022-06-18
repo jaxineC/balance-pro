@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import WorkLife from "../media/Work-Life.png";
 import Greeting from "../media/Greeting.gif";
-import DemoDisplay from "../media/demoDisplay.gif";
-import DemoOverall from "../media/DemoOverall.gif";
+import Display from "../media/Display.gif";
+import ProjectInfo from "../media/ProjectInfo.gif";
+import Edit from "../media/Edit.gif";
+import DragStretch from "../media/DragStretch.gif";
 import {
   MainAbout,
   SectionBlock,
@@ -33,7 +35,7 @@ function AboutPage({ isDesktop, setUserID }) {
           <Button
             onClick={() => {
               isDesktop
-                ? window.scrollTo(0, 600)
+                ? window.scrollTo(0, 520)
                 : window.scrollTo(0, window.innerHeight * 0.9);
             }}
             type="button"
@@ -45,7 +47,7 @@ function AboutPage({ isDesktop, setUserID }) {
       </SectionBlock>
       {/* -----------------Greeting--------------------- */}
       <SectionBlock className="Greeting">
-        <img className="SectionBlock__img" src={Greeting} alt="Greeting" />
+        <img className="SectionBlock__img demo" src={Greeting} alt="Greeting" />
         <TextSection rightSide>
           <div className="TextSection__title">
             <div>Read messeages you want to read.</div>
@@ -60,7 +62,7 @@ function AboutPage({ isDesktop, setUserID }) {
           <Button
             onClick={(event) => {
               isDesktop
-                ? window.scrollTo(0, 1100)
+                ? window.scrollTo(0, 1000)
                 : window.scrollTo(0, window.innerHeight * 1.85);
             }}
             type="button"
@@ -71,7 +73,7 @@ function AboutPage({ isDesktop, setUserID }) {
       </SectionBlock>
       {/* -----------------Dispay--------------------- */}
 
-      <SectionBlock className="demoDisplay">
+      <SectionBlock className="Display">
         <TextSection>
           <div className="TextSection__title">
             <div>Visualize layout as you like.</div>
@@ -88,7 +90,7 @@ function AboutPage({ isDesktop, setUserID }) {
           <Button
             onClick={(event) => {
               isDesktop
-                ? window.scrollTo(0, 1700)
+                ? window.scrollTo(0, 1500)
                 : window.scrollTo(0, window.innerHeight * 2.9);
             }}
             type="button"
@@ -97,20 +99,73 @@ function AboutPage({ isDesktop, setUserID }) {
           </Button>
         </TextSection>
 
-        <img
-          className="SectionBlock__img"
-          src={DemoDisplay}
-          alt="DemoDisplay"
-        />
+        <img className="SectionBlock__img demo" src={Display} alt="Display" />
       </SectionBlock>
 
-      {/* -----------------overall--------------------- */}
-
-      <SectionBlock className="demoOverall">
+      {/* -----------------ProjectInfo--------------------- */}
+      <SectionBlock className="ProjectInfo">
         <img
-          className="SectionBlock__img"
-          src={DemoOverall}
-          alt="DemoOverall"
+          className="SectionBlock__img demo"
+          src={ProjectInfo}
+          alt="ProjectInfo"
+        />
+        <TextSection rightSide>
+          <div className="TextSection__title">
+            <div>Change what you saw.</div>
+            <div className="TextSection__sub">Intuitively!</div>
+          </div>
+
+          <hr />
+          <div className="TextSection__description">It's simple.</div>
+          <Button
+            onClick={(event) => {
+              isDesktop
+                ? window.scrollTo(0, 2000)
+                : window.scrollTo(0, window.innerHeight * 1.85);
+            }}
+            type="button"
+          >
+            Next
+          </Button>
+        </TextSection>
+      </SectionBlock>
+      {/* -----------------Edit--------------------- */}
+
+      <SectionBlock className="Edit">
+        <TextSection>
+          <div className="TextSection__title">
+            <div>For those additional notes</div>
+            <div className="TextSection__sub">Or major plan changes.</div>
+          </div>
+
+          <hr />
+          <div className="TextSection__description">
+            We hate form-filling, but it's convinent when you're editing
+            something don't show visually -- hidden notes or the planned task
+            happens far from now.
+          </div>
+          <Button
+            onClick={(event) => {
+              isDesktop
+                ? window.scrollTo(0, 2560)
+                : window.scrollTo(0, window.innerHeight * 2.9);
+            }}
+            type="button"
+          >
+            Next
+          </Button>
+        </TextSection>
+
+        <img className="SectionBlock__img demo" src={Edit} alt="Edit" />
+      </SectionBlock>
+
+      {/* -----------------DragStretch--------------------- */}
+
+      <SectionBlock className="DragStretch">
+        <img
+          className="SectionBlock__img demo"
+          src={DragStretch}
+          alt="DragStretch"
         />
         <TextSection rightSide>
           <div className="TextSection__title">

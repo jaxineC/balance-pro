@@ -12,6 +12,9 @@ export const MainAbout = styled.main`
   flex-direction: column;
   align-items: center;
   gap: 200px;
+  .demo {
+    box-shadow: 10px 10px 10px var(--lightGrey);
+  }
   .backToTop {
     height: 100px;
     align-self: flex-end;
@@ -344,7 +347,7 @@ export const StyledHashtag = styled.div`
 `;
 
 export const StyledEditableInput = styled.input`
-  width: ${(props) => (props.value ? props.value.length + "ch" : "40px")};
+  width: ${(props) => (props.value ? props.value.length + 1 + "ch" : "40px")};
   pointer-events: ${(props) => (props.isAddHashtag ? "auto" : "none")};
   margin-right: 0px;
   align-self: flex-end;
@@ -358,4 +361,21 @@ export const StyledEditableInput = styled.input`
   &:focus {
     outline: 0px solid blueviolet;
   }
+`;
+
+export const StyledColorpicker = styled.input`
+  height: 30px;
+  width: 60px;
+  position: fixed;
+  bottom: 15px;
+  right: 20px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+  padding: 0;
 `;

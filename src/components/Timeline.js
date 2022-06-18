@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import DateBar from "./DateBar";
 import TimeCanvas from "./TimeCanvas";
+import { StyledColorpicker } from "../styles/styledComponents.js";
 
 function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
   //--------------------------------------------------useState & variables---------------------------------------// 0
@@ -35,6 +36,7 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
   function handleAddTask(event) {
     if (!isEditTask) {
       getDate(event);
+      console.log(Date.now() / (1000 * 60 * 60 * 24)); //19160.72 days from 1980.jan.1 (19161 end day not included)
     }
     if (isAddTask) {
       setIsAddTask(false);
@@ -49,7 +51,7 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
     let clickDay =
       (scrollPlusDay + clickPlusDays + ZDay.TODAY) * (1000 * 86400) + 1;
     // setClickDate(clickDay);
-    setXPosition(refContainer.current.scrollLeft); //temp
+    setXPosition(Math.floor(refContainer.current.scrollLeft / 20) * 20); //temp
     setClickPosition(Math.floor(event.clientX / 20) * 20);
 
     function renderAddTaskModal() {
@@ -118,6 +120,11 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
         setIsEditTask={setIsEditTask}
         refContainer={refContainer}
       />
+      {cat === "overlay" ? (
+        <StyledColorpicker type="color" value="#666666"></StyledColorpicker>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
