@@ -32,6 +32,11 @@ function DisplayMode({ focus, setFocus, isDesktop }) {
         {" "}
         Overlay{" "}
       </button>
+      {/* {cat === "overlay" ? (
+        <StyledColorpicker type="color" value="#666666"></StyledColorpicker>
+      ) : (
+        ""
+      )} */}
     </StyledDisplayMode>
   );
 }

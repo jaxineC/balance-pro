@@ -111,6 +111,11 @@ export const StyledProjectDate = styled.div`
       -webkit-appearance: none;
     }
   }
+  .endInput {
+    ${MQ} {
+      display: none;
+    }
+  }
 `;
 
 //------------------- Shared--------------------//

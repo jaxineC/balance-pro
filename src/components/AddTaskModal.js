@@ -85,7 +85,7 @@ function AddTaskModal({
       style={{
         display: isAddTask ? "block" : "none",
         top: Tasks.length * 26,
-        left: Math.floor(clickPosition + XPosition) + 130,
+        left: Math.floor((clickPosition + XPosition) / 20) * 20 + 130,
         borderStyle: "none",
         borderRadius: 5,
         backgroundColor: "buleviolet",
@@ -105,7 +105,7 @@ function AddTaskModal({
           borderRight: "none",
           height: 20,
           position: "absolute",
-          left: Math.floor(clickPosition + XPosition) - 35,
+          left: Math.floor((clickPosition + XPosition) / 20) * 20 - 35,
           top: Tasks.length * (cat === "overlay" ? 31 : 26) + 2,
           padding: 0,
           margin: 0,
@@ -154,7 +154,7 @@ function AddTaskModal({
         style={{
           width: 140,
           top: Tasks.length * (cat === "overlay" ? 31 : 26),
-          left: Math.floor(clickPosition + XPosition),
+          left: Math.floor((clickPosition + XPosition) / 20) * 20,
           padding: 0,
           border: 1,
           borderStyle: "solid",
@@ -167,7 +167,7 @@ function AddTaskModal({
         style={{
           height: 22,
           position: "absolute",
-          left: Math.floor(clickPosition + XPosition) + 145,
+          left: Math.floor((clickPosition + XPosition) / 20) * 20 + 145,
           top: Tasks.length * (cat === "overlay" ? 31 : 26) + 2,
           padding: 0,
           margin: 0,

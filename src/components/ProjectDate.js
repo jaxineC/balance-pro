@@ -101,7 +101,7 @@ function ProjectDate({ userID, col, docID, projectInfo }) {
         onChange={(event) => setEndDateInput(event.target.value)}
         value={endDateInput}
         type="date"
-        className="startInput"
+        className="endInput"
         selected={
           projectInfo.end
             ? projectInfo.end

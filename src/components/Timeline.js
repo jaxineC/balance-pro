@@ -51,8 +51,8 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
     let clickDay =
       (scrollPlusDay + clickPlusDays + ZDay.TODAY) * (1000 * 86400) + 1;
     // setClickDate(clickDay);
-    setXPosition(Math.floor(refContainer.current.scrollLeft / 20) * 20); //temp
-    setClickPosition(Math.floor(event.clientX / 20) * 20);
+    setXPosition(refContainer.current.scrollLeft); //temp
+    setClickPosition(event.clientX);
 
     function renderAddTaskModal() {
       //取得滑鼠在畫面距離0,0位差/20 = 以上週日為基準加幾天
@@ -120,11 +120,6 @@ function Timeline({ userID, cat, projectID, XPosition, setXPosition, Tasks }) {
         setIsEditTask={setIsEditTask}
         refContainer={refContainer}
       />
-      {cat === "overlay" ? (
-        <StyledColorpicker type="color" value="#666666"></StyledColorpicker>
-      ) : (
-        ""
-      )}
     </div>
   );
 }
