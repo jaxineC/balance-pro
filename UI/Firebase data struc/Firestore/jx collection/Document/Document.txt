@@ -1,6 +1,0 @@
-balanced
-true
-category
-"work"
-projectName
-"A test project name"
