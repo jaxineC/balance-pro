@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# balancePro
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+balancePro is an online Gantt chart tool that helps the user to achieve work-life balance.
 
-## Available Scripts
+#### Create an account to get started
 
-In the project directory, you can run:
+Click "sign up" in the navigation bar on the top to create an account, 
+<br/>
+With an email, or your Google account.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### Create/ Edit/ Delete/ Drag/ Stretch directly on the screen
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+We opt out compelicated forms in traditional gantt chart tools 
+<br/>--- you can now focus on review and manage your tasks.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Link :point_right:: https://balancepro.me/
+<br/>
+About& Demo :point_right:: https://balancepro.me/about
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Skills
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### JavaScript
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Framework: React
+- functional component
+- Hooks (useState, useEffect, useRef)
+- React-router
 
-### `npm run eject`
+#### CSS Tool:
+- CSS architecture: BEM
+- CSS-in-JS: styled-components
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Formatters:
+- Prettier
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Version control:
+- Git
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Back-end Service
 
-## Learn More
+#### Hosting: Firebase
+- Deploy: Firebase hosting
+- Detabase: Firestore (Nosql)
+- User authentication: Firebase authentication
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### EmailJS
+- Email service
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Sills and services diagram
+![ReadMe diagrams-02](https://user-images.githubusercontent.com/94296465/173768608-7a23b6f1-7d75-487a-be09-cd4ff1f12951.jpg)
 
-### Code Splitting
+## React Component Architecture
+![ReadMe diagrams-01](https://user-images.githubusercontent.com/94296465/173768582-bb467f87-3e1c-43ab-8691-354e9ce4bd81.jpg)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contact Information
+#### Jaxine Chia-Hsing Chang
+email:point_right:: jaxine.c@gmail.com
