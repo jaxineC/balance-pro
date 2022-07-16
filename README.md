@@ -30,7 +30,6 @@ About& Demo :point_right:: https://balancepro.me/about
 - React-router
 
 #### CSS Tool:
-- CSS architecture: BEM
 - CSS-in-JS: styled-components
 
 #### Formatters:
