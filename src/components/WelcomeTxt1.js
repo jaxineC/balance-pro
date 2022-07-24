@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { updateData } from "../module/manageDB.js";
+import { StyledWelcomeTxt } from "../styles/WelcomeTxt.styled.js";
 
 function WelcomeTxt1({ userID }) {
 	const [txt1Input, setTxt1Input] = useState("");
@@ -55,7 +56,7 @@ function WelcomeTxt1({ userID }) {
 	}, []);
 
 	return (
-		<div className="WelcomeTxt1" style={{ position: "relative" }}>
+		<StyledWelcomeTxt className="WelcomeTxt1" updateAlert={updateAlert}>
 			<input
 				onKeyDown={(event) => {
 					if (event.key === "Enter") {
@@ -67,51 +68,12 @@ function WelcomeTxt1({ userID }) {
 					setTxt1Input(event.target.value);
 				}}
 				value={txt1Input}
-				style={{
-					width: "100%",
-					height: 80,
-					color: "#222500",
-					borderStyle: "none",
-					marginLeft: 0,
-					paddingLeft: 10,
-					fontFamily: "Segoe UI, sans-serif",
-				}}
 			></input>
-			<span
-				style={{
-					height: 6,
-					display: updateAlert === "ok" ? "block" : "none",
-					position: "absolute",
-					left: 0,
-					top: -12,
-					padding: "0px 4px",
-					backgroundColor: "#fae6ff",
-				}}
-			>
-				<span
-					style={{
-						fontSize: 14,
-						color: "blueviolet",
-						position: "relative",
-						top: -10,
-					}}
-				>
-					updated!
-				</span>
+			<span>
+				<span className="updated">updated!</span>
+				<span className="failed">Oops, try again!</span>
 			</span>
-			<span
-				style={{
-					display: updateAlert === "fail" ? "block" : "none",
-					position: "absolute",
-					left: 0,
-					top: -12,
-					padding: "0px 4px",
-					backgroundColor: "#fae6ff",
-				}}
-			>
-				Oops, try again!
-			</span>
-		</div>
+		</StyledWelcomeTxt>
 	);
 }
 
