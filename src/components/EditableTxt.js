@@ -1,27 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  collection,
-  doc,
-  setDoc,
-  getDoc, //get data once
-  getDocs,
-  deleteDoc,
-  query,
-  orderBy,
-  where,
-  limit,
-  onSnapshot,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
+import { StyledEditableTxt } from "../styles/SharedStyled";
 
-function EditableTxt({
-  col,
-  docID,
-  projectInfo,
-  editableBoxStyle,
-  editableTxtStyle,
-}) {
+function EditableTxt({ col, docID, projectInfo }) {
   const refInput = useRef(projectInfo.name);
   const [txtInput, setTxtInput] = useState(refInput);
   const [updateAlert, setUpdateAlert] = useState("");
@@ -51,9 +33,8 @@ function EditableTxt({
   }
 
   return (
-    <div style={editableBoxStyle}>
+    <StyledEditableTxt className="StyledEditableTxt" updateAlert={updateAlert}>
       <input
-        style={editableTxtStyle}
         onKeyDown={(event) => {
           if (event.key === "Enter") {
             handleTxtUpdate();
@@ -65,41 +46,11 @@ function EditableTxt({
         value={txtInput}
         ref={refInput}
       ></input>
-      <span
-        style={{
-          height: 6,
-          display: updateAlert === "ok" ? "block" : "none",
-          position: "absolute",
-          left: 0,
-          top: -12,
-          padding: "0px 4px",
-          backgroundColor: "#fae6ff",
-        }}
-      >
-        <span
-          style={{
-            fontSize: 14,
-            color: "blueviolet",
-            position: "relative",
-            top: -10,
-          }}
-        >
-          updated!
-        </span>
-      </span>
-      <span
-        style={{
-          display: updateAlert === "fail" ? "block" : "none",
-          position: "absolute",
-          left: 0,
-          top: -12,
-          padding: "0px 4px",
-          backgroundColor: "#fae6ff",
-        }}
-      >
-        Oops, try again!
-      </span>
-    </div>
+      <div className="updateAlert">
+        <span className="updatedMsg">updated!</span>
+        <span className="failedMsg">Oops, try again!</span>
+      </div>
+    </StyledEditableTxt>
   );
 }
 

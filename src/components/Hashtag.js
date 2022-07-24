@@ -1,39 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  collection,
-  doc,
-  setDoc,
-  getDoc, //get data once
-  getDocs,
-  deleteDoc,
-  query,
-  orderBy,
-  where,
-  limit,
-  onSnapshot,
-  arrayUnion,
-  updateDoc,
-  arrayRemove,
-} from "firebase/firestore";
+import { doc, updateDoc, arrayRemove } from "firebase/firestore";
 import { db } from "../firebase.js";
-import { updateData } from "../module/manageDB.js";
-import DeleteBtn from "./DeleteBtn.js";
-import {
-  StyledHashtag,
-  StyledEditableInput,
-} from "../styles/styledComponents.js";
+import { StyledHashtag } from "../styles/styledComponents.js";
 
-function Hashtag({
-  item,
-  isAddHashtag,
-  index,
-  col,
-  docID,
-  projectInfo,
-  HashtagInputStyle,
-}) {
-  //--------------------------------------------------useState & variables---------------------------------------// 0
-  //--------------------------------------------------useState & variables---------------------------------------//
+function Hashtag({ item, col, docID, projectInfo }) {
   const [hashtagInput, setHashtagInput] = useState(item);
   const [isHover, setIstHover] = useState(false);
   const refInput = useRef(item);
@@ -42,9 +12,6 @@ function Hashtag({
     setHashtagInput(projectInfo.hashtag.index);
   }, [projectInfo]);
 
-  //--------------------------------------------------handle event-----------------------------------------------// 1
-  //--------------------------------------------------handle event-----------------------------------------------//
-  // setHashtagInput(item);
   async function handleDeleteHashtag() {
     const queryRef = doc(db, col, docID);
     await updateDoc(queryRef, {
@@ -64,16 +31,7 @@ function Hashtag({
       }}
     >
       <span>#</span>
-      <span
-        // size={hashtagInput ? hashtagInput.length : "5"}
-        // onChange={(event) => {
-        //   setHashtagInput(event.target.value);
-        // }}
-        // value={hashtagInput}
-        ref={refInput}
-      >
-        {item}
-      </span>
+      <span ref={refInput}>{item}</span>
 
       <svg
         className="DeleteBtn"

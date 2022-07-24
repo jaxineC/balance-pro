@@ -1,30 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-  collection,
-  doc,
-  setDoc,
-  getDoc, //get data once
-  getDocs,
-  updateDoc,
-  deleteDoc,
-  query,
-  orderBy,
-  where,
-  limit,
-  onSnapshot,
-  Timestamp,
-} from "firebase/firestore";
+import React from "react";
+import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
 
-function DeleteBtn({ cat, item, isHover, userID, projectID }) {
-  //--------------------------------------------------useState & variables---------------------------------------// 0
-  //--------------------------------------------------useState & variables---------------------------------------//
-
-  //--------------------------------------------------handle event-----------------------------------------------// 1
-  //--------------------------------------------------handle event-----------------------------------------------//
-  //--------------------------------------------------CRUD-------------------------------------------------------// 2
-  //--------------------------------------------------CRUD-------------------------------------------------------//
-  // DELETE(deleteBtn)
+function DeleteBtn({ item, isHover, userID }) {
   async function handleDeleteTask(event) {
     let col = `${userID.uid}/${item.projectID}/tasks`;
     await deleteDoc(
@@ -35,8 +13,7 @@ function DeleteBtn({ cat, item, isHover, userID, projectID }) {
       )
     );
   }
-  //--------------------------------------------------RENDER-----------------------------------------------------// 3
-  //--------------------------------------------------RENDER-----------------------------------------------------//
+
   return (
     <svg
       className="DeleteBtn"
@@ -54,7 +31,6 @@ function DeleteBtn({ cat, item, isHover, userID, projectID }) {
       height="26"
       viewBox="0 0 24 24"
       width="22"
-      // xmlns="http://www.w3.org/2000/svg"
     >
       <path
         clipRule="evenodd"

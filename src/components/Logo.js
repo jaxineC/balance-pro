@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import LogoImage from "../media/Logo144.png";
 
 function Logo() {

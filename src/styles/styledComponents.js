@@ -2,10 +2,7 @@ import styled from "styled-components";
 import "../App.css";
 import MQ from "./MQ.js";
 
-//----------------------- function -------------------------//
 
-//------------------- styled-components--------------------//
-//------------------- About Page--------------------//
 export const MainAbout = styled.main`
   width: 100%;
   display: flex;

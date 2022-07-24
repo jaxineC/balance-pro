@@ -66,8 +66,6 @@ ul {
 }
 
 .DateBar {
-  /* box-sizing: border-box; */
-  /* padding: 0px 20px; */
   color: #666666;
   width: 100vw;
   display: -webkit-inline-box;

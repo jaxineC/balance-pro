@@ -1,20 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Hashtag from "../components/Hashtag";
-import {
-  collection,
-  doc,
-  setDoc,
-  getDoc, //get data once
-  getDocs,
-  deleteDoc,
-  query,
-  orderBy,
-  where,
-  limit,
-  onSnapshot,
-  Timestamp,
-} from "firebase/firestore";
+import React, { useState } from "react";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase.js";
 import {
   AddProjectBtn,
@@ -52,13 +37,11 @@ function AddProject({ userID, isDesktop }) {
         hashtag: ["hashtag"],
         name: nameInput,
         projectID: docID,
-        // start: Timestamp.fromDate(new Date(Date.now())),
         start: Timestamp.fromDate(new Date(startDateInput)),
       };
       try {
-        // const docRef = await addDoc(collection(db, col), data);
         await setDoc(doc(db, col, docID), data);
-        console.log("Document written with ID: ", docID); //docRef.id if use addDoc with unknown doc id
+        console.log("Document written with ID: ", docID);
         setNameInput("");
         setCategory("");
         setStartDateInput(
@@ -116,7 +99,6 @@ function AddProject({ userID, isDesktop }) {
         <input
           onChange={(event) => setStartDateInput(event.target.value)}
           value={startDateInput}
-          // value={Date.now().strftime("%Y-%m-%d")}
           type="date"
           className="startInput"
         ></input>

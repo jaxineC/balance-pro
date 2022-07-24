@@ -1,20 +1,6 @@
 import React, { useState, useEffect } from "react";
 import UpdatedMsg from "./UpdatedMsg.js";
-import {
-  collection,
-  doc,
-  setDoc,
-  getDoc, //get data once
-  getDocs,
-  deleteDoc,
-  query,
-  orderBy,
-  where,
-  limit,
-  onSnapshot,
-  updateDoc,
-  Timestamp,
-} from "firebase/firestore";
+import { doc, updateDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { StyledProjectDate } from "../styles/SharedStyled.js";
 
@@ -28,17 +14,20 @@ function ProjectDate({ userID, col, docID, projectInfo }) {
   useEffect(() => {
     if (projectInfo.start) {
       setStartDateInput(
-        projectInfo.start.toDate().toISOString(undefined, options).split("T")[0]
+        projectInfo.start
+          .toDate()
+          .toISOString(undefined, options)
+          .split("T")[0]
       );
       setEndDateInput(
-        projectInfo.end.toDate().toISOString(undefined, options).split("T")[0]
+        projectInfo.end
+          .toDate()
+          .toISOString(undefined, options)
+          .split("T")[0]
       );
     }
   }, [projectInfo]);
 
-  //--------------------------------------------------CRUD-------------------------------------------------------// 2
-  //--------------------------------------------------CRUD-------------------------------------------------------//
-  // UPDATE(editBtn)
   async function handleDateUpdate() {
     let data = {
       end: Timestamp.fromDate(new Date(endDateInput)),
@@ -79,7 +68,6 @@ function ProjectDate({ userID, col, docID, projectInfo }) {
         onChange={(event) => setStartDateInput(event.target.value)}
         value={startDateInput}
         style={{ height: 20 }}
-        // value={Date.now().strftime("%Y-%m-%d")}
         type="date"
         className="startInput"
         selected={

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 function HoverTxt({ instruction, mousePosition }) {
   return (
@@ -13,7 +13,6 @@ function HoverTxt({ instruction, mousePosition }) {
         backgroundColor: "#FAE6FF",
 
         height: 4,
-        // borderBottom: "1px solid blueviolet",
         textAlign: "center",
       }}
     >

@@ -1,18 +1,10 @@
-import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo45b from "../media/Logo45b.png";
 import { getAuth, signOut } from "firebase/auth";
 import ContactModal from "./ContactModal";
 
-function HeaderSec({
-  userID,
-  setUserID,
-  isSignUp,
-  setIsSignUp,
-  isDesktop,
-  setIsDeskTop,
-}) {
+function HeaderSec({ userID, setUserID, setIsSignUp, isDesktop }) {
   const [isToggle, setIsToggle] = useState(false);
   const [isContact, setIsContact] = useState(false);
 

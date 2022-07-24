@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 function Background() {
-  return (
-    <div className="Background ">
-      <hr />
-    </div>
-  );
+	return (
+		<div className="Background ">
+			<hr />
+		</div>
+	);
 }
 
 export default Background;

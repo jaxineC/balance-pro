@@ -3,7 +3,7 @@ import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { updateData } from "../module/manageDB.js";
 
-function InputToDB({ col, docID, field, data }) {
+function InputToDB({ col, docID, data }) {
   const [input, setInput] = useState("");
 
   async function fetchData() {

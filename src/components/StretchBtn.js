@@ -1,30 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { withTheme } from "styled-components";
+import React, { useState } from "react";
 
 function StretchBtn({
   date,
-  item,
-  userID,
-  projectID,
-  stretchX,
-  setStretchX,
-  isStretch,
   setIsStretch,
-  currentMouseLocation,
   setCurrentMouseLocation,
-  isActive,
   setIsActive,
-  initMouseClientX,
   setInitMouseClientX,
-  stretchType,
   setStretchType,
 }) {
-  //--------------------------------------------------useState & variables---------------------------------------// 0
-  //--------------------------------------------------useState & variables---------------------------------------//
   const [isHovered, setIsHovered] = useState(false);
 
-  //--------------------------------------------------handle event-----------------------------------------------// 1
-  //--------------------------------------------------handle event-----------------------------------------------//
   function initStretch(event) {
     setInitMouseClientX(event.clientX);
     setCurrentMouseLocation(event.clientX);
@@ -70,9 +55,6 @@ function StretchBtn({
       }
     }
   }
-
-  //--------------------------------------------------RENDER-----------------------------------------------------// 3
-  //--------------------------------------------------RENDER-----------------------------------------------------//
 
   let path = "";
   if (date === "start") {

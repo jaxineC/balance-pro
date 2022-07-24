@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { StyledDisplayMode } from "../styles/styledComponents";
 
-function DisplayMode({ focus, setFocus, isDesktop }) {
+function DisplayMode({ focus, setFocus }) {
   return (
     <StyledDisplayMode focus={focus} className="DisplayMode ">
       <button
@@ -32,11 +31,6 @@ function DisplayMode({ focus, setFocus, isDesktop }) {
         {" "}
         Overlay{" "}
       </button>
-      {/* {cat === "overlay" ? (
-        <StyledColorpicker type="color" value="#666666"></StyledColorpicker>
-      ) : (
-        ""
-      )} */}
     </StyledDisplayMode>
   );
 }
