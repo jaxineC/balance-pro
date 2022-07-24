@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { ConModal } from "../styles/SharedStyled.js";
+import { ConModal } from "./ContactModal.styled.js";
 
 function ContactModal({ isContact, setIsContact }) {
 	const [nameInput, setNameInput] = useState("");

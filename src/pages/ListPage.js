@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./ListPage.css";
-import WelcomeTxt1 from "../components/WelcomeTxt1";
-import WelcomeTxt2 from "../components/WelcomeTxt2";
+import WelcomeTxt from "../components/WelcomeTxt";
 import AddProject from "../components/AddProject";
 import ProjectList from "../components/ProjectList";
 import Background from "../components/Background";
@@ -15,7 +14,6 @@ function ListPage({
 	selectedProjects,
 	setSelectedProjects,
 	setUserID,
-	isDesktop,
 }) {
 	const [checked, setChecked] = useState(false);
 	useEffect(() => {
@@ -34,9 +32,9 @@ function ListPage({
 	if (userID) {
 		return (
 			<StyledListPage className="ListPage">
-				<WelcomeTxt1 userID={userID} />
-				<WelcomeTxt2 userID={userID} />
-				<AddProject userID={userID} isDesktop={isDesktop} />
+				<WelcomeTxt userID={userID} attr="WelcomeTxt1" />
+				<WelcomeTxt userID={userID} attr="WelcomeTxt2" />
+				<AddProject userID={userID} />
 				<ProjectList
 					cat="work"
 					userID={userID}

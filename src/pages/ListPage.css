@@ -1,10 +1,5 @@
 /* ---------------------------------Component----------------------------------- */
-.WelcomeTxt1 {
-	width: 80%;
-	margin: 10px auto;
-	grid-row: 1 / 2;
-	align-self: flex-end;
-}
+
 .WelcomeTxt2 {
 	width: 80%;
 	margin: 10px auto;
@@ -98,19 +93,14 @@ input:checked + .slider:before {
 }
 
 /* --------------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: no-preference) {
-}
 
 @media only screen and (max-width: 600px) {
 	.WelcomeTxt1 {
-		width: 80%;
-
 		margin: 10px auto;
 		grid-row: 1 / 2;
 		align-self: flex-end;
 	}
 	.WelcomeTxt2 {
-		width: 80%;
 		margin: 10px auto;
 		grid-row: 2 / 3;
 		align-self: flex-start;
@@ -146,8 +136,4 @@ input:checked + .slider:before {
 		width: 100%;
 		z-index: -1;
 	}
-}
-
-/* --------------------------------------------------------------------------------- */
-@keyframes App-logo-spin {
 }

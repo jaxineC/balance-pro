@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ProjectPage.css";
 import DisplayMode from "../components/DisplayMode";
-import DisplayModeIcon from "../components/DisplayModeIcon";
 import Unfold from "../components/Unfold";
 import ProjectInfo from "../components/ProjectInfo";
 import Timeline from "../components/Timeline";
@@ -116,12 +115,7 @@ function ProjectPage({
 					XPosition={XPosition}
 					setXPosition={setXPosition}
 				/>
-				{isDesktop ? (
-					<DisplayMode focus={focus} setFocus={setFocus} />
-				) : (
-					<DisplayModeIcon focus={focus} setFocus={setFocus} />
-				)}
-
+				<DisplayMode focus={focus} setFocus={setFocus} isDesktop={isDesktop} />
 				<HoverTxt instruction={instruction} mousePosition={mousePosition} />
 			</main>
 		);

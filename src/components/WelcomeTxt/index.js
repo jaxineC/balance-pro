@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase.js";
-import { updateData } from "../module/manageDB.js";
-import { StyledWelcomeTxt } from "../styles/WelcomeTxt.styled.js";
+import { db } from "../../firebase.js";
+import { updateData } from "../../module/manageDB.js";
+import { StyledWelcomeTxt } from "./WelcomeTxt.styled.js";
 
-function WelcomeTxt1({ userID }) {
+function WelcomeTxt({ userID, attr }) {
 	const [txt1Input, setTxt1Input] = useState("");
 	const [txt2Input, setTxt2Input] = useState("");
 	const [updateAlert, setUpdateAlert] = useState("");
@@ -55,20 +55,40 @@ function WelcomeTxt1({ userID }) {
 		docListener();
 	}, []);
 
+	let txt;
+	attr === "WelcomeTxt1"
+		? (txt = (
+				<input
+					onKeyDown={(event) => {
+						if (event.key === "Enter") {
+							handleGreetingUpdate();
+						}
+					}}
+					className="TextXL bold txt1Input"
+					onChange={(event) => {
+						setTxt1Input(event.target.value);
+					}}
+					value={txt1Input}
+				></input>
+		  ))
+		: (txt = (
+				<textarea
+					onKeyDown={(event) => {
+						if (event.key === "Enter") {
+							handleGreetingUpdate();
+						}
+					}}
+					className="TextM txt2Input"
+					onChange={(event) => {
+						setTxt2Input(event.target.value);
+					}}
+					value={txt2Input}
+				></textarea>
+		  ));
+
 	return (
-		<StyledWelcomeTxt className="WelcomeTxt1" updateAlert={updateAlert}>
-			<input
-				onKeyDown={(event) => {
-					if (event.key === "Enter") {
-						handleGreetingUpdate();
-					}
-				}}
-				className="TextXL bold txt1Input"
-				onChange={(event) => {
-					setTxt1Input(event.target.value);
-				}}
-				value={txt1Input}
-			></input>
+		<StyledWelcomeTxt className={attr} attr={attr} updateAlert={updateAlert}>
+			{txt}
 			<span>
 				<span className="updated">updated!</span>
 				<span className="failed">Oops, try again!</span>
@@ -77,4 +97,4 @@ function WelcomeTxt1({ userID }) {
 	);
 }
 
-export default WelcomeTxt1;
+export default WelcomeTxt;
