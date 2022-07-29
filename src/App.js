@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
 import HeaderSec from "./components/HeaderSec";
 import FooterSec from "./components/FooterSec";
 import IndexPage from "./pages/IndexPage";
@@ -62,7 +61,6 @@ function App() {
 					element={
 						<IndexPage
 							isDesktop={isDesktop}
-							setIsDeskTop={setIsDeskTop}
 							userID={userID}
 							setUserID={setUserID}
 						/>
@@ -72,8 +70,6 @@ function App() {
 					path="/list"
 					element={
 						<ListPage
-							isDesktop={isDesktop}
-							setIsDeskTop={setIsDeskTop}
 							userID={userID}
 							setUserID={setUserID}
 							selectedProjects={selectedProjects}
@@ -86,7 +82,6 @@ function App() {
 					element={
 						<ProjectPage
 							isDesktop={isDesktop}
-							setIsDeskTop={setIsDeskTop}
 							userID={userID}
 							setUserID={setUserID}
 							selectedProjects={selectedProjects}
@@ -94,21 +89,7 @@ function App() {
 						/>
 					}
 				/>
-				<Route
-					path="/about"
-					element={
-						<AboutPage
-							isDesktop={isDesktop}
-							setIsDeskTop={setIsDeskTop}
-							userID={userID}
-							setUserID={setUserID}
-							selectedProjects={selectedProjects}
-							setSelectedProjects={setSelectedProjects}
-							isSignUp={isSignUp}
-							setIsSignUp={setIsSignUp}
-						/>
-					}
-				/>
+				<Route path="/about" element={<AboutPage isDesktop={isDesktop} />} />
 			</Routes>
 
 			<FooterSec />

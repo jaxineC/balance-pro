@@ -1,22 +1,183 @@
+:root {
+	--lime: #e6f252;
+	--white: #ffffff;
+	--lightGrey: #dddddd;
+	--midGrey: #666666;
+	--grey: #888888;
+	--black: #222500;
+	--purple: rgb(138, 43, 226);
+	--lightPurple: #fae6ff;
+	--work: #ffc402;
+	--life: #233a2e;
+
+	--TextXXL: 48px;
+	--TextXL: 36px;
+	--TextL: 24px;
+	--TextM: 18px;
+	--TextS: 14px;
+	--TextXS: 12px;
+}
+
 body {
-  margin: 0;
-  color: #222500;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* -webkit-appearance: none; */
+	box-sizing: border-box;
+	font-family: "Nanum Gothic", sans-serif;
+	font-family: "Work Sans", sans-serif;
+	width: 100%;
+	margin: 0;
+	color: #222500;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	/* -webkit-appearance: none; */
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
 }
 
 .Modal > input {
-  width: 160px;
-  padding: 5px 10px 1px 10px;
-  border-radius: 0px;
-  margin: 0px 0px 5px 0px;
+	width: 160px;
+	padding: 5px 10px 1px 10px;
+	border-radius: 0px;
+	margin: 0px 0px 5px 0px;
+}
+
+/* --------------------------------Semantic Tag------------------------------------ */
+a {
+	text-decoration: none;
+}
+
+a:-webkit-any-link {
+	/* color: -webkit-link; */
+	color: var(--black);
+	cursor: pointer;
+}
+
+nav {
+	z-index: 999;
+}
+
+main {
+	height: calc(100vh - 45px);
+	position: absolute;
+	top: 45px;
+}
+
+hr {
+	background-color: none;
+	border-width: 0px 0px 1px 0px;
+	border-style: solid;
+	border-color: #666666;
+	margin: 0px;
+}
+
+li {
+	list-style: none;
+}
+
+textarea {
+	resize: vertical;
+	padding-left: 2px;
+}
+
+/* ---------------------------------Shared Component----------------------------------- */
+.Background {
+	position: fixed;
+	top: calc(50vh + 22.5px);
+	bottom: auto;
+	width: 100%;
+	z-index: -10;
+}
+
+/* ----------------------------------element---------------------------------- */
+
+.circle {
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background-color: #e6f252;
+	color: #666666;
+	overflow: visible;
+	margin: 10px 10px;
+}
+
+.headerLogo {
+	display: flex;
+	align-items: center;
+}
+
+/* ---------------------------------styled className----------------------------------- */
+.TextXL {
+	font-size: 48px;
+	line-height: 1.2;
+	letter-spacing: -0.5px;
+}
+
+.TextL {
+	font-size: 24px;
+}
+
+.TextM {
+	font-size: 16px;
+}
+
+.TextS {
+	font-size: 14px;
+	vertical-align: middle;
+}
+
+.TextXS {
+	font-size: 12px;
+	text-align: center;
+}
+
+.padH {
+	padding: 0px 10px;
+}
+
+.padV {
+	padding: 5px 0px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.grey {
+	color: var(--grey);
+}
+
+.theme {
+	color: #e6f252;
+}
+
+.ListPage > .Link > .go:hover {
+	outline-style: none;
+	background-color: blueviolet;
+	color: #ffffff;
+	box-shadow: rgb(204 204 204) 1px 5px 10px;
+}
+
+@media only screen and (max-width: 600px) {
+	.go {
+		position: fixed;
+		right: 0px;
+		bottom: 110px;
+		height: 60px;
+		width: 90px;
+		border-style: none;
+		border-radius: 40px 0px 0px 40px;
+		background-color: #dddddd;
+		color: #ffffff;
+		font-size: 36px;
+	}
+	.Background {
+		position: fixed;
+		top: 77.5vh;
+		width: 100%;
+		z-index: -1;
+	}
 }

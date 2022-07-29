@@ -1,0 +1,90 @@
+input {
+	border-width: 0px 0px 1px 0px;
+}
+
+.Modal > input {
+	width: 160px;
+	padding: 5px 10px 1px 10px;
+	border-radius: 0px;
+	margin: 0px 0px 5px 0px;
+}
+
+input:focus {
+	outline: 1.5px solid blueviolet;
+	box-shadow: blueviolet;
+}
+
+path:hover {
+	fill: blueviolet;
+	cursor: pointer;
+}
+
+ul {
+	padding-inline-start: 0px !important;
+}
+
+/* ---------------------------------Component----------------------------------- */
+.ProjectInfo {
+	width: 70%;
+	margin-top: 15px;
+	padding-left: 20px;
+	display: grid;
+	grid-template-columns: 250px 60%;
+	grid-template-rows: 60% 40%;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+.Hashtags {
+	width: auto;
+	overflow: visible;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+/* ----------------------------------element---------------------------------- */
+
+.projectName {
+	width: 150px;
+	white-space: nowrap;
+	overflow: visible;
+}
+
+.ProjectDate {
+	align-self: flex-end;
+}
+
+.description {
+	width: 50%;
+	/* overflow: scroll; */
+}
+
+/* ---------------------------------styled className----------------------------------- */
+
+.highlight {
+	border-color: #e6f252;
+}
+
+.d {
+	padding-left: 2px;
+	width: 137px;
+	border-left: 1px solid #eeeeee;
+	border-bottom: 1px solid #666666;
+}
+.today {
+	width: 138px;
+}
+
+.hide {
+	display: none;
+}
+
+@media only screen and (max-width: 600px) {
+	.ProjectInfo {
+		width: 100%;
+		grid-template-columns: 35% 60%;
+	}
+}

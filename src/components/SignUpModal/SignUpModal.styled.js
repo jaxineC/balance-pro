@@ -1,19 +1,19 @@
 import styled from "styled-components";
 import "../../styles/index.css";
 
-export const ConModal = styled.form`
-	height: ${(props) => (props.size === "full" ? "100vh" : props.size)};
-	width: ${(props) => (props.size === "full" ? "100vw" : props.size)};
+export const Modal = styled.div`
+	height: ${(props) => (props.size === "full" ? "100vh" : props.size.height)};
+	width: ${(props) => (props.size === "full" ? "100vw" : props.size.width)};
 	position: fixed;
 	bottom: 0px;
 	z-index: 999;
-	display: ${(props) => (props.isContact === true ? "flex" : "none")};
+	display: ${(props) => (props.isSignUp === true ? "flex" : "none")};
 	justify-content: center;
 	align-items: center;
 	.Modal__Form {
 		position: absolute;
-		width: 340px;
-		display: ${(props) => (props.isContact === true ? "flex" : "none")};
+		width: 320px;
+		display: ${(props) => (props.isSignUp === true ? "flex" : "none")};
 		flex-direction: column;
 		background-color: rgb(242, 242, 242);
 		box-shadow: black 5px 5px 10px;
@@ -35,25 +35,23 @@ export const ConModal = styled.form`
 		input {
 			width: 225px;
 			height: 30px;
-			margin: 10px;
-			padding: 5px 10px 1px 10px;
 			border: 1px solid;
 			border-radius: 10px;
 			border-color: #dddddd;
+			margin: 10px;
 			letter-spacing: 1px;
+			padding-left: 10px;
 			&:hover {
 				border-color: #8a2be2;
 			}
 		}
-		textarea {
-			width: 225px;
-			border: 1px solid #dddddd;
-			border-radius: 10px;
-			padding: 5px 10px 1px 10px;
-			margin: 10px;
-			resize: vertical;
+		.passwordInput {
+			&::placeholder {
+				letter-spacing: 1px;
+			}
+			letter-spacing: 6px;
 		}
-		.Message {
+		.errorMessage {
 			color: blueviolet;
 			font-size: var(--TextS);
 		}
@@ -72,7 +70,7 @@ export const ConModal = styled.form`
 		position: fixed;
 		bottom: 0px;
 		z-index: 998;
-		display: ${(props) => (props.isContact === true ? "flex" : "none")};
+		display: ${(props) => (props.isSignUp === true ? "flex" : "none")};
 		justify-content: center;
 		align-items: center;
 	}

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import "../../App.css";
+import "../../styles/index.css";
 import MQ from "../../styles/MQ.js";
 
 export const StyledDisplayMode = styled.div`

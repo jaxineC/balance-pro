@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../firebase.js";
+import { AddProjectBtn, ModalButton } from "../Button/Button.styled.js";
 import {
-	AddProjectBtn,
+	StyledAddProject,
 	StyledAddProjectModal,
-	ModalButton,
-} from "../../styles/SharedStyled";
-import { StyledAddProject } from "./AddProject.styled.js";
+} from "./AddProject.styled.js";
 
 function AddProject({ userID }) {
 	const options = { year: "numeric", month: "numeric", day: "numeric" };

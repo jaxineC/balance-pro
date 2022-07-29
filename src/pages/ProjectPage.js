@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
-import "./ProjectPage.css";
+import "../styles/ProjectPage.css";
 import DisplayMode from "../components/DisplayMode";
 import Unfold from "../components/Unfold";
 import ProjectInfo from "../components/ProjectInfo";
 import Timeline from "../components/Timeline";
-import HoverTxt from "../components/HoverTxt.js";
+import HoverTxt from "../components/HoverTxt/index.js";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
+import { StyledProjectPage } from "../styles/styledMain.js";
 
 function ProjectPage({
 	isDesktop,
 	userID,
+	setUserID,
 	selectedProjects,
 	setSelectedProjects,
-	setUserID,
 }) {
 	const [XPosition, setXPosition] = useState(20 * (8 * 7 - 1));
 	const [focus, setFocus] = useState("balance");
@@ -50,28 +51,9 @@ function ProjectPage({
 		}
 	}
 
-	let divStyle;
-	if (focus === "balance") {
-		divStyle = {
-			gridTemplateRows: "11% calc(39% - 1px) 11% calc(39% - 1px) 0%",
-		};
-	} else if (focus === "work") {
-		divStyle = {
-			gridTemplateRows: "11% calc(78% - 2px) 11% 0% 0%",
-		};
-	} else if (focus === "life") {
-		divStyle = {
-			gridTemplateRows: "11% 0% 11% calc(78% - 2px) 0%",
-		};
-	} else {
-		divStyle = {
-			gridTemplateRows: "11% 0% 11% 0% calc(78% - 2px)",
-		};
-	}
-
 	if (userID) {
 		return (
-			<main className="ProjectPage" style={divStyle}>
+			<StyledProjectPage className="ProjectPage" focus={focus}>
 				<ProjectInfo
 					focus={focus}
 					isDesktop={isDesktop}
@@ -117,7 +99,7 @@ function ProjectPage({
 				/>
 				<DisplayMode focus={focus} setFocus={setFocus} isDesktop={isDesktop} />
 				<HoverTxt instruction={instruction} mousePosition={mousePosition} />
-			</main>
+			</StyledProjectPage>
 		);
 	} else {
 		return <></>;

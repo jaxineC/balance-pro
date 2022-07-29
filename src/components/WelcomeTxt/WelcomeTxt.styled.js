@@ -1,9 +1,7 @@
 import styled from "styled-components";
-// import "../App.css";
-// import MQ from "../../styles/MQ.js";
 
 export const StyledWelcomeTxt = styled.div`
-	grid-row: ${(props) => (props.attr === "WelcomeTxt1" ? 1 / 2 : 2 / 3)};
+	grid-row: ${(props) => (props.attr === "WelcomeTxt1" ? "1 / 2" : "2 / 3")};
 	align-self: ${(props) =>
 		props.attr === "WelcomeTxt1" ? "flex-end" : "flex-start"};
 	position: relative;
